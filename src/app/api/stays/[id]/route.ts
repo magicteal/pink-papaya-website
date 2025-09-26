@@ -1,13 +1,19 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server"; // <-- Yahan NextRequest import karein
 import { deleteStay, getStayById, updateStay } from "@/lib/staysStore";
 
-export async function GET(_req: Request, { params }: { params: { id: string } }) {
+export async function GET(
+  _req: NextRequest, // <-- Request ko NextRequest se badlein
+  { params }: { params: { id: string } }
+) {
   const stay = await getStayById(params.id);
   if (!stay) return NextResponse.json({ error: "Not found" }, { status: 404 });
   return NextResponse.json(stay);
 }
 
-export async function PATCH(req: Request, { params }: { params: { id: string } }) {
+export async function PATCH(
+  req: NextRequest, // <-- Request ko NextRequest se badlein
+  { params }: { params: { id: string } }
+) {
   try {
     const patch = await req.json();
     const updated = await updateStay(params.id, patch);
@@ -17,7 +23,10 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
   }
 }
 
-export async function DELETE(_req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(
+  _req: NextRequest, // <-- Request ko NextRequest se badlein
+  { params }: { params: { id: string } }
+) {
   try {
     await deleteStay(params.id);
     return NextResponse.json({ ok: true });

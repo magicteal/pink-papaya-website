@@ -1,13 +1,19 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server"; // <-- Yahan NextRequest import karein
 import { deletePost, getPostById, updatePost } from "@/lib/blogStore";
 
-export async function GET(_req: Request, { params }: { params: { id: string } }) {
+export async function GET(
+  _req: NextRequest, // <-- Request ko NextRequest se badlein
+  { params }: { params: { id: string } }
+) {
   const post = await getPostById(params.id);
   if (!post) return NextResponse.json({ error: "Not found" }, { status: 404 });
   return NextResponse.json(post);
 }
 
-export async function PATCH(req: Request, { params }: { params: { id: string } }) {
+export async function PATCH(
+  req: NextRequest, // <-- Request ko NextRequest se badlein
+  { params }: { params: { id: string } }
+) {
   try {
     const patch = await req.json();
     const updated = await updatePost(params.id, patch);
@@ -17,7 +23,10 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
   }
 }
 
-export async function DELETE(_req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(
+  _req: NextRequest, // <-- Request ko NextRequest se badlein
+  { params }: { params: { id: string } }
+) {
   try {
     await deletePost(params.id);
     return NextResponse.json({ ok: true });
