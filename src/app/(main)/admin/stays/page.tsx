@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select } from "@/components/ui/select";
+import Link from "next/link";
 
 type Stay = {
   id: string;
@@ -46,7 +47,12 @@ export default function AdminStaysPage() {
   const [galleryFiles, setGalleryFiles] = useState<File[]>([]);
   const router = useRouter();
 
-  const formFields: { key: keyof Stay; label: string; placeholder?: string; help?: string }[] = [
+  const formFields: {
+    key: keyof Stay;
+    label: string;
+    placeholder?: string;
+    help?: string;
+  }[] = [
     {
       key: "id",
       label: "ID (unique, slug)",
@@ -107,7 +113,7 @@ export default function AdminStaysPage() {
     const s = (p ?? "").trim();
     if (!s) return "";
     if (/night/i.test(s)) return s;
-    return `${s}${s.endsWith('/') ? '' : '/'}night`;
+    return `${s}${s.endsWith("/") ? "" : "/"}night`;
   }
 
   function validateForm(isEdit: boolean): Record<string, string> {
@@ -117,8 +123,11 @@ export default function AdminStaysPage() {
 
     if (!isEdit) {
       if (!must(form.id)) errs.id = "ID is required.";
-      else if (!slugRe.test(form.id)) errs.id = "Use only lowercase letters, numbers, and hyphens (e.g., garden-suite).";
-      else if (stays.some((s) => s.id === form.id)) errs.id = "This ID already exists. Choose a different one.";
+      else if (!slugRe.test(form.id))
+        errs.id =
+          "Use only lowercase letters, numbers, and hyphens (e.g., garden-suite).";
+      else if (stays.some((s) => s.id === form.id))
+        errs.id = "This ID already exists. Choose a different one.";
     }
 
     if (!must(form.title)) errs.title = "Title is required.";
@@ -134,7 +143,9 @@ export default function AdminStaysPage() {
     // Price is optional; if provided, it should start with a number or $
     if (must(form.pricePerNight)) {
       const p = (form.pricePerNight ?? "").trim();
-      if (!/^\$?\d/.test(p)) errs.pricePerNight = "Price should start with a number (optionally with $).";
+      if (!/^\$?\d/.test(p))
+        errs.pricePerNight =
+          "Price should start with a number (optionally with $).";
     }
 
     return errs;
@@ -172,14 +183,31 @@ export default function AdminStaysPage() {
       setSubmitting(true);
       const finalImageUrl = await uploadIfNeeded();
       const finalImages = await uploadGalleryIfNeeded();
-      const payload = { ...form, pricePerNight: normalizePrice(form.pricePerNight), imageUrl: finalImageUrl, images: finalImages, amenities: form.amenities ?? [] };
+      const payload = {
+        ...form,
+        pricePerNight: normalizePrice(form.pricePerNight),
+        imageUrl: finalImageUrl,
+        images: finalImages,
+        amenities: form.amenities ?? [],
+      };
       const res = await fetch("/api/stays", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
       if (res.ok) {
-        setForm({ id: "", title: "", imageUrl: "", area: "", bed: "", guests: "", description: "", pricePerNight: "", images: [], amenities: [] });
+        setForm({
+          id: "",
+          title: "",
+          imageUrl: "",
+          area: "",
+          bed: "",
+          guests: "",
+          description: "",
+          pricePerNight: "",
+          images: [],
+          amenities: [],
+        });
         setFile(null);
         setGalleryFiles([]);
         setErrors({});
@@ -221,10 +249,18 @@ export default function AdminStaysPage() {
       if (Object.keys(v).length) return;
       setSubmitting(true);
       const finalImageUrl = await uploadIfNeeded();
-      const finalImages = galleryFiles.length ? await uploadGalleryIfNeeded() : (form.images ?? []);
+      const finalImages = galleryFiles.length
+        ? await uploadGalleryIfNeeded()
+        : form.images ?? [];
       // Do not allow changing the id during update
       const { id: _omit, ...rest } = form as any;
-      const payload = { ...rest, pricePerNight: normalizePrice(form.pricePerNight), imageUrl: finalImageUrl, images: finalImages, amenities: form.amenities ?? [] };
+      const payload = {
+        ...rest,
+        pricePerNight: normalizePrice(form.pricePerNight),
+        imageUrl: finalImageUrl,
+        images: finalImages,
+        amenities: form.amenities ?? [],
+      };
       const res = await fetch(`/api/stays/${editingId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -232,7 +268,18 @@ export default function AdminStaysPage() {
       });
       if (res.ok) {
         setEditingId(null);
-        setForm({ id: "", title: "", imageUrl: "", area: "", bed: "", guests: "", description: "", pricePerNight: "", images: [], amenities: [] });
+        setForm({
+          id: "",
+          title: "",
+          imageUrl: "",
+          area: "",
+          bed: "",
+          guests: "",
+          description: "",
+          pricePerNight: "",
+          images: [],
+          amenities: [],
+        });
         setFile(null);
         setGalleryFiles([]);
         setErrors({});
@@ -250,7 +297,18 @@ export default function AdminStaysPage() {
 
   function cancelEdit() {
     setEditingId(null);
-    setForm({ id: "", title: "", imageUrl: "", area: "", bed: "", guests: "", description: "", pricePerNight: "", images: [], amenities: [] });
+    setForm({
+      id: "",
+      title: "",
+      imageUrl: "",
+      area: "",
+      bed: "",
+      guests: "",
+      description: "",
+      pricePerNight: "",
+      images: [],
+      amenities: [],
+    });
     setFile(null);
     setGalleryFiles([]);
     setErrors({});
@@ -264,9 +322,9 @@ export default function AdminStaysPage() {
 
   async function logout() {
     try {
-      await fetch('/api/logout', { method: 'POST' });
+      await fetch("/api/logout", { method: "POST" });
     } finally {
-      router.push('/login');
+      router.push("/login");
     }
   }
 
@@ -274,8 +332,20 @@ export default function AdminStaysPage() {
     <section className="py-12 md:py-16">
       <Container>
         <div className="flex items-start justify-between gap-4">
-          <HeaderContent align="left" showCta={false} badgeText="Admin" title="Manage Stays" />
-          <Button variant="outlineBlack" onClick={logout}>Logout</Button>
+          <HeaderContent
+            align="left"
+            showCta={false}
+            badgeText="Admin"
+            title="Manage Stays"
+          />
+          <div className="flex gap-2">
+            <Button variant="outlineBlack" asChild>
+              <Link href="/admin/blog">Manage Blog</Link>
+            </Button>
+            <Button variant="outlineBlack" onClick={logout}>
+              Logout
+            </Button>
+          </div>
         </div>
 
         <div className="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start">
@@ -288,17 +358,27 @@ export default function AdminStaysPage() {
                     const hasError = Boolean(errors[key as string]);
                     return (
                       <div key={id} className="space-y-1">
-                        <Label htmlFor={id} className="text-neutral-700">{label}</Label>
+                        <Label htmlFor={id} className="text-neutral-700">
+                          {label}
+                        </Label>
                         <Input
                           id={id}
                           placeholder={placeholder}
                           value={(form as any)[key] ?? ""}
-                          onChange={(e) => setForm((f) => ({ ...f, [key]: e.target.value }))}
+                          onChange={(e) =>
+                            setForm((f) => ({ ...f, [key]: e.target.value }))
+                          }
                           disabled={editingId !== null && key === "id"}
-                          className={hasError ? "border-destructive focus-visible:ring-destructive" : undefined}
+                          className={
+                            hasError
+                              ? "border-destructive focus-visible:ring-destructive"
+                              : undefined
+                          }
                         />
                         {hasError ? (
-                          <div className="text-xs text-red-600">{errors[key as string]}</div>
+                          <div className="text-xs text-red-600">
+                            {errors[key as string]}
+                          </div>
                         ) : help ? (
                           <div className="text-xs text-neutral-500">{help}</div>
                         ) : null}
@@ -307,39 +387,71 @@ export default function AdminStaysPage() {
                   })}
 
                   <div className="space-y-1">
-                    <Label className="text-neutral-700">Upload Image (optional)</Label>
-                    <Input type="file" accept="image/*" onChange={(e) => setFile(e.target.files?.[0] ?? null)} />
-                    <div className="text-xs text-neutral-500">PNG/JPG recommended. If provided, this will override the Image URL above.</div>
+                    <Label className="text-neutral-700">
+                      Upload Image (optional)
+                    </Label>
+                    <Input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+                    />
+                    <div className="text-xs text-neutral-500">
+                      PNG/JPG recommended. If provided, this will override the
+                      Image URL above.
+                    </div>
                   </div>
 
                   <div className="space-y-1">
-                    <Label className="text-neutral-700">Upload Gallery Images (optional, multiple)</Label>
+                    <Label className="text-neutral-700">
+                      Upload Gallery Images (optional, multiple)
+                    </Label>
                     <Input
                       type="file"
                       accept="image/*"
                       multiple
-                      onChange={(e) => setGalleryFiles(Array.from(e.target.files ?? []))}
+                      onChange={(e) =>
+                        setGalleryFiles(Array.from(e.target.files ?? []))
+                      }
                     />
-                    <div className="text-xs text-neutral-500">These images appear in the carousel on the stay page.</div>
+                    <div className="text-xs text-neutral-500">
+                      These images appear in the carousel on the stay page.
+                    </div>
                   </div>
 
                   {/* Amenities multi-select */}
                   <div className="space-y-1">
-                    <Label className="text-neutral-700">Amenities (select multiple)</Label>
+                    <Label className="text-neutral-700">
+                      Amenities (select multiple)
+                    </Label>
                     <Select
                       multiple
                       className="min-h-28"
                       value={form.amenities ?? []}
                       onChange={(e) => {
-                        const selected = Array.from(e.target.selectedOptions).map((o) => o.value);
+                        const selected = Array.from(
+                          e.target.selectedOptions
+                        ).map((o) => o.value);
                         setForm((f) => ({ ...f, amenities: selected }));
                       }}
                     >
-                      {["Garden Patio","Queen Bed","Rain Shower","Breakfast","Meditation Area","Smart TV","Yoga Mat","Tea Set"].map((opt) => (
-                        <option key={opt} value={opt}>{opt}</option>
+                      {[
+                        "Garden Patio",
+                        "Queen Bed",
+                        "Rain Shower",
+                        "Breakfast",
+                        "Meditation Area",
+                        "Smart TV",
+                        "Yoga Mat",
+                        "Tea Set",
+                      ].map((opt) => (
+                        <option key={opt} value={opt}>
+                          {opt}
+                        </option>
                       ))}
                     </Select>
-                    <div className="text-xs text-neutral-500">Hold Ctrl/Cmd to select multiple.</div>
+                    <div className="text-xs text-neutral-500">
+                      Hold Ctrl/Cmd to select multiple.
+                    </div>
                   </div>
 
                   <div className="space-y-1">
@@ -347,21 +459,68 @@ export default function AdminStaysPage() {
                     <Textarea
                       rows={4}
                       value={form.description}
-                      onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
+                      onChange={(e) =>
+                        setForm((f) => ({ ...f, description: e.target.value }))
+                      }
                       placeholder="Write 1–2 sentences about the stay..."
                     />
-                    <div className="text-xs text-neutral-500">Keep it concise and helpful—this shows near the top of the detail page.</div>
+                    <div className="text-xs text-neutral-500">
+                      Keep it concise and helpful—this shows near the top of the
+                      detail page.
+                    </div>
                   </div>
 
                   {editingId ? (
                     <div className="flex gap-3">
-                      <Button variant="black" onClick={updateStay} disabled={submitting}>Update stay</Button>
-                      <Button variant="outlineBlack" type="button" onClick={cancelEdit} disabled={submitting}>Cancel</Button>
+                      <Button
+                        variant="black"
+                        onClick={updateStay}
+                        disabled={submitting}
+                      >
+                        Update stay
+                      </Button>
+                      <Button
+                        variant="outlineBlack"
+                        type="button"
+                        onClick={cancelEdit}
+                        disabled={submitting}
+                      >
+                        Cancel
+                      </Button>
                     </div>
                   ) : (
                     <div className="flex gap-3">
-                      <Button variant="black" onClick={createStay} disabled={submitting}>Add stay</Button>
-                      <Button variant="outlineBlack" type="button" onClick={() => { setForm({ id: "", title: "", imageUrl: "", area: "", bed: "", guests: "", description: "", pricePerNight: "", images: [], amenities: [] }); setFile(null); setGalleryFiles([]); setErrors({}); }} disabled={submitting}>Clear</Button>
+                      <Button
+                        variant="black"
+                        onClick={createStay}
+                        disabled={submitting}
+                      >
+                        Add stay
+                      </Button>
+                      <Button
+                        variant="outlineBlack"
+                        type="button"
+                        onClick={() => {
+                          setForm({
+                            id: "",
+                            title: "",
+                            imageUrl: "",
+                            area: "",
+                            bed: "",
+                            guests: "",
+                            description: "",
+                            pricePerNight: "",
+                            images: [],
+                            amenities: [],
+                          });
+                          setFile(null);
+                          setGalleryFiles([]);
+                          setErrors({});
+                        }}
+                        disabled={submitting}
+                      >
+                        Clear
+                      </Button>
                     </div>
                   )}
                 </div>
@@ -377,17 +536,32 @@ export default function AdminStaysPage() {
                 stays.map((s) => (
                   <Card key={s.id} className="!rounded-none overflow-hidden">
                     <div className="relative w-full pt-[60%] bg-neutral-200">
-                      <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${s.imageUrl})` }} />
+                      <div
+                        className="absolute inset-0 bg-cover bg-center"
+                        style={{ backgroundImage: `url(${s.imageUrl})` }}
+                      />
                     </div>
                     <CardContent>
                       <div className="flex items-center justify-between">
                         <div>
                           <div className="font-medium">{s.title}</div>
-                          <div className="text-xs text-neutral-600">{s.area} • {s.bed} • {s.guests}</div>
+                          <div className="text-xs text-neutral-600">
+                            {s.area} • {s.bed} • {s.guests}
+                          </div>
                         </div>
                         <div className="flex gap-2">
-                          <Button variant="outline" onClick={() => beginEdit(s)}>Edit</Button>
-                          <Button variant="destructive" onClick={() => removeStay(s.id)}>Delete</Button>
+                          <Button
+                            variant="outline"
+                            onClick={() => beginEdit(s)}
+                          >
+                            Edit
+                          </Button>
+                          <Button
+                            variant="destructive"
+                            onClick={() => removeStay(s.id)}
+                          >
+                            Delete
+                          </Button>
                         </div>
                       </div>
                     </CardContent>

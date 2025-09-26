@@ -13,6 +13,7 @@ export default function Navbar({ className }: { className?: string }) {
     { href: "/", label: "Home" },
     { href: "/stays", label: "Explore" },
     { href: "/interior", label: "Interior" },
+    { href: "/blog", label: "Blog" },
     { href: "/about", label: "About us" },
     { href: "/contact", label: "Contact us" },
   ];
@@ -21,8 +22,11 @@ export default function Navbar({ className }: { className?: string }) {
   const isContactPage = pathname?.startsWith("/contact");
   const isAboutPage = pathname?.startsWith("/about");
   const isInteriorPage = pathname?.startsWith("/interior");
-  const isAdminPage = pathname?.startsWith("/admin/stays");
-  const isLightPage = isContactPage || isAboutPage || isInteriorPage || isAdminPage;
+  const isAdminPage = pathname?.startsWith("/admin");
+  const isBlogPage = pathname?.startsWith("/blog");
+
+  const isLightPage =
+    isContactPage || isAboutPage || isInteriorPage || isAdminPage || isBlogPage;
 
   const linkColor = isLightPage
     ? "text-neutral-900 hover:text-black"
@@ -93,20 +97,18 @@ export default function Navbar({ className }: { className?: string }) {
           menuOpen ? "block" : "hidden"
         )}
       >
-
-          <nav className="flex flex-col items-center gap-6 py-6 text-lg">
-            {items.map((it) => (
-              <Link
-                key={it.href}
-                href={it.href}
-                className="text-white/90 hover:text-white transition-colors"
-                onClick={() => setMenuOpen(false)}
-              >
-                {it.label}
-              </Link>
-            ))}
-          </nav>
-        
+        <nav className="flex flex-col items-center gap-6 py-6 text-lg">
+          {items.map((it) => (
+            <Link
+              key={it.href}
+              href={it.href}
+              className="text-white/90 hover:text-white transition-colors"
+              onClick={() => setMenuOpen(false)}
+            >
+              {it.label}
+            </Link>
+          ))}
+        </nav>
       </div>
     </Container>
   );

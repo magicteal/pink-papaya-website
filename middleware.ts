@@ -54,7 +54,8 @@ export async function middleware(req: NextRequest) {
     if (!ok) {
       const url = req.nextUrl.clone();
       url.pathname = "/login";
-      url.search = search ? `?next=${encodeURIComponent(pathname + search)}` : `?next=${encodeURIComponent(pathname)}`;
+      const nextPath = pathname + search;
+      url.search = `?next=${encodeURIComponent(nextPath)}`;
       return NextResponse.redirect(url);
     }
   }
