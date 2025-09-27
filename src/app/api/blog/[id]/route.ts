@@ -1,19 +1,25 @@
-import { NextRequest, NextResponse } from "next/server"; // <-- Yahan NextRequest import karein
-import { deletePost, getPostById, updatePost } from "@/lib/blogStore";
+import { NextRequest, NextResponse } from "next/server";
+import { deletePost, getPostById, updatePost, type BlogPost } from "@/lib/blogStore";
 
-export async function GET(
-  _req: NextRequest, // <-- Request ko NextRequest se badlein
-  { params }: { params: { id: string } }
-) {
-  const post = await getPostById(params.id);
-  if (!post) return NextResponse.json({ error: "Not found" }, { status: 404 });
-  return NextResponse.json(post);
+type RouteParams = {
+  params: {
+    id: string;
+  };
+};
+
+export async function GET(_req: NextRequest, { params }: RouteParams): Promise<NextResponse<BlogPost | { error: string }>> {
+  try {
+    const post = await getPostById(params.id);
+    if (!post) {
+      return NextResponse.json({ error: "Not found" }, { status: 404 });
+    }
+    return NextResponse.json(post);
+  } catch (e: any) {
+    return NextResponse.json({ error: "Failed to fetch post" }, { status: 500 });
+  }
 }
 
-export async function PATCH(
-  req: NextRequest, // <-- Request ko NextRequest se badlein
-  { params }: { params: { id: string } }
-) {
+export async function PATCH(req: NextRequest, { params }: RouteParams) {
   try {
     const patch = await req.json();
     const updated = await updatePost(params.id, patch);
@@ -23,10 +29,7 @@ export async function PATCH(
   }
 }
 
-export async function DELETE(
-  _req: NextRequest, // <-- Request ko NextRequest se badlein
-  { params }: { params: { id: string } }
-) {
+export async function DELETE(_req: NextRequest, { params }: RouteParams) {
   try {
     await deletePost(params.id);
     return NextResponse.json({ ok: true });

@@ -1,19 +1,25 @@
-import { NextRequest, NextResponse } from "next/server"; // <-- Yahan NextRequest import karein
-import { deleteStay, getStayById, updateStay } from "@/lib/staysStore";
+import { NextRequest, NextResponse } from "next/server";
+import { deleteStay, getStayById, updateStay, type Stay } from "@/lib/staysStore";
 
-export async function GET(
-  _req: NextRequest, // <-- Request ko NextRequest se badlein
-  { params }: { params: { id: string } }
-) {
-  const stay = await getStayById(params.id);
-  if (!stay) return NextResponse.json({ error: "Not found" }, { status: 404 });
-  return NextResponse.json(stay);
+type RouteParams = {
+  params: {
+    id: string;
+  };
+};
+
+export async function GET(_req: NextRequest, { params }: RouteParams): Promise<NextResponse<Stay | { error: string }>> {
+  try {
+    const stay = await getStayById(params.id);
+    if (!stay) {
+      return NextResponse.json({ error: "Not found" }, { status: 404 });
+    }
+    return NextResponse.json(stay);
+  } catch (e: any) {
+    return NextResponse.json({ error: "Failed to fetch stay" }, { status: 500 });
+  }
 }
 
-export async function PATCH(
-  req: NextRequest, // <-- Request ko NextRequest se badlein
-  { params }: { params: { id: string } }
-) {
+export async function PATCH(req: NextRequest, { params }: RouteParams) {
   try {
     const patch = await req.json();
     const updated = await updateStay(params.id, patch);
@@ -23,10 +29,7 @@ export async function PATCH(
   }
 }
 
-export async function DELETE(
-  _req: NextRequest, // <-- Request ko NextRequest se badlein
-  { params }: { params: { id: string } }
-) {
+export async function DELETE(_req: NextRequest, { params }: RouteParams) {
   try {
     await deleteStay(params.id);
     return NextResponse.json({ ok: true });
