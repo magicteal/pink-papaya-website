@@ -1,15 +1,18 @@
+// src/app/api/stays/[id]/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { deleteStay, getStayById, updateStay, type Stay } from "@/lib/staysStore";
 
-type RouteParams = {
-  params: {
-    id: string;
-  };
+type AsyncRouteContext = {
+  params: Promise<{ id: string }>;
 };
 
-export async function GET(_req: NextRequest, { params }: RouteParams): Promise<NextResponse<Stay | { error: string }>> {
+export async function GET(
+  _req: NextRequest,
+  context: AsyncRouteContext
+): Promise<NextResponse<Stay | { error: string }>> {
   try {
-    const stay = await getStayById(params.id);
+    const { id } = await context.params;
+    const stay = await getStayById(id);
     if (!stay) {
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
@@ -19,19 +22,27 @@ export async function GET(_req: NextRequest, { params }: RouteParams): Promise<N
   }
 }
 
-export async function PATCH(req: NextRequest, { params }: RouteParams) {
+export async function PATCH(
+  req: NextRequest,
+  context: AsyncRouteContext
+): Promise<NextResponse> {
   try {
+    const { id } = await context.params;
     const patch = await req.json();
-    const updated = await updateStay(params.id, patch);
+    const updated = await updateStay(id, patch);
     return NextResponse.json(updated);
   } catch (e: any) {
     return NextResponse.json({ error: e?.message ?? "Failed to update" }, { status: 400 });
   }
 }
 
-export async function DELETE(_req: NextRequest, { params }: RouteParams) {
+export async function DELETE(
+  _req: NextRequest,
+  context: AsyncRouteContext
+): Promise<NextResponse> {
   try {
-    await deleteStay(params.id);
+    const { id } = await context.params;
+    await deleteStay(id);
     return NextResponse.json({ ok: true });
   } catch (e: any) {
     return NextResponse.json({ error: e?.message ?? "Failed to delete" }, { status: 400 });

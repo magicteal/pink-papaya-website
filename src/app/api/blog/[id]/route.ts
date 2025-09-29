@@ -1,15 +1,18 @@
+// src/app/api/blog/[id]/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { deletePost, getPostById, updatePost, type BlogPost } from "@/lib/blogStore";
 
-type RouteParams = {
-  params: {
-    id: string;
-  };
+type AsyncRouteContext = {
+  params: Promise<{ id: string }>;
 };
 
-export async function GET(_req: NextRequest, { params }: RouteParams): Promise<NextResponse<BlogPost | { error: string }>> {
+export async function GET(
+  _req: NextRequest,
+  context: AsyncRouteContext
+): Promise<NextResponse<BlogPost | { error: string }>> {
   try {
-    const post = await getPostById(params.id);
+    const { id } = await context.params;
+    const post = await getPostById(id);
     if (!post) {
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
@@ -19,19 +22,27 @@ export async function GET(_req: NextRequest, { params }: RouteParams): Promise<N
   }
 }
 
-export async function PATCH(req: NextRequest, { params }: RouteParams) {
+export async function PATCH(
+  req: NextRequest,
+  context: AsyncRouteContext
+): Promise<NextResponse> {
   try {
+    const { id } = await context.params;
     const patch = await req.json();
-    const updated = await updatePost(params.id, patch);
+    const updated = await updatePost(id, patch);
     return NextResponse.json(updated);
   } catch (e: any) {
     return NextResponse.json({ error: e?.message ?? "Failed to update post" }, { status: 400 });
   }
 }
 
-export async function DELETE(_req: NextRequest, { params }: RouteParams) {
+export async function DELETE(
+  _req: NextRequest,
+  context: AsyncRouteContext
+): Promise<NextResponse> {
   try {
-    await deletePost(params.id);
+    const { id } = await context.params;
+    await deletePost(id);
     return NextResponse.json({ ok: true });
   } catch (e: any) {
     return NextResponse.json({ error: e?.message ?? "Failed to delete post" }, { status: 400 });
