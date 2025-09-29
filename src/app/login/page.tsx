@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function LoginPage() {
+function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -49,9 +49,6 @@ export default function LoginPage() {
           data?.error ?? data?.message ?? res.statusText ?? "Login failed";
         throw new Error(msg);
       }
-
-      // If server returns a token, you may want to store it (cookie/HttpOnly cookie via server, or localStorage)
-      // const token = data?.token;
 
       const next = params?.get("next") ?? "/admin/stays";
       // use replace so back button won't go back to login
@@ -132,5 +129,27 @@ export default function LoginPage() {
         </button>
       </form>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-[70vh] flex items-center justify-center p-6">
+          <div className="w-full max-w-sm border rounded-lg p-6 shadow-sm bg-white">
+            <div className="h-6 w-1/3 bg-gray-200 rounded mb-2" />
+            <div className="h-4 w-2/3 bg-gray-200 rounded mb-6" />
+            <div className="space-y-3">
+              <div className="h-10 w-full bg-gray-200 rounded" />
+              <div className="h-10 w-full bg-gray-200 rounded" />
+              <div className="h-10 w-full bg-gray-200 rounded" />
+            </div>
+          </div>
+        </div>
+      }
+    >
+      <LoginForm />
+    </Suspense>
   );
 }
