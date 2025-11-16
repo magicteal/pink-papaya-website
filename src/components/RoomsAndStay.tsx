@@ -22,16 +22,9 @@ export default function RoomsAndStay() {
       <Container>
         <HeaderContent
           align="left"
-          badgeText="Rooms & Suites"
-          title="Stay your Way"
-          description={
-            "From cozy beachfront rooms to luxurious oceanfront suites, each space at Pink Papaya is thoughtfully designed for comfort and style."
-          }
-          ctaLabel="Explore All Rooms"
-          onCtaClick={() => router.push("/stays")}
-          buttonPlacement="right"
-          ctaVariant="outlineBlack"
-          
+          title="Curated collections"
+          description={"Thoughtfully chosen stays, for every kind of getaway"}
+          showCta={false}
         />
 
         {/* Content grid */}
@@ -45,7 +38,7 @@ export default function RoomsAndStay() {
                   <li key={s.id} className="p-4">
                     <button
                       className={
-                        "w-full text-left font-medium text-[#99C0C2] hover:underline"
+                        "w-full text-left font-medium text-[#99C0C2] hover:underline rounded-[10px]"
                       }
                       onClick={() => setActiveIndex(idx)}
                     >
@@ -77,7 +70,7 @@ export default function RoomsAndStay() {
                             variant="outlineBlack"
                             onClick={() => router.push(`/stays/${s.id}`)}
                           >
-                            Book Stay
+                           Explore
                           </Button>
                         </div>
                       </div>

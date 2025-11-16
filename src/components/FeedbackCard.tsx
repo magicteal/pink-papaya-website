@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/utils/utils";
-import Image from "next/image";
+// avatar image removed from testimonial card
 
 export type Feedback = {
   id: string;
@@ -37,8 +37,8 @@ export default function FeedbackCard({ feedback, className }: { feedback: Feedba
     <Card
       className={cn(
         "h-full rounded-none border-1 border-white/5 bg-white min-h-[260px] md:min-h-[280px]",
-        // Softer, lighter blur shadow
-        "shadow-[0_14px_28px_rgba(0,0,0,0.08),0_4px_10px_rgba(0,0,0,0.05)]",
+        // Slightly darker, deeper shadow for more emphasis
+        "shadow-[0_18px_36px_rgba(0,0,0,0.14),0_6px_16px_rgba(0,0,0,0.08)]",
         className
       )}
     >
@@ -51,18 +51,9 @@ export default function FeedbackCard({ feedback, className }: { feedback: Feedba
 
         <p className="mt-4 flex-1 text-sm leading-relaxed text-neutral-700">{feedback.text}</p>
 
-        <div className="mt-6 flex items-center gap-3">
-          <Image
-            src={feedback.avatar}
-            alt={feedback.name}
-            width={40}
-            height={40}
-            className="h-10 w-10 rounded-full object-cover"
-          />
-          <div>
-            <div className="text-sm font-semibold text-neutral-900">{feedback.name}</div>
-            <div className="text-xs text-neutral-500">{feedback.role}</div>
-          </div>
+        <div className="mt-6">
+          <div className="text-sm font-semibold text-neutral-900">{feedback.name}</div>
+          <div className="text-xs text-neutral-500">{feedback.role}</div>
         </div>
       </CardContent>
     </Card>

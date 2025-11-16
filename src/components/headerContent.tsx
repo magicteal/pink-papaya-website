@@ -18,6 +18,8 @@ export interface HeaderContentProps {
   buttonPlacement?: ButtonPlacement;
   tone?: Tone;
   titleSize?: TitleSize;
+  titleClass?: string;
+  descriptionClass?: string;
   ctaSize?: "default" | "sm" | "lg" | "icon";
   ctaVariant?:
     | "default"
@@ -42,6 +44,8 @@ export default function HeroContent({
   buttonPlacement = "below",
   tone = "light",
   titleSize = "lg",
+  titleClass,
+  descriptionClass,
   ctaSize = "lg",
   ctaVariant = "default",
   showCta = true,
@@ -107,7 +111,8 @@ export default function HeroContent({
           textColor,
           "font-playfair",
           "leading-tight",
-          titleSizeClass
+          titleSizeClass,
+          titleClass
         )}
       >
         {title}
@@ -116,7 +121,8 @@ export default function HeroContent({
         <p
           className={cn(
             "mt-3 sm:mt-4 max-w-prose text-sm sm:text-base md:text-lg font-bricolage",
-            subTextColor
+            subTextColor,
+            descriptionClass
           )}
         >
           {description}
