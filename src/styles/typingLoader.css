@@ -1,0 +1,132 @@
+/* Typing Loader Container */
+.typing-loader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+  z-index: 9999;
+  transform: translateY(0);
+  transition: transform 0.9s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.typing-loader-container.fade-out {
+  transform: translateY(-100%);
+  pointer-events: none;
+}
+
+/* Typing Loader */
+.typing-loader {
+  text-align: center;
+}
+
+.typing-text {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 
+               'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 
+               sans-serif;
+  font-size: 3.5rem;
+  font-weight: 300;
+  color: #ff9f8f;
+  letter-spacing: 0.08em;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Text Content with Typing Animation */
+.text-content {
+  display: inline-block;
+  border-right: 0;
+  animation: typing 2s steps(11) forwards;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 0;
+}
+
+@keyframes typing {
+  from {
+    max-width: 0;
+  }
+  to {
+    max-width: 100%;
+  }
+}
+
+/* Blinking Cursor */
+.cursor {
+  display: inline-block;
+  margin-left: 4px;
+  color: #ffb3a3;
+  font-weight: 200;
+  animation: blink 0.8s step-end infinite;
+}
+
+.cursor.cursor-hidden {
+  opacity: 0;
+  animation: none;
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Main Content Transitions */
+.main-content {
+  opacity: 1;
+  transition: opacity 0.8s ease-in;
+}
+
+.main-content.hidden {
+  opacity: 0;
+}
+
+.main-content.fade-in {
+  opacity: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .typing-text {
+    font-size: 2.5rem;
+    letter-spacing: 0.06em;
+  }
+}
+
+@media (max-width: 480px) {
+  .typing-text {
+    font-size: 2rem;
+    letter-spacing: 0.05em;
+  }
+  
+  .cursor {
+    margin-left: 2px;
+  }
+}
+
+/* Smooth page rendering */
+@media (prefers-reduced-motion: reduce) {
+  .typing-loader-container,
+  .main-content {
+    transition: none;
+  }
+  
+  .text-content {
+    animation-duration: 1s;
+  }
+  
+  .cursor {
+    animation: none;
+    opacity: 1;
+  }
+}

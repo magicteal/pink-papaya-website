@@ -11,6 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select } from "@/components/ui/select";
 import Link from "next/link";
+import { stayCategories } from "@/data/stays";
 
 type Stay = {
   id: string;
@@ -19,6 +20,7 @@ type Stay = {
   area: string;
   bed: string;
   guests: string;
+  category?: string;
   description?: string;
   pricePerNight?: string;
   images?: string[];
@@ -38,6 +40,7 @@ export default function AdminStaysPage() {
     area: "",
     bed: "",
     guests: "",
+    category: "",
     description: "",
     pricePerNight: "",
     images: [],
@@ -97,6 +100,8 @@ export default function AdminStaysPage() {
     },
   ];
 
+  // `stayCategories` imported from data/stays.ts
+
   async function load() {
     setLoading(true);
     const res = await fetch("/api/stays");
@@ -134,6 +139,7 @@ export default function AdminStaysPage() {
     if (!must(form.area)) errs.area = "Area is required.";
     if (!must(form.bed)) errs.bed = "Bed info is required.";
     if (!must(form.guests)) errs.guests = "Guests info is required.";
+    if (!must(form.category)) errs.category = "Please choose a category.";
 
     // Require either an uploaded main image or an image URL
     if (!form.imageUrl && !file) {
@@ -203,6 +209,7 @@ export default function AdminStaysPage() {
           area: "",
           bed: "",
           guests: "",
+          category: "",
           description: "",
           pricePerNight: "",
           images: [],
@@ -232,6 +239,7 @@ export default function AdminStaysPage() {
       area: s.area,
       bed: s.bed,
       guests: s.guests,
+      category: s.category ?? "",
       description: s.description ?? "",
       pricePerNight: s.pricePerNight ?? "",
       images: s.images ?? [],
@@ -275,6 +283,7 @@ export default function AdminStaysPage() {
           area: "",
           bed: "",
           guests: "",
+          category: "",
           description: "",
           pricePerNight: "",
           images: [],
@@ -304,6 +313,7 @@ export default function AdminStaysPage() {
       area: "",
       bed: "",
       guests: "",
+      category: "",
       description: "",
       pricePerNight: "",
       images: [],
@@ -353,7 +363,7 @@ export default function AdminStaysPage() {
             <Card className="!rounded-none">
               <CardContent>
                 <div className="grid grid-cols-1 gap-4">
-                  {formFields.map(({ key, label, placeholder, help }) => {
+                      {formFields.map(({ key, label, placeholder, help }) => {
                     const id = `field-${String(key)}`;
                     const hasError = Boolean(errors[key as string]);
                     return (
@@ -385,6 +395,27 @@ export default function AdminStaysPage() {
                       </div>
                     );
                   })}
+
+                      {/* Category selector */}
+                      <div className="space-y-1">
+                        <Label className="text-neutral-700">Category</Label>
+                        <Select
+                          value={form.category ?? ""}
+                          onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))}
+                        >
+                          <option value="">Choose a category</option>
+                          {stayCategories.map((c) => (
+                            <option key={c.id} value={c.id}>
+                              {c.name}
+                            </option>
+                          ))}
+                        </Select>
+                        {errors.category ? (
+                          <div className="text-xs text-red-600">{errors.category}</div>
+                        ) : (
+                          <div className="text-xs text-neutral-500">Select one of the four main categories.</div>
+                        )}
+                      </div>
 
                   <div className="space-y-1">
                     <Label className="text-neutral-700">
@@ -508,6 +539,7 @@ export default function AdminStaysPage() {
                             area: "",
                             bed: "",
                             guests: "",
+                            category: "",
                             description: "",
                             pricePerNight: "",
                             images: [],

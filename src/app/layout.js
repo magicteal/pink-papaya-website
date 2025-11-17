@@ -5,6 +5,7 @@ import {
   Bricolage_Grotesque,
 } from "next/font/google";
 import "./globals.css";
+import TypingLoader from "@/components/TypingLoader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,7 +41,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} ${bricolage.variable} antialiased`}
       >
-        {children}
+        <TypingLoader>{children}</TypingLoader>
       </body>
     </html>
   );

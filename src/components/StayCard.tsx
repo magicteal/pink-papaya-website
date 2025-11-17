@@ -26,7 +26,7 @@ export default function StayCard({ title, imageUrl, area, bed, guests, className
         className
       )}
     >
-      <div className="relative w-full" style={{ paddingTop: "100%" }}>
+      <div className="relative w-full" style={{ paddingTop: "75%" }}>
         <div
           className="absolute inset-0"
           style={{ backgroundImage: `url(${imageUrl})`, backgroundSize: "cover", backgroundPosition: "center" }}

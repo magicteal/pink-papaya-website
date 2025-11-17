@@ -5,17 +5,22 @@ import Container from "@/components/Container";
 import HeaderContent from "@/components/headerContent";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import AreaIcon from "@/components/icons/area";
-import BedIcon from "@/components/icons/bed";
-import UsersIcon from "@/components/icons/users";
+// Removed individual stay attribute icons - not needed anymore
 import { useRouter } from "next/navigation";
-import { stays as staysData } from "@/data/stays";
+import { stays as staysData, stayCategories } from "@/data/stays";
 
 export default function RoomsAndStay() {
   const router = useRouter();
-  const stays = staysData.slice(0, 5);
+  // show four categories only
+  const categories = stayCategories.slice(0, 4);
   const [activeIndex, setActiveIndex] = React.useState(0);
-  const active = stays[activeIndex];
+
+  // For display, find a representative stay for the selected category
+  function representativeFor(catId: string) {
+    return staysData.find((s) => s.category === catId) ?? staysData[0];
+  }
+
+  const active = representativeFor(categories[activeIndex].id);
 
   return (
     <section className="py-12 md:py-16">
@@ -32,47 +37,40 @@ export default function RoomsAndStay() {
           {/* Left list */}
           <div className="md:col-span-6">
             <ul className="divide-y divide-neutral-200">
-              {stays.map((s, idx) => {
+              {categories.map((c, idx) => {
                 const selected = idx === activeIndex;
+                const rep = representativeFor(c.id);
                 return (
-                  <li key={s.id} className="p-4">
-                    <button
-                      className={
-                        "w-full text-left font-medium text-[#99C0C2] hover:underline rounded-[10px]"
-                      }
-                      onClick={() => setActiveIndex(idx)}
-                    >
-                      {s.title}
-                    </button>
-                    {selected ? (
-                      <div className="mt-3 space-y-3">
-                        <div className="flex flex-wrap items-center gap-4 text-sm text-neutral-700">
-                          <span className="flex items-center gap-2">
-                            <AreaIcon className="h-4 w-4" /> {s.area}
-                          </span>
-                          <span className="flex items-center gap-2">
-                            <BedIcon className="h-4 w-4" /> {s.bed}
-                          </span>
-                          <span className="flex items-center gap-2">
-                            <UsersIcon className="h-4 w-4" /> {s.guests}
-                          </span>
-                        </div>
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <div className="text-[10px] uppercase tracking-wide text-neutral-500">
-                              Starting at
-                            </div>
-                            <div className="text-neutral-900 font-semibold">
-                              {s.pricePerNight}
-                            </div>
-                          </div>
+                  <li key={c.id} className="p-4">
+                    <div className="flex items-start justify-between">
+                      <button
+                        className={
+                          // larger, prominent style for the selected category
+                          "text-left rounded-[10px] " +
+                          (selected
+                            ? "text-3xl md:text-4xl font-playfair text-neutral-900"
+                            : "text-base font-medium text-[#99C0C2] hover:underline")
+                        }
+                        onClick={() => setActiveIndex(idx)}
+                      >
+                        {c.name}
+                      </button>
+
+                      {selected ? (
+                        <div className="ml-4">
                           <Button
                             variant="outlineBlack"
-                            onClick={() => router.push(`/stays/${s.id}`)}
+                            onClick={() => router.push(`/stays?category=${c.id}`)}
                           >
-                           Explore
+                            Explore
                           </Button>
                         </div>
+                      ) : null}
+                    </div>
+
+                    {selected ? (
+                      <div className="mt-3">
+                        <div className="text-sm text-neutral-700">{c.description}</div>
                       </div>
                     ) : null}
                   </li>

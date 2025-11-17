@@ -19,10 +19,10 @@ export default function Hero({
     <section
       id="home"
       className={cn(
-        // pt-16 matches the fixed navbar height so content starts below it,
-        // while the background still extends beneath the navbar
-        // Use 100dvh on small screens to account for mobile browser UI
-        "relative isolate flex min-h-[100dvh] md:min-h-screen items-center overflow-hidden bg-black pt-16"
+        // pt-8 matches the fixed navbar height while reducing extra top
+        // spacing so hero feels less tall on landing. Keeps background
+        // extending beneath the navbar. Use 100dvh on small screens.
+        "relative isolate flex min-h-[100dvh] md:min-h-screen items-center overflow-hidden bg-black pt-8"
       )}
     >
       {backgroundUrl ? (

@@ -1,7 +1,10 @@
+"use client";
+
 import Hero from "@/components/Hero";
 import Container from "@/components/Container";
 import StayCard from "@/components/StayCard";
 import HeaderContent from "@/components/headerContent";
+import { Button } from "@/components/ui/button";
 import { stays } from "@/data/stays";
 import FAQ from "@/components/FAQ";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
@@ -12,11 +15,13 @@ import { Card } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
+import Reveal from "@/components/ui/Reveal";
 
 export default function Home() {
   return (
     <>
-      <Hero
+      <Reveal>
+        <Hero
         backgroundUrl="/images/hotel.svg"
         title="Stay where every moment feels like a mood"
         description="Handpicked homes made for unforgettable getaways"
@@ -26,67 +31,78 @@ export default function Home() {
         ctaLabel="Explore"
         ctaVariant="white"
         tone="dark"
-      />
-      <section id="explore" className="py-30 md:py-50">
+        />
+      </Reveal>
+      <section id="explore" className="py-12 md:py-16">
         <Container>
-          <div className="mb-6 md:mb-8">
-            <HeaderContent
-              align="center"
-              showCta={false}
-              description="Curated spaces. Effortless comfort. Goa, reimagined, for you"
-              descriptionClass="text-sm sm:text-base md:text-lg"
-            />
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 justify-items-center">
-            {/* Our villas black tile */}
-            <Link
-              href="/stays"
-              className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-black/60"
-              aria-label="Explore all villas"
-            >
-              <div className="mx-auto w-[220px] sm:w-[260px] md:w-[600px]">
-                <Card className="group relative w-full overflow-hidden bg-black !rounded-none !border-0 !shadow-none">
-                  <div className="relative w-full" style={{ paddingTop: "100%" }}>
-                    <div className="absolute inset-0 bg-black" />
-                    <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
-                      <h3 className="font-playfair text-white leading-tight text-[28px] sm:text-[30px] md:text-[32px]">
-                        Signature stays
-                      </h3>
-                    </div>
-                  </div>
-                </Card>
-              </div>
-            </Link>
-
-            {stays.slice(0, 3).map((s) => (
-              <StayCard
-                key={s.id}
-                title={s.title}
-                imageUrl={s.imageUrl}
-                area={s.area}
-                bed={s.bed}
-                guests={s.guests}
-                pricePerNight={s.pricePerNight}
-                href={`/stays/${s.id}`}
-                className="mx-auto w-[220px] sm:w-[260px] md:w-[600px]"
+          <Reveal>
+            <div className="mb-2 md:mb-4">
+              <HeaderContent
+                align="center"
+                showCta={false}
+                description="Curated spaces. Effortless comfort. Goa, reimagined, for you"
+                descriptionClass="text-sm sm:text-base md:text-lg"
               />
-            ))}
-          </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-4 justify-items-center">
+              {/* Our villas black tile */}
+              <Link
+                href="/stays"
+                className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-black/60"
+                aria-label="Explore all villas"
+              >
+                <div className="mx-auto w-[180px] sm:w-[220px] md:w-[420px]">
+                  <Card className="group relative w-full overflow-hidden bg-black !rounded-none !border-0 !shadow-none">
+                    <div className="relative w-full" style={{ paddingTop: "75%" }}>
+                      <div className="absolute inset-0 bg-black" />
+                      <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
+                        <h3 className="font-playfair text-white leading-tight text-[28px] sm:text-[30px] md:text-[32px]">
+                          Signature stays
+                        </h3>
+                        <div className="mt-4">
+                          <Button variant="outlineWhite" size="sm">Explore</Button>
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+              </Link>
+
+              {stays.slice(0, 3).map((s) => (
+                <StayCard
+                  key={s.id}
+                  title={s.title}
+                  imageUrl={s.imageUrl}
+                  area={s.area}
+                  bed={s.bed}
+                  guests={s.guests}
+                  pricePerNight={s.pricePerNight}
+                  href={`/stays/${s.id}`}
+                  className="mx-auto w-[180px] sm:w-[220px] md:w-[420px]"
+                />
+              ))}
+            </div>
+          </Reveal>
         </Container>
       </section>
 
       {/* Rooms & stay Section */}
-      <RoomsAndStay />
+      <Reveal>
+        <RoomsAndStay />
+      </Reveal>
 
       {/* Leisure Section */}
       <section className="py-30 md:py-50">
         <Container>
-          <HeaderContent
-            align="center"
-            showCta={false}
-            title="Experience more than a stay a story you’ll want to relive"
-            titleSize="sm"
-          />
+          <Reveal>
+            <HeaderContent
+              align="center"
+              showCta={false}
+              title="Experience more than a stay a story you’ll want to relive"
+              titleSize="sm"
+            />
+          </Reveal>
             {(() => {
             // Use dedicated leisure images instead of re-using the stays images
             const leisureItems = [
@@ -109,34 +125,35 @@ export default function Home() {
             return (
               <div className="mt-12 sm:mt-16 md:mt-32 grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-12 items-start">
                 {leisureItems.map((item, i) => (
-                  <div
-                    key={i}
-                    className={
-                      i === 1
-                        ? "sm:-mt-12 md:-mt-16 lg:-mt-24"
-                        : "sm:mt-4 md:mt-6"
-                    }
-                  >
-                    <Card className="!rounded-none !border-0 overflow-hidden bg-neutral-200">
-                      <div
-                        className={`relative w-full ${
-                            i === 1 ? "pt-[100%]" : "pt-[100%]"
-                          }`}>
+                  <Reveal key={i}>
+                    <div
+                      className={
+                        i === 1
+                          ? "sm:-mt-12 md:-mt-16 lg:-mt-24"
+                          : "sm:mt-4 md:mt-6"
+                      }
+                    >
+                      <Card className="!rounded-none !border-0 overflow-hidden bg-neutral-200">
                         <div
-                          className="absolute inset-0 bg-cover bg-center"
-                          style={{ backgroundImage: `url(${item.img})` }}
-                        />
+                          className={`relative w-full ${
+                              i === 1 ? "pt-[100%]" : "pt-[100%]"
+                            }`}>
+                          <div
+                            className="absolute inset-0 bg-cover bg-center"
+                            style={{ backgroundImage: `url(${item.img})` }}
+                          />
+                        </div>
+                      </Card>
+                      <div className="mt-4">
+                        <h4 className="font-playfair text-base md:text-lg font-medium text-neutral-900">
+                          {item.title}
+                        </h4>
+                        <p className="mt-1.5 text-xs md:text-sm text-neutral-700 font-bricolage">
+                          {item.desc}
+                        </p>
                       </div>
-                    </Card>
-                    <div className="mt-4">
-                      <h4 className="font-playfair text-base md:text-lg font-medium text-neutral-900">
-                        {item.title}
-                      </h4>
-                      <p className="mt-1.5 text-xs md:text-sm text-neutral-700 font-bricolage">
-                        {item.desc}
-                      </p>
                     </div>
-                  </div>
+                  </Reveal>
                 ))}
               </div>
             );
@@ -212,24 +229,29 @@ export default function Home() {
         </div>
       </section> */}
 
- <section className="py-12 md:py-16">
+      <section className="py-12 md:py-16">
         <Container>
-          <HeaderContent
-            title="From Our Guests"
-            align="center"
-            showCta={false}
-            titleSize="sm"
-            description={"Notes from those who’ve stayed and returned for more"}
-            descriptionClass="text-sm sm:text-base md:text-lg"
-          />
+          <Reveal>
+            <HeaderContent
+              title="From Our Guests"
+              align="center"
+              showCta={false}
+              titleSize="sm"
+              description={"Notes from those who’ve stayed and returned for more"}
+              descriptionClass="text-sm sm:text-base md:text-lg"
+            />
+          </Reveal>
           <div className="mt-8">
             {/* Use client-side auto-playing carousel without arrows */}
-            <TestimonialsCarousel className="w-full" />
+            <Reveal>
+              <TestimonialsCarousel className="w-full" />
+            </Reveal>
           </div>
         </Container>
       </section>
       {/* FAQ Section */}
-      <FAQ
+      <Reveal>
+        <FAQ
         title="Frequently Asked Questions"
         description="Quick answers to common questions about staying at Pink Papaya."
         faqs={[
@@ -254,7 +276,8 @@ export default function Home() {
               "Yes. We offer property management and styling services for homeowners. Reach out through our Partner With Us form and let’s create something exceptional",
           }
         ]}
-      />
+        />
+      </Reveal>
 
       {/* What They Say - Feedback */}
      
