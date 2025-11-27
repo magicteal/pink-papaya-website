@@ -207,7 +207,7 @@ export default function AdminBlogPage() {
         <div className="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start">
           {/* Form */}
           <div className="lg:col-span-5">
-            <Card className="!rounded-none">
+            <Card className="rounded-10">
               <CardContent>
                 <div className="grid grid-cols-1 gap-4">
                   {formFields.map(({ key, label, placeholder, help, type }) => (
@@ -302,7 +302,7 @@ export default function AdminBlogPage() {
                 <div>Loading…</div>
               ) : (
                 posts.map((p) => (
-                  <Card key={p.id} className="!rounded-none overflow-hidden">
+                  <Card key={p.id} className="rounded-10 overflow-hidden">
                     <div className="relative w-full pt-[60%] bg-neutral-200">
                       <div
                         className="absolute inset-0 bg-cover bg-center"

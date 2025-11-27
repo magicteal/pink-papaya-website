@@ -25,6 +25,7 @@ type Stay = {
   pricePerNight?: string;
   images?: string[];
   amenities?: string[];
+  location?: string;
 };
 
 export default function AdminStaysPage() {
@@ -45,6 +46,7 @@ export default function AdminStaysPage() {
     pricePerNight: "",
     images: [],
     amenities: [],
+    location: "",
   });
   const [file, setFile] = useState<File | null>(null);
   const [galleryFiles, setGalleryFiles] = useState<File[]>([]);
@@ -91,6 +93,12 @@ export default function AdminStaysPage() {
       label: "Guests (e.g., 2 Guests)",
       placeholder: "e.g., 2 Guests",
       help: "Max occupancy shown on cards.",
+    },
+    {
+      key: "location",
+      label: "Location (e.g., Anjuna, Goa)",
+      placeholder: "e.g., Anjuna, Goa",
+      help: "Shown under the title on the card.",
     },
     {
       key: "pricePerNight",
@@ -214,6 +222,7 @@ export default function AdminStaysPage() {
           pricePerNight: "",
           images: [],
           amenities: [],
+          location: "",
         });
         setFile(null);
         setGalleryFiles([]);
@@ -244,6 +253,7 @@ export default function AdminStaysPage() {
       pricePerNight: s.pricePerNight ?? "",
       images: s.images ?? [],
       amenities: s.amenities ?? [],
+      location: s.location ?? "",
     });
     setFile(null);
     setGalleryFiles([]);
@@ -288,6 +298,7 @@ export default function AdminStaysPage() {
           pricePerNight: "",
           images: [],
           amenities: [],
+          location: "",
         });
         setFile(null);
         setGalleryFiles([]);
@@ -318,6 +329,7 @@ export default function AdminStaysPage() {
       pricePerNight: "",
       images: [],
       amenities: [],
+      location: "",
     });
     setFile(null);
     setGalleryFiles([]);
@@ -350,6 +362,9 @@ export default function AdminStaysPage() {
           />
           <div className="flex gap-2">
             <Button variant="outlineBlack" asChild>
+              <Link href="/admin/locations">Manage Locations</Link>
+            </Button>
+            <Button variant="outlineBlack" asChild>
               <Link href="/admin/blog">Manage Blog</Link>
             </Button>
             <Button variant="outlineBlack" onClick={logout}>
@@ -360,7 +375,7 @@ export default function AdminStaysPage() {
 
         <div className="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start">
           <div className="lg:col-span-5">
-            <Card className="!rounded-none">
+            <Card className="rounded-10">
               <CardContent>
                 <div className="grid grid-cols-1 gap-4">
                       {formFields.map(({ key, label, placeholder, help }) => {
@@ -544,6 +559,7 @@ export default function AdminStaysPage() {
                             pricePerNight: "",
                             images: [],
                             amenities: [],
+                            location: "",
                           });
                           setFile(null);
                           setGalleryFiles([]);
@@ -566,37 +582,30 @@ export default function AdminStaysPage() {
                 <div>Loading…</div>
               ) : (
                 stays.map((s) => (
-                  <Card key={s.id} className="!rounded-none overflow-hidden">
-                    <div className="relative w-full pt-[60%] bg-neutral-200">
-                      <div
-                        className="absolute inset-0 bg-cover bg-center"
-                        style={{ backgroundImage: `url(${s.imageUrl})` }}
-                      />
+                  <Card key={s.id} className="rounded-[14px] overflow-hidden border border-neutral-200">
+                    <div className="relative w-full pt-[66%] bg-neutral-200">
+                      <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${s.imageUrl})` }} />
                     </div>
-                    <CardContent>
-                      <div className="flex items-center justify-between">
+                    <div className="border-t border-neutral-200 p-4">
+                      <div className="flex items-start justify-between gap-3">
                         <div>
-                          <div className="font-medium">{s.title}</div>
-                          <div className="text-xs text-neutral-600">
+                          <div className="font-playfair text-xl leading-tight">{s.title}</div>
+                          <div className="text-[#3C8A84] font-semibold text-sm">{s.location || "Goa"}</div>
+                          <div className="mt-2 text-xs text-neutral-600">
                             {s.area} • {s.bed} • {s.guests}
                           </div>
+                          {s.pricePerNight ? (
+                            <div className="mt-2 text-sm font-semibold text-neutral-900">
+                              {/night/i.test(s.pricePerNight) ? `From ${s.pricePerNight} + taxes` : `From ${s.pricePerNight} / night + taxes`}
+                            </div>
+                          ) : null}
                         </div>
-                        <div className="flex gap-2">
-                          <Button
-                            variant="outline"
-                            onClick={() => beginEdit(s)}
-                          >
-                            Edit
-                          </Button>
-                          <Button
-                            variant="destructive"
-                            onClick={() => removeStay(s.id)}
-                          >
-                            Delete
-                          </Button>
+                        <div className="flex flex-col gap-2 shrink-0">
+                          <Button variant="outline" onClick={() => beginEdit(s)}>Edit</Button>
+                          <Button variant="destructive" onClick={() => removeStay(s.id)}>Delete</Button>
                         </div>
                       </div>
-                    </CardContent>
+                    </div>
                   </Card>
                 ))
               )}

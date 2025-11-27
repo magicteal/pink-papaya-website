@@ -2,18 +2,20 @@ import Hero from "@/components/Hero";
 import Container from "@/components/Container";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { interiorProjects } from "@/data/interior";
-import { interiorFeedback } from "@/data/interiorFeedback";
+import { readInteriorProjects } from "@/lib/interiorStore";
+import { readInteriorFeedback } from "@/lib/interiorFeedbackStore";
 import Link from "next/link";
 import HeaderContent from "@/components/headerContent";
 
-export default function InteriorPage() {
+export default async function InteriorPage() {
+  const interiorProjects = await readInteriorProjects();
+  const interiorFeedback = await readInteriorFeedback();
   return (
     <>
       <Hero
         backgroundColor="#fff"
         title="Interior Design"
-        description="Thoughtfully designed interiors that blend warmth and function—discover the details behind our spaces."
+        description="Thoughtfully designed interiors that blend warmth and function discover the details behind our spaces."
         align="center"
         buttonPlacement="below"
         showCta={false}
@@ -25,14 +27,13 @@ export default function InteriorPage() {
           <HeaderContent
             align="center"
             showCta={false}
-            badgeText="Explore"
             title="Our recent Projects"
           />
 
           <div className="mt-8 md:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {interiorProjects.map((p) => (
               <Link key={p.id} href={`/interior/${p.id}`} className="group block">
-                <Card className="!rounded-none !border-0 overflow-hidden bg-neutral-200">
+                <Card className="rounded-10 !border-0 overflow-hidden bg-neutral-200">
                   <div className="relative w-full pt-[140%]">
                     <div
                       className="absolute inset-0 bg-cover bg-center"
@@ -69,7 +70,6 @@ export default function InteriorPage() {
               <HeaderContent
                 align="left"
                 showCta={false}
-                badgeText="About"
                 title="Our Story"
                 titleSize="md"
                 description="We started Pink Papaya with a simple idea: make travel feel like coming home. Every space is thoughtfully designed to blend calm, craft, and comfort—so you can slow down, sink in, and stay a little longer."
@@ -83,7 +83,7 @@ export default function InteriorPage() {
 
             {/* Right: Square image */}
             <div className="lg:col-span-6">
-              <Card className="!rounded-none !border-0 overflow-hidden bg-neutral-200">
+              <Card className="rounded-10 !border-0 overflow-hidden bg-neutral-200">
                 <div className="relative w-full pt-[100%]">
                   <div
                     className="absolute inset-0 bg-cover bg-center"
@@ -103,11 +103,10 @@ export default function InteriorPage() {
           <HeaderContent
             align="center"
             showCta={false}
-            badgeText="Inspiration"
             title="Get inspired"
           />
 
-          <Card className="!rounded-none !border-0 overflow-hidden mt-8 md:mt-12">
+          <Card className="rounded-10 !border-0 overflow-hidden mt-8 md:mt-12">
             {/* 16:9 responsive container */}
             <div className="relative w-full pt-[56.25%] bg-neutral-200">
               <video
@@ -130,14 +129,13 @@ export default function InteriorPage() {
           <HeaderContent
             align="center"
             showCta={false}
-            badgeText="Feedback"
             title="Our clients' words"
             titleSize="md"
           />
 
           <div className="mt-8 md:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {interiorFeedback.slice(0, 4).map((f) => (
-              <Card key={f.id} className="!rounded-none !border-0 overflow-hidden">
+              <Card key={f.id} className="rounded-10 !border-0 overflow-hidden">
                 <div className="relative w-full pt-[100%] bg-neutral-200">
                   <div
                     className="absolute inset-0 bg-cover bg-center"

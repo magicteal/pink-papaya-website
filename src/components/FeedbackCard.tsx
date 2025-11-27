@@ -15,7 +15,7 @@ export type Feedback = {
 function StarIcon({ filled = true, className }: { filled?: boolean; className?: string }) {
   return (
     <svg
-      className={cn("h-4 w-4", className)}
+      className={cn("h-5 w-5 md:h-6 md:w-6", className)}
       viewBox="0 0 24 24"
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
@@ -36,9 +36,9 @@ export default function FeedbackCard({ feedback, className }: { feedback: Feedba
   return (
     <Card
       className={cn(
-        "h-full rounded-none border-1 border-white/5 bg-white min-h-[260px] md:min-h-[280px]",
-        // Slightly darker, deeper shadow for more emphasis
-        "shadow-[0_18px_36px_rgba(0,0,0,0.14),0_6px_16px_rgba(0,0,0,0.08)]",
+        "h-full rounded-none border-2 border-neutral-200 bg-white min-h-[260px] md:min-h-[280px]",
+        // Remove heavy shadow for a cleaner, flat look
+        "shadow-none",
         className
       )}
     >
@@ -49,11 +49,11 @@ export default function FeedbackCard({ feedback, className }: { feedback: Feedba
           ))}
         </div>
 
-        <p className="mt-4 flex-1 text-sm leading-relaxed text-neutral-700">{feedback.text}</p>
+        <p className="mt-4 flex-1 text-base sm:text-lg leading-relaxed text-neutral-700 font-playfair">{feedback.text}</p>
 
         <div className="mt-6">
-          <div className="text-sm font-semibold text-neutral-900">{feedback.name}</div>
-          <div className="text-xs text-neutral-500">{feedback.role}</div>
+          <div className="text-sm font-semibold text-neutral-900 font-bricolage">{feedback.name}</div>
+          <div className="text-xs text-neutral-500 font-bricolage">{feedback.role}</div>
         </div>
       </CardContent>
     </Card>

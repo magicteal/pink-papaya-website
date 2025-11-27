@@ -1,6 +1,5 @@
 import Container from "@/components/Container";
-import { interiorProjects } from "@/data/interior";
-import { notFound } from "next/navigation";
+import { getInteriorProjectById, readInteriorProjects } from "@/lib/interiorStore";
 import { Card } from "@/components/ui/card";
 import { Bilbo_Swash_Caps } from "next/font/google";
 import HeaderContent from "@/components/headerContent";
@@ -14,9 +13,17 @@ const bilboSwash = Bilbo_Swash_Caps({
   display: "swap",
 });
 
-export default function InteriorDetailPage({ params }) {
-  const project = interiorProjects.find((p) => p.id === params.id);
-  if (!project) return notFound();
+export default async function InteriorDetailPage({ params }: { params: { id: string } }) {
+  const project = await getInteriorProjectById(params.id);
+  if (!project) {
+    return (
+      <Container>
+        <div className="py-20 text-center">
+          <HeaderContent title="Project not found" align="center" showCta={false} />
+        </div>
+      </Container>
+    );
+  }
 
   return (
     <>
@@ -25,7 +32,7 @@ export default function InteriorDetailPage({ params }) {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start">
             {/* Left: Image */}
             <div className="lg:col-span-6">
-              <Card className="!rounded-none !border-0 overflow-hidden bg-neutral-200">
+              <Card className="rounded-10 !border-0 overflow-hidden bg-neutral-200">
                 <div className="relative w-full pt-[100%]">
                   <div
                     className="absolute inset-0 bg-cover bg-center"
@@ -79,11 +86,11 @@ export default function InteriorDetailPage({ params }) {
                 All Photos
               </h2>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 max-w-6xl mx-auto mt-10">
               {project.photos.slice(0, 6).map((src, i) => (
                 <Card
                   key={i}
-                  className="!rounded-none !border-0 overflow-hidden bg-neutral-200"
+                  className="rounded-10 !border-0 overflow-hidden bg-neutral-200"
                 >
                   <div className="relative w-full pt-[100%]">
                     <div
@@ -111,7 +118,7 @@ export default function InteriorDetailPage({ params }) {
               {project.beforeAfter.slice(0, 2).map((src, i) => (
                 <Card
                   key={i}
-                  className="!rounded-none !border-0 overflow-hidden bg-neutral-200 w-full max-w-[90vw] md:w-[648px] md:h-[443px]"
+                  className="rounded-10 !border-0 overflow-hidden bg-neutral-200 w-full max-w-[90vw] md:w-[648px] md:h-[443px]"
                 >
                   <div className="relative w-full pt-[68%] md:pt-0 md:h-full">
                     <div

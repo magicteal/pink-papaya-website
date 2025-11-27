@@ -1,11 +1,14 @@
 import Hero from "@/components/Hero";
 import Container from "@/components/Container";
-import StayCard from "@/components/StayCard";
 import HeaderContent from "@/components/headerContent";
 import { readStays } from "@/lib/staysStore";
+import { readLocations } from "@/lib/locationsStore";
+import StaysGridWithFilters from "@/components/StaysGridWithFilters";
 
 export default async function StysPage() {
   const stays = await readStays();
+  const locations = await readLocations();
+  
   return (
     <>
       <Hero
@@ -23,25 +26,12 @@ export default async function StysPage() {
             <HeaderContent
               align="center"
               showCta={false}
-              description="Comfort-forward rooms curated for style and ease."
+              title="Comfort-forward rooms curated for style and ease."
+              titleSize="sm"
             />
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
-            {stays.map((s) => (
-              <StayCard
-                key={s.id}
-                title={s.title}
-                imageUrl={s.imageUrl}
-                area={s.area}
-                bed={s.bed}
-                guests={s.guests}
-                href={`/stays/${s.id}`}
-                pricePerNight={s.pricePerNight}
-              />
-            ))}
-          </div>
+          <StaysGridWithFilters stays={stays} locations={locations} />
         </Container>
-        
       </section>
     </>
   );

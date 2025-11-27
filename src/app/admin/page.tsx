@@ -44,6 +44,33 @@ export default function AdminDashboardPage() {
             </p>
           </Link>
           <Link
+            href="/admin/interior"
+            className="block p-6 border rounded-lg hover:bg-neutral-50"
+          >
+            <h3 className="text-lg font-semibold">Manage Interior Projects</h3>
+            <p className="mt-2 text-sm text-neutral-600">
+              Add, edit, or delete interior design projects.
+            </p>
+          </Link>
+          <Link
+            href="/admin/interior-testimonials"
+            className="block p-6 border rounded-lg hover:bg-neutral-50"
+          >
+            <h3 className="text-lg font-semibold">Manage Interior Testimonials</h3>
+            <p className="mt-2 text-sm text-neutral-600">
+              Manage client testimonials for interior projects.
+            </p>
+          </Link>
+          <Link
+            href="/admin/locations"
+            className="block p-6 border rounded-lg hover:bg-neutral-50"
+          >
+            <h3 className="text-lg font-semibold">Manage Locations</h3>
+            <p className="mt-2 text-sm text-neutral-600">
+              Organize stays by location for filtering.
+            </p>
+          </Link>
+          <Link
             href="/admin/blog"
             className="block p-6 border rounded-lg hover:bg-neutral-50"
           >

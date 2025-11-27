@@ -11,7 +11,7 @@ export default function Footer() {
   const recent = posts.slice(0, 2);
 
   return (
-    <footer className="mt-16 border-t border-neutral-200/80 bg-white text-neutral-800">
+    <footer className="footer border-t border-neutral-400/80 bg-white text-neutral-800">
       <Container>
         <div className="py-8 md:py-12">
           <div className="flex items-center justify-center">
@@ -26,9 +26,6 @@ export default function Footer() {
           <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-6">
             {/* Brand & Contact */}
             <div className="md:col-span-4">
-              <h4 className="mb-2 text-sm font-semibold uppercase tracking-wide text-neutral-600">
-                Pink Papaya
-              </h4>
               <p className="mb-4 text-sm text-neutral-600">
                 A calm coastal stay with thoughtful interiors, small-batch
                 breakfasts, and quiet gardens. Book stays, explore our
@@ -61,7 +58,7 @@ export default function Footer() {
 
             {/* Quick Links */}
             <div className="md:col-span-2">
-              <h5 className="mb-3 text-sm font-semibold uppercase tracking-wide text-neutral-600">Explore</h5>
+              <h5 className="mb-3 text-sm font-semibold uppercase tracking-wide text-neutral-600 font-playfair">Explore</h5>
               <ul className="space-y-2 text-sm">
                 <li><Link className="hover:underline" href="/">Home</Link></li>
                 <li><Link className="hover:underline" href="/stays">Stays</Link></li>
@@ -76,7 +73,7 @@ export default function Footer() {
 
             {/* Popular stays (dynamic) */}
             <div className="md:col-span-3">
-              <h5 className="mb-3 text-sm font-semibold uppercase tracking-wide text-neutral-600">Popular Stays</h5>
+              <h5 className="mb-3 text-sm font-semibold uppercase tracking-wide text-neutral-600 font-playfair">Popular Stays</h5>
               <ul className="space-y-2 text-sm">
                 {popular.map((s) => (
                   <li key={s.id}>
@@ -88,7 +85,7 @@ export default function Footer() {
 
             {/* Recent posts + newsletter */}
             <div className="md:col-span-3">
-              <h5 className="mb-3 text-sm font-semibold uppercase tracking-wide text-neutral-600">From the Journal</h5>
+              <h5 className="mb-3 text-sm font-semibold uppercase tracking-wide text-neutral-600 font-playfair">From the Journal</h5>
               <ul className="space-y-2 text-sm mb-4">
                 {recent.map((p) => (
                   <li key={p.id}>
@@ -121,12 +118,11 @@ export default function Footer() {
         <hr className="border-neutral-200" />
 
         <div className="flex flex-col items-center justify-between gap-3 py-6 text-xs text-neutral-500 md:flex-row">
-          <div>© {new Date().getFullYear()} Pink Papaya — All rights reserved.</div>
+          <div>© {new Date().getFullYear()} Pink Papaya Stays. All rights reserved</div>
           <div className="flex items-center gap-4">
             <Link className="hover:underline" href="/privacy-policy">Privacy Policy</Link>
-            <Link className="hover:underline" href="/terms-and-conditions">Terms</Link>
+            <Link className="hover:underline" href="/terms-and-conditions">Terms and Conditions</Link>
             <span className="text-neutral-400">·</span>
-            <div>Designed with care • Malibu, CA</div>
           </div>
         </div>
       </Container>

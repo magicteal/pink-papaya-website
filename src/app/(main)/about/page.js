@@ -47,7 +47,7 @@ export default function AboutPage() {
             ].map((member) => (
               <Card
                 key={member.name}
-                className="!rounded-none !border-0 !shadow-none"
+                className="rounded-10 !border-0 !shadow-none"
               >
                 <div
                   className="h-64 w-full bg-neutral-200"

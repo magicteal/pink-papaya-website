@@ -11,7 +11,7 @@ const badgeVariants = cva(
       variant: {
         text:
           // simple small blue text badge (force override bg/text if parent sets them)
-          "!border-0 !bg-transparent !text-[#0F677D] text-xs font-medium p-0 !rounded-none",
+          "!border-0 !bg-transparent !text-[#0F677D] text-xs font-medium p-0 rounded-10",
       },
     },
     defaultVariants: {

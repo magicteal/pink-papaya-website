@@ -12,11 +12,9 @@ import { usePathname } from "next/navigation";
 export default function Navbar({ className }: { className?: string }) {
   const items = [
     { href: "/", label: "Home" },
-    { href: "/stays", label: "Explore" },
-    { href: "/interior", label: "Interior" },
+    { href: "/stays", label: "Explore Stays" },
+    { href: "#", label: "Become a host" },
     { href: "/blog", label: "Blog" },
-    { href: "/about", label: "About us" },
-    { href: "/contact", label: "Contact us" },
   ];
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -43,7 +41,7 @@ export default function Navbar({ className }: { className?: string }) {
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
+  const [isWide, setIsWide] = useState(false);
   // hamburger line refs and gsap timeline
   const line1Ref = useRef<HTMLSpanElement | null>(null);
   const line2Ref = useRef<HTMLSpanElement | null>(null);
@@ -51,9 +49,17 @@ export default function Navbar({ className }: { className?: string }) {
   const tlRef = useRef<any>(null);
   const navbarWARef = useRef<HTMLAnchorElement | null>(null);
   const floatWARef = useRef<HTMLAnchorElement | null>(null);
-  const panelRef = useRef<HTMLDivElement | null>(null);
-  const overlayRef = useRef<HTMLDivElement | null>(null);
-  const panelTlRef = useRef<any>(null);
+  
+  const [contactOpen, setContactOpen] = useState(false);
+  const contactBtnRef = useRef<HTMLButtonElement | null>(null);
+  const contactRef = useRef<HTMLDivElement | null>(null);
+  const contactTlRef = useRef<any>(null);
+  const menuBtnRef = useRef<HTMLButtonElement | null>(null);
+  const desktopMenuRef = useRef<HTMLDivElement | null>(null);
+  const desktopMenuTlRef = useRef<any>(null);
+  // Refs to hold latest open state for stable global listeners
+  const contactOpenRef = useRef<boolean>(contactOpen);
+  const menuOpenRef = useRef<boolean>(menuOpen);
 
   useEffect(() => {
     const l1 = line1Ref.current;
@@ -78,6 +84,19 @@ export default function Navbar({ className }: { className?: string }) {
     if (menuOpen) tlRef.current.play();
     else tlRef.current.reverse();
   }, [menuOpen]);
+
+  // track whether viewport is wider than 777px so we can hide
+  // the top nav links from the desktop hamburger dropdown
+  // when the screen is wide (above 777px)
+  useEffect(() => {
+    function updateWide() {
+      setIsWide(typeof window !== "undefined" ? window.innerWidth > 777 : false);
+    }
+
+    updateWide();
+    window.addEventListener("resize", updateWide, { passive: true });
+    return () => window.removeEventListener("resize", updateWide);
+  }, []);
 
   // animate WhatsApp float from navbar icon to bottom-right
   useEffect(() => {
@@ -130,32 +149,130 @@ export default function Navbar({ className }: { className?: string }) {
     }
   }, [scrolled]);
 
-  // panel (mobile right menu) animation setup
-  useEffect(() => {
-    const panel = panelRef.current;
-    const overlay = overlayRef.current;
-    if (!panel || !overlay) return;
+  // right-side mobile panel removed — no setup required
+  useEffect(() => {}, []);
 
-    // ensure starting state
-    gsap.set(panel, { x: '100%' });
-    gsap.set(overlay, { autoAlpha: 0, pointerEvents: 'none' });
+  // right-side mobile panel removed — nothing to play/reverse
+  useEffect(() => {}, [menuOpen]);
+
+  // animate desktop dropdown (hamburger desktop menu) with GSAP
+  useEffect(() => {
+    const el = desktopMenuRef.current;
+    if (!el) return;
 
     const tl = gsap.timeline({ paused: true });
-    tl.to(overlay, { autoAlpha: 1, duration: 0.25, ease: 'power1.out' }, 0);
-    tl.to(panel, { x: '0%', duration: 0.45, ease: 'power3.out' }, 0);
-    panelTlRef.current = tl;
+    gsap.set(el, { autoAlpha: 0, y: -8, scale: 0.98, pointerEvents: 'none' });
+    tl.to(el, {
+      autoAlpha: 1,
+      y: 0,
+      scale: 1,
+      pointerEvents: 'auto',
+      duration: 0.28,
+      ease: 'power2.out',
+    });
+    desktopMenuTlRef.current = tl;
 
     return () => {
       tl.kill();
-      panelTlRef.current = null;
+      desktopMenuTlRef.current = null;
     };
   }, []);
 
   useEffect(() => {
-    if (!panelTlRef.current) return;
-    if (menuOpen) panelTlRef.current.play();
-    else panelTlRef.current.reverse();
+    if (!desktopMenuTlRef.current) return;
+    if (menuOpen) desktopMenuTlRef.current.play();
+    else desktopMenuTlRef.current.reverse();
   }, [menuOpen]);
+
+  // Close contact dropdown when menu opens or on navigation
+  useEffect(() => {
+    if (menuOpen) setContactOpen(false);
+  }, [menuOpen]);
+
+  // Close dropdowns on outside click or Escape using refs so the effect
+  // registration is stable across renders (no changing dependency array).
+  useEffect(() => {
+    // keep refs updated
+    contactOpenRef.current = contactOpen;
+    menuOpenRef.current = menuOpen;
+  }, [contactOpen, menuOpen]);
+
+  useEffect(() => {
+    function onDown(e: MouseEvent) {
+      const t = e.target as Node | null;
+
+      // contact dropdown: close when clicking outside contact dialog and its button
+      if (contactOpenRef.current) {
+        if (
+          contactRef.current &&
+          contactBtnRef.current &&
+          t &&
+          !contactRef.current.contains(t) &&
+          !contactBtnRef.current.contains(t)
+        ) {
+          setContactOpen(false);
+        }
+      }
+
+      // desktop hamburger dropdown: close when clicking outside menu and hamburger button
+      if (menuOpenRef.current) {
+        if (
+          desktopMenuRef.current &&
+          menuBtnRef.current &&
+          t &&
+          !desktopMenuRef.current.contains(t) &&
+          !menuBtnRef.current.contains(t)
+        ) {
+          setMenuOpen(false);
+        }
+      }
+    }
+
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        if (contactOpenRef.current) setContactOpen(false);
+        if (menuOpenRef.current) setMenuOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, []);
+
+  // contact dropdown animation setup
+  useEffect(() => {
+    const el = contactRef.current;
+    if (!el) return;
+
+    // create timeline and set initial hidden state
+    const tl = gsap.timeline({ paused: true });
+    gsap.set(el, { autoAlpha: 0, y: -8, scale: 0.98, pointerEvents: 'none' });
+    tl.to(el, {
+      autoAlpha: 1,
+      y: 0,
+      scale: 1,
+      pointerEvents: 'auto',
+      duration: 0.28,
+      ease: 'power2.out',
+    });
+    contactTlRef.current = tl;
+
+    return () => {
+      tl.kill();
+      contactTlRef.current = null;
+    };
+  }, []);
+
+  // play/reverse contact dropdown animation when toggled
+  useEffect(() => {
+    if (!contactTlRef.current) return;
+    if (contactOpen) contactTlRef.current.play();
+    else contactTlRef.current.reverse();
+  }, [contactOpen]);
 
   return (
     <Container
@@ -172,6 +289,7 @@ export default function Navbar({ className }: { className?: string }) {
               "flex items-center justify-center focus:outline-none",
               isLightPage ? "text-neutral-900" : "text-white"
             )}
+            ref={menuBtnRef}
             aria-label="Open menu"
             onClick={() => setMenuOpen((v) => !v)}
           >
@@ -185,32 +303,39 @@ export default function Navbar({ className }: { className?: string }) {
 
           {/* Desktop dropdown: show on md+ when hamburger clicked */}
           <div
+            ref={desktopMenuRef}
             className={cn(
-              "absolute left-0 top-full mt-2 w-64 rounded-lg shadow-lg border p-4 bg-white text-neutral-900 hidden",
-              menuOpen && "md:block"
+              "absolute left-4 top-full mt-2 w-64 rounded-10 shadow-lg border border-white/20 bg-white/5 backdrop-blur-md bg-clip-padding text-white z-50 overflow-hidden",
+              menuOpen ? "md:block" : "hidden"
             )}
+            style={{ backgroundColor: "rgba(255,255,255,0.03)", backdropFilter: "blur(8px)" }}
           >
-            <nav className="flex flex-col gap-3 text-sm">
-              <a href="/about" onClick={() => setMenuOpen(false)} className="hover:underline">About Us</a>
-              <a href="/faq" onClick={() => setMenuOpen(false)} className="hover:underline">Frequently Asked Questions</a>
-              <a href="/cancellation-and-refund-policy" onClick={() => setMenuOpen(false)} className="hover:underline">Cancellation and Refund Policy</a>
-              <a href="/contact" onClick={() => setMenuOpen(false)} className="hover:underline">Contact Us</a>
+            <nav className="flex flex-col text-base">
+              {(!isWide ? items : []).map((it) => (
+                <Link
+                  key={it.href}
+                  href={it.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="px-4 py-3 transform transition-transform duration-200 ease-out hover:scale-105 focus-visible:scale-105"
+                >
+                  {it.label}
+                </Link>
+              ))}
+
+              <div className="border-t border-white/10" />
+
+              <a href="/faq" onClick={() => setMenuOpen(false)} className="px-4 py-3 transform transition-transform duration-200 ease-out hover:scale-105 focus-visible:scale-105">Frequently Asked Questions</a>
+              <div className="border-t border-white/10" />
+              <a href="/cancellation-and-refund-policy" onClick={() => setMenuOpen(false)} className="px-4 py-3 transform transition-transform duration-200 ease-out hover:scale-105 focus-visible:scale-105">Cancellation Policy</a>
+              <div className="border-t border-white/10" />
+              <a href="/terms-and-conditions" onClick={() => setMenuOpen(false)} className="px-4 py-3 transform transition-transform duration-200 ease-out hover:scale-105 focus-visible:scale-105">Terms &amp; Conditions</a>
             </nav>
-            <hr className="my-3 border-t" />
-            <div className="text-sm">
-              <div className="font-medium mb-2">Get in Touch</div>
-              <div className="flex flex-col gap-1 text-sm">
-                <a href="tel:+918799915100" onClick={() => setMenuOpen(false)} className="hover:underline">+91 87999 15100</a>
-                <a href="tel:+918799914701" onClick={() => setMenuOpen(false)} className="hover:underline">+91 87999 14701</a>
-                <a href="mailto:reservations@tisyastays.com" onClick={() => setMenuOpen(false)} className="hover:underline">reservations@tisyastays.com</a>
-              </div>
-            </div>
           </div>
         </div>
 
         {/* Center: placeholder for spacing; nav items shown on md+ centered */}
         <div className="flex-1 flex justify-center">
-          <nav className="hidden md:flex justify-center items-center gap-6 text-sm font-bricolage">
+          <nav className="hidden md:flex justify-center items-center gap-6 text-base font-bricolage">
             {items.map((it) => (
               <Link
                 key={it.href}
@@ -225,7 +350,7 @@ export default function Navbar({ className }: { className?: string }) {
         </div>
 
         {/* Right: WhatsApp icon + CTA */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 relative">
           <Link
             href="https://wa.me/0000000000"
             aria-label="Chat on WhatsApp"
@@ -236,9 +361,43 @@ export default function Navbar({ className }: { className?: string }) {
           >
             <WhatsAppIcon className={cn("h-6 w-6", iconColor)} />
           </Link>
-          <Button className="hidden md:inline-flex" size="sm" variant={isLightPage ? "outlineBlack" : "outlineWhite"}>
-            Get in touch
-          </Button>
+
+          {/* Desktop CTA that toggles a dropdown matching the app design */}
+          <div className="relative">
+            <Button
+              ref={contactBtnRef}
+              className="hidden md:inline-flex"
+              size="sm"
+              variant={isLightPage ? "outlineBlack" : "outlineWhite"}
+              aria-expanded={contactOpen}
+              aria-haspopup="true"
+              onClick={() => setContactOpen((v) => !v)}
+            >
+              Get in touch
+            </Button>
+
+            <div
+              ref={contactRef}
+              role="dialog"
+              aria-label="Get in touch"
+              style={{ backgroundColor: "rgba(255,255,255,0.03)", backdropFilter: "blur(8px)" }}
+              className={cn(
+                "absolute right-0 mt-2 w-64 rounded-10 shadow-lg border border-white/20 bg-white/5 backdrop-blur-md bg-clip-padding text-white z-50 overflow-hidden",
+                contactOpen ? "block" : "hidden"
+              )}
+            >
+              
+              <div className="border-t border-white/10" />
+              <ul className="divide-y divide-white/10">
+                <li className="px-4 py-3 text-sm transform transition-transform duration-200 ease-out hover:scale-105 focus-visible:scale-105">
+                  <a href="tel:+919226591522">+91 9226591522</a>
+                </li>
+                <li className="px-4 py-3 text-sm transform transition-transform duration-200 ease-out hover:scale-105 focus-visible:scale-105">
+                  <a href="mailto:reservations@pinkpapayastays.com">reservations@pinkpapayastays.com</a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </Container>
       {/* Floating WhatsApp button when user scrolls */}
@@ -256,33 +415,7 @@ export default function Navbar({ className }: { className?: string }) {
         <WhatsAppIcon className="h-6 w-6 text-white" />
       </a>
       {/* Mobile right-side panel + overlay (animated via GSAP) */}
-      <div ref={overlayRef} className="md:hidden fixed inset-0 z-40 bg-black/40 pointer-events-none" onClick={() => setMenuOpen(false)} />
-      <div ref={panelRef} className="md:hidden fixed top-0 right-0 h-full w-[80%] max-w-sm bg-white z-50 shadow-lg">
-        <div className="p-4">
-          <div className="flex items-center justify-between">
-            <div className="text-lg font-medium">Menu</div>
-            <button aria-label="Close menu" className="p-2" onClick={() => setMenuOpen(false)}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M6 6L18 18M6 18L18 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-          </div>
-
-          <nav className="mt-6 flex flex-col gap-4">
-            {items.concat([{ href: "/about", label: "About Us" }]).map((it) => (
-              <Link
-                key={it.href + it.label}
-                href={it.href}
-                onClick={() => setMenuOpen(false)}
-                className="text-black group inline-flex flex-col items-start"
-              >
-                <span className="relative z-10">{it.label}</span>
-                <span className="block h-[2px] bg-black w-0 transition-[width] duration-200 ease-out origin-right group-hover:w-full mt-1" />
-              </Link>
-            ))}
-          </nav>
-        </div>
-      </div>
+      {/* Right-side mobile panel removed; desktop dropdown now contains all options */}
     </Container>
   );
 }

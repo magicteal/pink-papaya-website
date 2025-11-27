@@ -195,7 +195,7 @@ export default async function StayDetailPage({ params }) {
                             <Link href="/stays">All rooms</Link>
                         </Button>
                     </div>
-                    <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
+                    <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 max-w-7xl mx-auto">
                         {(await readStays())
                             .filter((s) => s.id !== stay.id)
                             .slice(0, 2)
@@ -204,11 +204,14 @@ export default async function StayDetailPage({ params }) {
                                     key={s.id}
                                     title={s.title}
                                     imageUrl={s.imageUrl}
+                                    images={s.images}
                                     area={s.area}
                                     bed={s.bed}
                                     guests={s.guests}
                                     href={`/stays/${s.id}`}
                                     pricePerNight={s.pricePerNight}
+                                    location={s.location}
+                                    amenities={s.amenities}
                                 />
                             ))}
                     </div>

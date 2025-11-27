@@ -6,6 +6,8 @@
     "area": "550 sq. ft.",
     "bed": "1 King Bed",
     "guests": "2 Guests",
+    "category": "walk-to-beach",
+    "location": "Anjuna, Goa",
     "description": "A bright, plant-lined suite opening to the garden courtyard.",
     "pricePerNight": "$160/night",
     "images": [
@@ -34,6 +36,8 @@
     "area": "550 sq. ft.",
     "bed": "1 King Bed",
     "guests": "2 Guests",
+    "category": "expansive-views",
+    "location": "Calangute, Goa",
     "description": "Cozy room with views of the central courtyard and greenery.",
     "pricePerNight": "$140/night",
     "images": [
@@ -62,6 +66,8 @@
     "area": "550 sq. ft.",
     "bed": "1 King Bed",
     "guests": "2 Guests",
+    "category": "luxury-villas",
+    "location": "Candolim, Goa",
     "description": "Airy loft with morning light and warm wooden textures.",
     "pricePerNight": "$170/night",
     "images": [
@@ -90,6 +96,8 @@
     "area": "550 sq. ft.",
     "bed": "1 King Bed",
     "guests": "2 Guests",
+    "category": "romantic-jacuzzi-escapes",
+    "location": "Baga, Goa",
     "description": "Standalone villa tucked among palms for extra privacy.",
     "pricePerNight": "$220/night",
     "images": [

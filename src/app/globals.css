@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;900&display=swap');
 @import "tailwindcss";
 
 .font-playfair {
@@ -9,4 +10,61 @@
   font-family: var(--font-bricolage), sans-serif;
 }
 
+/* Load Bricolage Grotesque from public assets and expose as a CSS variable */
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url('/font-files/BricolageGrotesque.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 html, body, :root { height: 100%; }
+
+/* Design token for 10px rounding used across components */
+:root {
+  --rounded-10: 10px;
+  --font-bricolage: "Bricolage Grotesque";
+  --font-playfair: 'Playfair Display';
+}
+
+/* Utility class for specific overrides */
+.rounded-10 {
+  border-radius: var(--rounded-10) !important;
+}
+
+/* Apply 10px rounding to common interactive and rectangular UI elements.
+   Use !important to ensure Tailwind utility classes or component styles do not
+   unintentionally remove the rounding. If you prefer Tailwind utilities,
+   replace with `rounded-[10px]` in component classNames instead. */
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+[role="button"],
+select,
+textarea,
+button *,
+select *,
+textarea *,
+.btn,
+.button,
+.card,
+.ui-card,
+.badge,
+.carousel,
+.stay-card,
+.stay-card *,
+.feedback-card,
+.container,
+.navbar,
+.footer {
+  border-radius: var(--rounded-10) !important;
+  font-family: var(--font-bricolage), system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+/* Also override any Tailwind `rounded-*` utility classes so all rounded
+   classes resolve to the design token `--rounded-10` */
+[class*="rounded"] {
+  border-radius: var(--rounded-10) !important;
+}

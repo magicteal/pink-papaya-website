@@ -11,6 +11,16 @@ type TitleSize = "sm" | "md" | "lg";
 export interface HeaderContentProps {
   title: string;
   description?: string;
+  /**
+   * Control description padding via Tailwind utility classes.
+   * Example: { left: 'pl-4', right: 'pr-2', top: 'pt-2', bottom: 'pb-1' }
+   */
+  descriptionPadding?: {
+    left?: string;
+    right?: string;
+    top?: string;
+    bottom?: string;
+  };
   ctaLabel?: string;
   onCtaClick?: () => void;
   badgeText?: string;
@@ -37,6 +47,7 @@ export interface HeaderContentProps {
 export default function HeroContent({
   title,
   description,
+  descriptionPadding,
   ctaLabel = "Explore",
   onCtaClick,
   badgeText,
@@ -94,6 +105,10 @@ export default function HeroContent({
   const badgeCls =
     tone === "dark" ? "bg-white/90 text-neutral-900" : "bg-black/80 text-white";
 
+  const descPad = descriptionPadding
+    ? `${descriptionPadding.top ?? ""} ${descriptionPadding.right ?? ""} ${descriptionPadding.bottom ?? ""} ${descriptionPadding.left ?? ""}`.trim()
+    : "";
+
   return (
     <div
       className={cn(
@@ -122,6 +137,7 @@ export default function HeroContent({
           className={cn(
             "mt-3 sm:mt-4 max-w-prose text-sm sm:text-base md:text-lg font-bricolage",
             subTextColor,
+            descPad,
             descriptionClass
           )}
         >
