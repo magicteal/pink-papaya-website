@@ -584,7 +584,7 @@ export default function AdminStaysPage() {
                 stays.map((s) => (
                   <Card key={s.id} className="rounded-[14px] overflow-hidden border border-neutral-200">
                     <div className="relative w-full pt-[66%] bg-neutral-200">
-                      <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${s.imageUrl})` }} />
+                      <div className="absolute inset-0 bg-cover bg-center" data-bg={`url(${s.imageUrl})`} />
                     </div>
                     <div className="border-t border-neutral-200 p-4">
                       <div className="flex items-start justify-between gap-3">

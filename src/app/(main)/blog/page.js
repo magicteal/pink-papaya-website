@@ -10,10 +10,10 @@ function BlogPostCard({ post }) {
   return (
     <Link href={`/blog/${post.id}`} className="group block">
       <Card className="rounded-10 !border-0 overflow-hidden bg-neutral-200">
-        <div className="relative w-full pt-[65%]">
+          <div className="relative w-full pt-[65%]">
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${post.imageUrl})` }}
+            data-bg={`url(${post.imageUrl})`}
           />
         </div>
       </Card>

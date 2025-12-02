@@ -305,9 +305,9 @@ export default function AdminBlogPage() {
                   <Card key={p.id} className="rounded-10 overflow-hidden">
                     <div className="relative w-full pt-[60%] bg-neutral-200">
                       <div
-                        className="absolute inset-0 bg-cover bg-center"
-                        style={{ backgroundImage: `url(${p.imageUrl})` }}
-                      />
+                          className="absolute inset-0 bg-cover bg-center"
+                          data-bg={`url(${p.imageUrl})`}
+                        />
                     </div>
                     <CardContent>
                       <div className="font-medium">{p.title}</div>

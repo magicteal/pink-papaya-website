@@ -50,12 +50,8 @@ export default function AboutPage() {
                 className="rounded-10 !border-0 !shadow-none"
               >
                 <div
-                  className="h-64 w-full bg-neutral-200"
-                  style={{
-                    backgroundImage: `url(${member.imageUrl})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                  }}
+                  className="h-64 w-full bg-neutral-200 bg-cover bg-center"
+                  data-bg={`url(${member.imageUrl})`}
                 />
                 <CardContent className="px-0 py-3">
                   <h3 className="text-base font-semibold text-neutral-900">

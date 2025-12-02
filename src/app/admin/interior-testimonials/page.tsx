@@ -391,7 +391,7 @@ export default function AdminInteriorTestimonialsPage() {
                     <div className="relative w-full pt-[100%] bg-neutral-200">
                       <div
                         className="absolute inset-0 bg-cover bg-center"
-                        style={{ backgroundImage: `url(${f.avatar})` }}
+                        data-bg={`url(${f.avatar})`}
                       />
                     </div>
                     <div className="border-t border-neutral-200 p-4">

@@ -32,7 +32,7 @@ export default async function BlogPostPage({ params }) {
         <div className="relative w-full pt-[50%] bg-neutral-200 rounded-none overflow-hidden">
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${post.imageUrl})` }}
+            data-bg={`url(${post.imageUrl})`}
           />
         </div>
       </Container>

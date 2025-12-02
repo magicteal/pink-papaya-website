@@ -16,8 +16,8 @@ export default function ImageCarousel({ images, className }: { images: string[];
               <Card className="overflow-hidden">
                 <CardContent className="relative p-0">
                   <div
-                    className="aspect-[4/3] w-full bg-neutral-200"
-                    style={{ backgroundImage: `url(${src})`, backgroundSize: "cover", backgroundPosition: "center" }}
+                    className="aspect-[4/3] w-full bg-neutral-200 bg-cover bg-center"
+                    data-bg={`url(${src})`}
                     aria-label={`Image ${i + 1}`}
                   />
                 </CardContent>

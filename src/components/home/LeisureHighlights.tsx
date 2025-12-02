@@ -47,7 +47,7 @@ export default function LeisureHighlights() {
                   <div className="relative w-full pt-[85%]">
                     <div
                       className="absolute inset-0 bg-cover bg-center"
-                      style={{ backgroundImage: `url(${item.img})` }}
+                      data-bg={`url(${item.img})`}
                     />
                   </div>
                 </Card>

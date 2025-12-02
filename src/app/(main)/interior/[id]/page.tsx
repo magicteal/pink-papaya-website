@@ -27,23 +27,23 @@ export default async function InteriorDetailPage({ params }: { params: { id: str
 
   return (
     <>
-      <section className="py-12 md:py-16">
+      <section className="py-16 md:py-20 mt-10">
         <Container>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-12 lg:gap-20 items-start">
             {/* Left: Image */}
-            <div className="lg:col-span-6">
+            <div className="lg:col-span-6 pr-4 md:pr-6 lg:pr-8">
               <Card className="rounded-10 !border-0 overflow-hidden bg-neutral-200">
                 <div className="relative w-full pt-[100%]">
                   <div
                     className="absolute inset-0 bg-cover bg-center"
-                    style={{ backgroundImage: `url(${project.imageUrl})` }}
+                    data-bg={`url(${project.imageUrl})`}
                   />
                 </div>
               </Card>
             </div>
 
             {/* Right: Badge, title, tagline, description */}
-            <div className="lg:col-span-6">
+            <div className="lg:col-span-6 pl-4 md:pl-6 lg:pl-8">
               <div className="flex flex-col gap-4">
                 {project.badge ? (
                   <div>
@@ -79,7 +79,7 @@ export default async function InteriorDetailPage({ params }: { params: { id: str
 
       {/* All Photos grid 2 by 3 */}
       {project.photos?.length ? (
-        <section className="py-10 md:py-14">
+        <section className="py-12 md:py-16">
           <Container>
             <div className="mb-6 md:mb-8 ">
               <h2 className="font-playfair text-center text-2xl md:text-3xl text-neutral-900">
@@ -95,7 +95,7 @@ export default async function InteriorDetailPage({ params }: { params: { id: str
                   <div className="relative w-full pt-[100%]">
                     <div
                       className="absolute inset-0 bg-cover bg-center"
-                      style={{ backgroundImage: `url(${src})` }}
+                      data-bg={`url(${src})`}
                     />
                   </div>
                 </Card>
@@ -107,7 +107,7 @@ export default async function InteriorDetailPage({ params }: { params: { id: str
 
       {/* Before and After */}
       {project.beforeAfter?.length ? (
-        <section className="py-10 md:py-16">
+        <section className="py-12 md:py-16">
           <Container>
             <div className="mb-8 md:mb-12 ">
               <h2 className="font-playfair text-center text-2xl md:text-3xl text-neutral-900">
@@ -123,7 +123,7 @@ export default async function InteriorDetailPage({ params }: { params: { id: str
                   <div className="relative w-full pt-[68%] md:pt-0 md:h-full">
                     <div
                       className="absolute inset-0 bg-cover bg-center"
-                      style={{ backgroundImage: `url(${src})` }}
+                      data-bg={`url(${src})`}
                     />
                   </div>
                 </Card>

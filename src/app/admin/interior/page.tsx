@@ -569,7 +569,7 @@ export default function AdminInteriorPage() {
                     <div className="relative w-full pt-[140%] bg-neutral-200">
                       <div
                         className="absolute inset-0 bg-cover bg-center"
-                        style={{ backgroundImage: `url(${p.imageUrl})` }}
+                        data-bg={`url(${p.imageUrl})`}
                       />
                     </div>
                     <div className="border-t border-neutral-200 p-4">

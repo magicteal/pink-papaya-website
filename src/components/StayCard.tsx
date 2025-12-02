@@ -83,7 +83,7 @@ export default function StayCard({
                   <div className="relative w-full" style={{ paddingTop: "66%" }}>
                     <div
                       className="absolute inset-0 bg-cover bg-center"
-                      style={{ backgroundImage: `url(${src})` }}
+                      data-bg={`url(${src})`}
                     />
                   </div>
                 </CarouselItem>
@@ -105,7 +105,7 @@ export default function StayCard({
         <div className="relative w-full bg-neutral-200" style={{ paddingTop: "66%" }}>
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${imageUrl})` }}
+            data-bg={`url(${imageUrl})`}
           />
         </div>
       )}

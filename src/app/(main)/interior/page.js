@@ -37,7 +37,7 @@ export default async function InteriorPage() {
                   <div className="relative w-full pt-[140%]">
                     <div
                       className="absolute inset-0 bg-cover bg-center"
-                      style={{ backgroundImage: `url(${p.imageUrl})` }}
+                      data-bg={`url(${p.imageUrl})`}
                     />
                   </div>
                 </Card>
@@ -87,7 +87,7 @@ export default async function InteriorPage() {
                 <div className="relative w-full pt-[100%]">
                   <div
                     className="absolute inset-0 bg-cover bg-center"
-                    style={{ backgroundImage: `url(${interiorProjects[0]?.imageUrl || '/images/hotel.svg'})` }}
+                    data-bg={`url(${interiorProjects[0]?.imageUrl || '/images/hotel.svg'})`}
                   />
                 </div>
               </Card>
@@ -111,7 +111,8 @@ export default async function InteriorPage() {
             <div className="relative w-full pt-[56.25%] bg-neutral-200">
               <video
                 className="absolute inset-0 w-full h-full object-cover"
-                src="/uploads/inspiration.mp4"
+                data-src="/uploads/inspiration.mp4"
+                preload="none"
                 controls
                 playsInline
               >
@@ -139,7 +140,7 @@ export default async function InteriorPage() {
                 <div className="relative w-full pt-[100%] bg-neutral-200">
                   <div
                     className="absolute inset-0 bg-cover bg-center"
-                    style={{ backgroundImage: `url(${f.avatar})` }}
+                    data-bg={`url(${f.avatar})`}
                   />
                 </div>
                 <CardContent className="bg-neutral-50">

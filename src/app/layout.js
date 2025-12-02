@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono, Playfair_Display, Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
+import LazyMediaObserver from "@/components/LazyMediaObserver";
 // ClientLoaderGate removed; render children directly
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -13,6 +14,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} ${bricolage.variable} antialiased`}>
+        <LazyMediaObserver />
         {children}
       </body>
     </html>

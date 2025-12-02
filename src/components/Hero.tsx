@@ -29,7 +29,7 @@ export default function Hero({
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 -z-10 bg-cover bg-center opacity-70"
-          style={{ backgroundImage: `url(${backgroundUrl})` }}
+          data-bg={`url(${backgroundUrl})`}
         />
       ) : backgroundColor ? (
         <div

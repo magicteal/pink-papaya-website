@@ -20,6 +20,7 @@ export default function Footer() {
               alt="Pink Papaya"
               width={160}
               height={32}
+              loading="lazy"
             />
           </div>
 
