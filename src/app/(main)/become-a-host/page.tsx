@@ -104,7 +104,7 @@ export default function BecomeHostPage() {
                     Get Started Today
                   </h2>
                   <p className="text-neutral-600 font-bricolage mb-6">
-                    Fill in your details and we'll reach out within 24 hours
+                    Fill in your details and we will reach out within 24 hours
                   </p>
                   <form onSubmit={handleSubmit} className="space-y-5">
                     <div>
@@ -268,12 +268,12 @@ export default function BecomeHostPage() {
       <section className="py-16 md:py-24 bg-neutral-50">
         <Container>
           <Reveal>
-            <div className="text-center mb-12 md:mb-16">
+              <div className="text-center mb-12 md:mb-16">
               <h2 className="font-playfair text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-900">
                 Why Host With Us
               </h2>
               <p className="mt-4 text-lg md:text-xl text-neutral-600 font-bricolage max-w-2xl mx-auto">
-                We don't just list properties. We create experiences that guests
+                We do not just list properties. We create experiences that guests
                 remember and return for.
               </p>
             </div>
@@ -417,7 +417,7 @@ export default function BecomeHostPage() {
                     ))}
                   </div>
                   <p className="text-neutral-700 font-bricolage leading-relaxed mb-4 text-sm sm:text-base">
-                    "{review.review}"
+                    <q>{review.review}</q>
                   </p>
                   <div className="border-t border-neutral-200 pt-4">
                     <p className="font-playfair font-semibold text-neutral-900 text-sm sm:text-base">

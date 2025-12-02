@@ -324,11 +324,11 @@ export default function Navbar({ className }: { className?: string }) {
 
               <div className="border-t border-white/10" />
 
-              <a href="/#faq" onClick={() => setMenuOpen(false)} className="px-4 py-3 transform transition-transform duration-200 ease-out hover:scale-105 focus-visible:scale-105">Frequently Asked Questions</a>
+              <Link href="/#faq" onClick={() => setMenuOpen(false)} className="px-4 py-3 transform transition-transform duration-200 ease-out hover:scale-105 focus-visible:scale-105">Frequently Asked Questions</Link>
               <div className="border-t border-white/10" />
-              <a href="/cancellation-and-refund-policy" onClick={() => setMenuOpen(false)} className="px-4 py-3 transform transition-transform duration-200 ease-out hover:scale-105 focus-visible:scale-105">Cancellation Policy</a>
+              <Link href="/cancellation-and-refund-policy" onClick={() => setMenuOpen(false)} className="px-4 py-3 transform transition-transform duration-200 ease-out hover:scale-105 focus-visible:scale-105">Cancellation Policy</Link>
               <div className="border-t border-white/10" />
-              <a href="/terms-and-conditions" onClick={() => setMenuOpen(false)} className="px-4 py-3 transform transition-transform duration-200 ease-out hover:scale-105 focus-visible:scale-105">Terms &amp; Conditions</a>
+              <Link href="/terms-and-conditions" onClick={() => setMenuOpen(false)} className="px-4 py-3 transform transition-transform duration-200 ease-out hover:scale-105 focus-visible:scale-105">Terms &amp; Conditions</Link>
             </nav>
           </div>
         </div>
