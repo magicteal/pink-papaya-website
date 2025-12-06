@@ -25,7 +25,7 @@ export default function RoomsAndStay() {
   const active = representativeFor(categories[activeIndex].id);
 
   return (
-    <section className="py-60">
+    <section className="py-30">
       <Container>
         <HeaderContent
           align="left"

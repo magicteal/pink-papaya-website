@@ -25,7 +25,7 @@ export default function LeisureHighlights() {
   ];
 
   return (
-    <section className="py-30 md:py-50">
+    <section className="py-30">
       <Container>
         <Reveal>
           <HeaderContent
@@ -51,11 +51,11 @@ export default function LeisureHighlights() {
                     />
                   </div>
                 </Card>
-                <div className="mt-4">
+                <div className="mt-6">
                   <h4 className="font-playfair text-base md:text-lg font-medium text-neutral-900">
                     {item.title}
                   </h4>
-                  <p className="mt-1.5 text-xs md:text-sm text-neutral-700 font-bricolage">
+                  <p className="mt-1.5 text-sm md:text-lg text-neutral-700 font-bricolage">
                     {item.desc}
                   </p>
                 </div>
