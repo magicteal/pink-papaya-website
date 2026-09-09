@@ -100,17 +100,23 @@ export const cmsPageConfigs: CmsPageConfig[] = [
         description: "Heading and description for the Rooms & Stay section",
         fields: [
           {
+            key: "label",
+            label: "Label (Tag above heading)",
+            type: "text",
+            defaultValue: "Rooms & Stay",
+          },
+          {
             key: "heading",
             label: "Heading",
             type: "text",
             required: true,
-            defaultValue: "Rooms & Stay",
+            defaultValue: "Experience the comfort.",
           },
           {
             key: "description",
             label: "Description",
             type: "textarea",
-            defaultValue: "Experience the comfort.",
+            defaultValue: "",
           },
           {
             key: "title1",
@@ -126,6 +132,7 @@ export const cmsPageConfigs: CmsPageConfig[] = [
             key: "image1",
             label: "Image 1",
             type: "image",
+            defaultValue: "/images/luxury-villas.jpg",
           },
           {
             key: "title2",
@@ -180,6 +187,12 @@ export const cmsPageConfigs: CmsPageConfig[] = [
         description: "Text content for the leisure section",
         fields: [
           {
+            key: "tagline",
+            label: "Tagline",
+            type: "text",
+            defaultValue: "UNWIND WITH US",
+          },
+          {
             key: "heading",
             label: "Heading",
             type: "text",
@@ -190,12 +203,14 @@ export const cmsPageConfigs: CmsPageConfig[] = [
             key: "description",
             label: "Description",
             type: "textarea",
-            defaultValue: "Unwind and relax.",
+            defaultValue:
+              "Curated experiences designed to slow time. Discover our collection of quiet moments, architectural elegance, and unparalleled serenity.",
           },
           {
             key: "title1",
             label: "Title 1",
             type: "text",
+            defaultValue: "Sunsets down, served by the sea",
           },
           {
             key: "desc1",
@@ -211,6 +226,7 @@ export const cmsPageConfigs: CmsPageConfig[] = [
             key: "title2",
             label: "Title 2",
             type: "text",
+            defaultValue: "A look into every sunset",
           },
           {
             key: "desc2",
@@ -226,6 +242,7 @@ export const cmsPageConfigs: CmsPageConfig[] = [
             key: "title3",
             label: "Title 3",
             type: "text",
+            defaultValue: "Care, beyond the guidebooks",
           },
           {
             key: "desc3",
@@ -235,6 +252,86 @@ export const cmsPageConfigs: CmsPageConfig[] = [
           {
             key: "image3",
             label: "Image 3",
+            type: "image",
+          },
+        ],
+      },
+      {
+        key: "testimonials",
+        label: "From Our Guests",
+        description: "Heading and description for the guest reviews section",
+        fields: [
+          {
+            key: "heading",
+            label: "Heading",
+            type: "text",
+            required: true,
+            defaultValue: "From Our Guests",
+          },
+          {
+            key: "description",
+            label: "Description",
+            type: "textarea",
+            defaultValue:
+              "Notes from those who've stayed and returned for more",
+          },
+        ],
+      },
+      {
+        key: "faq",
+        label: "Frequently Asked Questions",
+        description: "Heading and details for the FAQ section",
+        fields: [
+          {
+            key: "subtitle",
+            label: "Subtitle / Description",
+            type: "textarea",
+            defaultValue:
+              "Everything you need to know about preparing for your serene getaway with Pink Papaya Stays.",
+          },
+          {
+            key: "ctaLabel",
+            label: "CTA Label",
+            type: "text",
+            defaultValue: "CONTACT CONCIERGE",
+          },
+          {
+            key: "ctaHref",
+            label: "CTA Link",
+            type: "text",
+            defaultValue: "/contact",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "stays",
+    label: "Explore Stays",
+    publicPath: "/stays",
+    seo: { enabled: true },
+    sections: [
+      {
+        key: "hero",
+        label: "Stays Hero",
+        description: "Hero banner of the Stays page",
+        fields: [
+          {
+            key: "title",
+            label: "Hero Title",
+            type: "text",
+            defaultValue: "Our Stays",
+          },
+          {
+            key: "description",
+            label: "Hero Description",
+            type: "textarea",
+            defaultValue:
+              "Curated spaces across Goa — crafted for comfort, style, and unforgettable moments.",
+          },
+          {
+            key: "backgroundUrl",
+            label: "Background Image",
             type: "image",
           },
         ],

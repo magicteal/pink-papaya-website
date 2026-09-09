@@ -2,7 +2,7 @@ export type FeedbackItem = {
   id: string;
   name: string;
   role: string;
-  avatar: string;
+  avatar?: string;
   rating: number; // 0-5
   text: string;
 };
@@ -10,47 +10,43 @@ export type FeedbackItem = {
 export const feedback: FeedbackItem[] = [
   {
     id: "f1",
-    name: "Ava Moore",
-    role: "Weekend Guest",
-    avatar: "/logo-files/logo-black.svg",
-    rating: 5,
-    text:
-      "Beautiful spaces and such a calming vibe. The little touches made our stay feel special.",
-  },
-  {
-    id: "f2",
-    name: "Lucas Nguyen",
+    name: "KATY PERI",
     role: "Business Traveler",
-    avatar: "/logo-files/logo-white.svg",
-    rating: 4,
+    rating: 5,
     text:
       "Quiet, stylish, and comfortable. The garden patio was my favorite spot to unwind after meetings.",
   },
   {
-    id: "f3",
-    name: "Mia Patel",
-    role: "Couple’s Getaway",
-    avatar: "/logo-files/logo-black.svg",
+    id: "f2",
+    name: "MIA PATEL",
+    role: "Anjuna, Goa",
     rating: 5,
     text:
       "We loved the design details and the breakfast. Felt like a boutique home away from home.",
   },
   {
-    id: "f4",
-    name: "Daniel Kim",
+    id: "f3",
+    name: "DANIEL KIM",
     role: "Solo Retreat",
-    avatar: "/logo-files/logo-white.svg",
     rating: 5,
     text:
-      "Meditation area and the surrounding nature were perfect. Staff were friendly and attentive.",
+      "Meditation class, quiet surroundings, and the food was perfect. Staff was warm, helpful, and attentive.",
+  },
+  {
+    id: "f4",
+    name: "AVA MOORE",
+    role: "Weekend Guest",
+    rating: 5,
+    text:
+      "Beautiful spaces and such a calming vibe. The little touches made our stay feel special.",
   },
   {
     id: "f5",
-    name: "Sofia Rossi",
+    name: "SOFIA ROSSI",
     role: "Family Stay",
-    avatar: "/logo-files/logo-black.svg",
-    rating: 4,
+    rating: 5,
     text:
-      "Rooms were spotless, beds super comfy. Kids loved the open spaces.",
+      "Rooms were spotless, beds super comfy. Kids loved the open spaces and the peaceful mornings.",
   },
 ];
+

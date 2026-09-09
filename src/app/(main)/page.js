@@ -2,6 +2,7 @@ import Reveal from "@/components/ui/Reveal";
 import RoomsAndStay from "@/components/RoomsAndStay";
 import HomeHero from "@/components/home/HomeHero";
 import ExploreStaysGrid from "@/components/home/ExploreStaysGrid";
+import TrendingDestinations from "@/components/home/TrendingDestinations";
 import LeisureHighlights from "@/components/home/LeisureHighlights";
 import TestimonialsSection from "@/components/home/TestimonialsSection";
 import FAQSection from "@/components/home/FAQSection";
@@ -47,17 +48,17 @@ export default async function Home() {
       />
       <ExploreStaysGrid content={cms?.sections?.explore_stays} />
 
+      <TrendingDestinations />
+
       {/* Rooms & stay Section */}
-      <Reveal>
-        <RoomsAndStay content={cms?.sections?.rooms_and_stay} />
-      </Reveal>
+      <RoomsAndStay content={cms?.sections?.rooms_and_stay} />
 
       {/* Leisure Section */}
       <LeisureHighlights content={cms?.sections?.leisure_highlights} />
 
-      <TestimonialsSection />
+      <TestimonialsSection content={cms?.sections?.testimonials} />
       {/* FAQ Section */}
-      <FAQSection />
+      <FAQSection content={cms?.sections?.faq} />
 
       {/* Instagram Feed Section */}
       <InstagramFeed />

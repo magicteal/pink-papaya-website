@@ -1,81 +1,118 @@
 "use client";
 
-import Reveal from "@/components/ui/Reveal";
-import Container from "@/components/Container";
-import HeaderContent from "@/components/headerContent";
 import Image from "next/image";
+import Reveal from "@/components/ui/Reveal";
 import { isPreOptimizedMedia } from "@/lib/media-url";
-import { DEFAULT_PLACEHOLDER } from "@/utils/image";
+
+const DEFAULT_ITEMS = [
+  {
+    img: "/images/leisure/sunsets-down.jpg?v=2",
+    title: "Sunsets down, served by the sea",
+  },
+  {
+    img: "/images/leisure/a-look-into-every-sunset.jpg?v=2",
+    title: "A look into every sunset",
+  },
+  {
+    img: "/images/leisure/care-guidebooks.jpg?v=2",
+    title: "Care, beyond the guidebooks",
+  },
+];
 
 export default function LeisureHighlights({ content }: { content?: any }) {
-  const leisureItems = [
+  const items = [
     {
-      img: content?.image1 || DEFAULT_PLACEHOLDER,
-      title: content?.title1 || "Always there, never in the way",
-      desc: content?.desc1 || "Attentive yet effortless — our on-ground team handles every detail, so your stay feels seamless from arrival to departure.",
+      img: content?.image1 || DEFAULT_ITEMS[0].img,
+      title:
+        content?.title1 && content.title1 !== "Always there, never in the way"
+          ? content.title1
+          : DEFAULT_ITEMS[0].title,
     },
     {
-      img: content?.image2 || DEFAULT_PLACEHOLDER,
-      title: content?.title2 || "Wheels for every mood",
-      desc: content?.desc2 || "Glide through Goa in style with curated transport — from chic scooters to chauffeured rides.",
+      img: content?.image2 || DEFAULT_ITEMS[1].img,
+      title:
+        content?.title2 && content.title2 !== "Wheels for every mood"
+          ? content.title2
+          : DEFAULT_ITEMS[1].title,
     },
     {
-      img: content?.image3 || DEFAULT_PLACEHOLDER,
-      title: content?.title3 || "Goa, beyond the guidebooks",
-      desc: content?.desc3 || "Hidden beaches, private tables, sunset rituals — discover a side of Goa reserved only for you.",
+      img: content?.image3 || DEFAULT_ITEMS[2].img,
+      title:
+        content?.title3 && content.title3 !== "Goa, beyond the guidebooks"
+          ? content.title3
+          : DEFAULT_ITEMS[2].title,
     },
   ];
 
+  const tagline = content?.tagline || "UNWIND WITH US";
+  const heading = content?.heading || "Leisure Highlights";
+  const description =
+    content?.description &&
+    content.description !== "Unwind and relax." &&
+    content.description !== ""
+      ? content.description
+      : "Curated experiences designed to slow time. Discover our collection of quiet moments, architectural elegance, and unparalleled serenity.";
+
   return (
-    <section className="py-8 md:py-[5%] bg-[#F9F7F4]">
-      <Container>
+    <section className="py-16 sm:py-20 md:py-28 bg-[#FAF8F5]">
+      <div className="w-[90%] mx-auto max-w-[1552px]">
         <Reveal>
-          <div className="pb-6 md:pb-16">
-            <HeaderContent
-              align="center"
-              showCta={false}
-              title={content?.heading || "Experience more than a stay, a story you'll want to relive"}
-              subTitle={content?.description || ""}
-              titleSize="sm"
-            />
+          {/* Header Row: Left title + Right description, separated by bottom border */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 md:pb-8 border-b border-neutral-200">
+            <div>
+              <p className="text-[11px] sm:text-xs font-semibold tracking-[0.22em] text-neutral-800 uppercase font-bricolage mb-2 sm:mb-3">
+                {tagline}
+              </p>
+              <h2 className="font-playfair italic font-normal text-3xl sm:text-4xl md:text-5xl lg:text-[54px] text-neutral-900 tracking-tight leading-[1.1]">
+                {heading}
+              </h2>
+            </div>
+            <p className="max-w-md text-neutral-600 text-xs sm:text-[13px] md:text-sm leading-relaxed font-bricolage md:text-left">
+              {description}
+            </p>
           </div>
         </Reveal>
 
-        <div className="mt-6 sm:mt-24 grid grid-cols-1 sm:grid-cols-3 gap-10 md:gap-14 items-start">
-          {leisureItems.map((item, i) => (
-            <Reveal key={i}>
-              <div className={`${i === 1 ? "sm:-mt-16 md:-mt-24" : ""} w-full`}>
-                {/* Image */}
-                <div className="relative w-full overflow-hidden rounded-2xl bg-neutral-200 aspect-square">
-                  {item.img && (
-                    <>
-                      <Image
-                        src={item.img}
-                        alt={item.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                        unoptimized={isPreOptimizedMedia(item.img)}
-                        className="object-cover transition-transform duration-700 hover:scale-[1.04]"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
-                    </>
-                  )}
-                </div>
+        {/* 3 Columns Grid — Center Card Offset (Staggered Editorial Layout) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10 pt-10 sm:pt-14 items-start">
+          {items.map((item, idx) => {
+            const isMiddle = idx === 1;
 
-                {/* Text */}
-                <div className="mt-5 space-y-2">
-                  <h4 className="font-playfair text-[1.1rem] md:text-[1.2rem] font-medium text-neutral-900 leading-snug">
+            return (
+              <Reveal key={idx}>
+                <div
+                  className={`w-full group ${
+                    isMiddle ? "md:mt-10 lg:mt-14" : ""
+                  }`}
+                >
+                  {/* Image Container — Sharp clean editorial corners */}
+                  <div
+                    className={`relative w-full overflow-hidden bg-neutral-100 ${
+                      isMiddle
+                        ? "aspect-[3/4] md:aspect-[4/5.5]"
+                        : "aspect-[4/5]"
+                    }`}
+                  >
+                    <Image
+                      src={item.img}
+                      alt={item.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      unoptimized={isPreOptimizedMedia(item.img)}
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                    />
+                  </div>
+
+                  {/* Title Below Image */}
+                  <h3 className="font-playfair text-xl sm:text-2xl text-neutral-900 font-normal leading-snug mt-5 tracking-normal">
                     {item.title}
-                  </h4>
-                  <p className="text-[13.5px] md:text-sm text-neutral-500 leading-relaxed font-bricolage">
-                    {item.desc}
-                  </p>
+                  </h3>
                 </div>
-              </div>
-            </Reveal>
-          ))}
+              </Reveal>
+            );
+          })}
         </div>
-      </Container>
+      </div>
     </section>
   );
 }
