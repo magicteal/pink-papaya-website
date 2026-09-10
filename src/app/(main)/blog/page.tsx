@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import Container from "@/components/Container";
 import { readPosts } from "@/lib/blogStore";
@@ -7,7 +8,12 @@ import { DEFAULT_PLACEHOLDER } from "@/utils/image";
 import { Suspense } from "react";
 import CategoryFilter from "@/components/blog/CategoryFilter";
 
-function BlogPostCard({ post }) {
+export const metadata: Metadata = {
+  title: "Our Blog | Pink Papaya",
+  description: "Stories, insights, and updates from the world of Pink Papaya.",
+};
+
+function BlogPostCard({ post }: { post: any }) {
   const image = post.imageUrl?.startsWith("http") ? post.imageUrl : DEFAULT_PLACEHOLDER;
   return (
     <Link href={`/blog/${post.id}`} className="group block">
@@ -39,8 +45,11 @@ function BlogPostCard({ post }) {
   );
 }
 
-export default async function BlogPage({ searchParams }) {
-  const { category } = await searchParams;
+export default async function BlogPage(props: {
+  searchParams: Promise<{ category?: string }>;
+}) {
+  const searchParams = await props.searchParams;
+  const category = searchParams?.category;
   const allPosts = await readPosts();
   const posts = category
     ? allPosts.filter((p) => p.category?.toLowerCase() === category.toLowerCase())

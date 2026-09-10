@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import HomeHero from "@/components/home/HomeHero";
 import Container from "@/components/Container";
 import { readStays } from "@/lib/staysStore";
@@ -10,7 +11,7 @@ import { getCmsPublicContent } from "@/lib/cms/store";
 
 export const dynamic = "force-dynamic";
 
-export async function generateMetadata() {
+export async function generateMetadata(): Promise<Metadata> {
   try {
     const cms = await getCmsPublicContent("stays");
     const seo = cms?.seo ?? {};
@@ -29,8 +30,10 @@ export async function generateMetadata() {
   }
 }
 
-export default async function StaysPage({ searchParams }) {
-  const { type, bedrooms, locs, cols } = await searchParams;
+export default async function StaysPage(props: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  await props.searchParams;
   const [stays, locations, collections, propertyTypes] = await Promise.all([
     readStays(),
     readLocations(),
@@ -38,7 +41,7 @@ export default async function StaysPage({ searchParams }) {
     readPropertyTypes(),
   ]);
 
-  let cms = null;
+  let cms: any = null;
   try {
     cms = await getCmsPublicContent("stays");
   } catch {

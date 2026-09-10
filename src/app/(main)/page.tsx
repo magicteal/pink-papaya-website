@@ -1,20 +1,20 @@
-import Reveal from "@/components/ui/Reveal";
-import RoomsAndStay from "@/components/RoomsAndStay";
+import type { Metadata } from "next";
 import HomeHero from "@/components/home/HomeHero";
 import ExploreStaysGrid from "@/components/home/ExploreStaysGrid";
 import TrendingDestinations from "@/components/home/TrendingDestinations";
+import RoomsAndStay from "@/components/home/RoomsAndStay";
 import LeisureHighlights from "@/components/home/LeisureHighlights";
 import TestimonialsSection from "@/components/home/TestimonialsSection";
 import FAQSection from "@/components/home/FAQSection";
-import InstagramFeed from "@/components/InstagramFeed";
+import InstagramFeed from "@/components/home/InstagramFeed";
 import { getCmsPublicContent } from "@/lib/cms/store";
 
 export const dynamic = "force-dynamic";
 
-export async function generateMetadata() {
+export async function generateMetadata(): Promise<Metadata> {
   try {
     const cms = await getCmsPublicContent("home");
-    const seo = cms.seo ?? {};
+    const seo = cms?.seo ?? {};
     return {
       title: seo.title || undefined,
       description: seo.description || undefined,
@@ -27,7 +27,7 @@ export async function generateMetadata() {
 }
 
 export default async function Home() {
-  let cms = null;
+  let cms: any = null;
   try {
     cms = await getCmsPublicContent("home");
   } catch {
@@ -57,6 +57,7 @@ export default async function Home() {
       <LeisureHighlights content={cms?.sections?.leisure_highlights} />
 
       <TestimonialsSection content={cms?.sections?.testimonials} />
+      
       {/* FAQ Section */}
       <FAQSection content={cms?.sections?.faq} />
 

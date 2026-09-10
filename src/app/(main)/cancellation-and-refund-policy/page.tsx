@@ -1,6 +1,6 @@
 import Hero from "@/components/Hero";
 import Container from "@/components/Container";
-import HeaderContent from "@/components/headerContent";
+import HeaderContent from "@/components/HeaderContent";
 
 export default function CancellationPolicyPage() {
   return (

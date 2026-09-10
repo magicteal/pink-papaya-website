@@ -3,7 +3,7 @@ import Image from "next/image";
 import { cn } from "@/utils/utils";
 import HeaderContent, {
   type HeaderContentProps,
-} from "@/components/headerContent";
+} from "@/components/HeaderContent";
 import Container from "@/components/Container";
 
 interface HeroProps extends HeaderContentProps {

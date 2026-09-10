@@ -1,7 +1,7 @@
 import Container from "@/components/Container";
 import { getInteriorProjectById, readInteriorProjects } from "@/lib/interiorStore";
 import { Card } from "@/components/ui/card";
-import HeaderContent from "@/components/headerContent";
+import HeaderContent from "@/components/HeaderContent";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 

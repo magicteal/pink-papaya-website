@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Container from "@/components/Container";
-import HeaderContent from "@/components/headerContent";
+import HeaderContent from "@/components/HeaderContent";
 import { cn } from "@/utils/utils";
 import { Plus, Minus } from "lucide-react";
 

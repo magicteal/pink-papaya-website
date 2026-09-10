@@ -120,13 +120,13 @@ export default function StayCard({
           </div>
 
           {/* Card Body Content */}
-          <div className="p-4 sm:p-5 space-y-3">
+          <div className="p-4 sm:p-4.5 xl:p-5 space-y-2.5 sm:space-y-3">
             <div>
-              <h3 className="font-playfair font-bold text-xl sm:text-2xl text-[#A04415] leading-snug">
+              <h3 className="font-playfair font-bold text-lg sm:text-xl lg:text-[19px] xl:text-xl text-[#A04415] leading-snug line-clamp-1 group-hover:text-[#B84A17] transition-colors">
                 {title}
               </h3>
 
-              <p className="text-neutral-500 text-xs sm:text-sm font-bricolage font-normal mt-1">
+              <p className="text-neutral-500 text-xs sm:text-sm font-bricolage font-normal mt-1 truncate">
                 {location || "Assagao, Goa"}
               </p>
             </div>
@@ -143,23 +143,23 @@ export default function StayCard({
         </div>
 
         {/* Specs Pill Box Inside Card Padding */}
-        <div className="px-4 sm:px-5 pb-4 sm:pb-5">
-          <div className="rounded-xl border border-neutral-200/90 bg-white py-2 px-1.5 grid grid-cols-3 divide-x divide-neutral-200/80 text-center font-bricolage shadow-none">
-            <div className="flex items-center justify-center gap-1.5 px-1">
+        <div className="px-3.5 sm:px-4 xl:px-5 pb-3.5 sm:pb-4 xl:pb-5">
+          <div className="rounded-xl border border-neutral-200/90 bg-white py-2 px-1 grid grid-cols-3 divide-x divide-neutral-200/80 text-center font-bricolage shadow-none">
+            <div className="flex items-center justify-center gap-1 sm:gap-1.5 px-0.5 sm:px-1">
               <Users className="w-3.5 h-3.5 text-[#A04415] shrink-0" />
               <span className="text-[11px] sm:text-xs font-semibold text-[#A04415] truncate">
                 {guests || "4 Guests"}
               </span>
             </div>
 
-            <div className="flex items-center justify-center gap-1.5 px-1">
+            <div className="flex items-center justify-center gap-1 sm:gap-1.5 px-0.5 sm:px-1">
               <BedDouble className="w-3.5 h-3.5 text-[#A04415] shrink-0" />
               <span className="text-[11px] sm:text-xs font-semibold text-[#A04415] truncate">
                 {bed || "2 Rooms"}
               </span>
             </div>
 
-            <div className="flex items-center justify-center gap-1.5 px-1">
+            <div className="flex items-center justify-center gap-1 sm:gap-1.5 px-0.5 sm:px-1">
               <Bath className="w-3.5 h-3.5 text-[#A04415] shrink-0" />
               <span className="text-[11px] sm:text-xs font-semibold text-[#A04415] truncate">
                 {area || "2 Bathrooms"}

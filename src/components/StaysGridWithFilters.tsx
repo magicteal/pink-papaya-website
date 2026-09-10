@@ -132,9 +132,9 @@ export default function StaysGridWithFilters({ stays, locations, propertyTypes, 
   ].filter(Boolean).length;
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
+    <div className="flex flex-col lg:flex-row gap-8 xl:gap-10 items-start">
       {/* Mobile filter toggle */}
-      <div className="lg:hidden flex items-center justify-between">
+      <div className="lg:hidden w-full flex items-center justify-between">
         <button
           onClick={() => setMobileFiltersOpen((v) => !v)}
           className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-neutral-200 text-sm font-medium text-neutral-700 hover:border-[#16323C]/40 hover:text-[#16323C] transition-all duration-200 active:scale-[0.97]"
@@ -152,7 +152,7 @@ export default function StaysGridWithFilters({ stays, locations, propertyTypes, 
         </p>
       </div>
 
-      <aside className={`lg:col-span-1 ${mobileFiltersOpen ? "block" : "hidden"} lg:block`}>
+      <aside className={`w-full lg:w-[250px] xl:w-[270px] shrink-0 ${mobileFiltersOpen ? "block" : "hidden"} lg:block`}>
         <div className="sticky top-24">
           <FilterBar
             propertyTypes={propertyTypes}
@@ -171,14 +171,14 @@ export default function StaysGridWithFilters({ stays, locations, propertyTypes, 
         </div>
       </aside>
 
-      <div className="lg:col-span-3">
+      <div className="flex-1 min-w-0 w-full">
         <div className="hidden lg:flex items-center justify-between mb-8">
           <div className="text-sm font-medium text-neutral-500 uppercase tracking-widest">
             Showing {filteredStays.length} {filteredStays.length === 1 ? "stay" : "stays"}
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-7">
           {filteredStays.length > 0 ? (
             filteredStays.map((s) => (
               <StayCard
