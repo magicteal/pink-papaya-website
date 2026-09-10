@@ -4,8 +4,6 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { stays as staysData, stayCategories } from "@/data/stays";
-import { isPreOptimizedMedia } from "@/lib/media-url";
-import { ArrowRight, ExternalLink } from "lucide-react";
 
 // Category-specific background images and taglines
 const CATEGORY_META: Record<
@@ -13,7 +11,7 @@ const CATEGORY_META: Record<
   { bg: string; tagline: string }
 > = {
   "luxury-villas": {
-    bg: "/images/luxury-villas.jpg?v=6",
+    bg: "/images/mediterranean-villa.jpg",
     tagline: "Tropical Escape",
   },
   "walk-to-beach": {
@@ -77,14 +75,13 @@ export default function RoomsAndStay({ content }: { content?: any }) {
     const meta = CATEGORY_META[catId];
     if (meta) return meta.bg;
 
-    // Fallback: first stay in category
     const s = staysData.find((s) => s.category === catId);
     return s?.imageUrl || "";
   }
 
   const activeBg = getBgImage(activeIndex);
   const activeTagline =
-    CATEGORY_META[categories[activeIndex].id]?.tagline || "Curated Stay";
+    CATEGORY_META[categories[activeIndex].id]?.tagline || "Tropical Escape";
 
   function handleSelect(idx: number) {
     if (idx === activeIndex) return;
@@ -98,186 +95,123 @@ export default function RoomsAndStay({ content }: { content?: any }) {
   }
 
   return (
-    <section className="relative w-full overflow-hidden bg-neutral-950">
-      {/* Background images with crossfade */}
-      <div className="absolute inset-0 z-0">
-        {/* Previous image (fading out) */}
-        {prevBgUrl && (
+    <section className="w-full bg-white overflow-hidden">
+      <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[620px] lg:min-h-[720px] xl:min-h-[760px]">
+        {/* Left Column: Clean White Content */}
+        <div className="flex flex-col justify-center px-5 sm:px-10 md:px-14 lg:px-16 xl:px-24 py-12 sm:py-16 lg:py-24 max-w-2xl mx-auto lg:mx-0 w-full">
+          {/* Main Heading: "Rooms & Stay" */}
+          <h2 className="font-playfair text-neutral-900 text-[32px] sm:text-[44px] md:text-[52px] lg:text-[60px] font-normal leading-tight tracking-tight mb-8 sm:mb-12">
+            {content?.heading &&
+            content.heading !== "Experience the comfort." &&
+            content.heading !== "Experience the\ncomfort."
+              ? content.heading
+              : "Rooms & Stay"}
+          </h2>
+
+          {/* Categories Accordion */}
+          <div className="space-y-6 sm:space-y-7">
+            {categories.map((c, idx) => {
+              const selected = idx === activeIndex;
+
+              return (
+                <div key={c.id}>
+                  {selected ? (
+                    <div className="animate-in fade-in duration-300">
+                      {/* Active Title with Horizontal Dash Line */}
+                      <div className="flex items-center gap-3.5 sm:gap-4 mb-3">
+                        <div className="w-8 sm:w-10 h-px bg-neutral-400 shrink-0" />
+                        <span className="font-playfair text-[#B85D26] text-2xl sm:text-[26px] md:text-[28px] font-normal tracking-normal leading-none">
+                          {c.name}
+                        </span>
+                      </div>
+
+                      {/* Description indented to align with title */}
+                      <div className="pl-[44px] sm:pl-[54px]">
+                        <p className="text-neutral-600 text-[13.5px] sm:text-[14px] font-bricolage font-light leading-relaxed max-w-[380px] sm:max-w-[420px]">
+                          {c.description}
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    /* Inactive Title indented to align with active title */
+                    <div
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => handleSelect(idx)}
+                      onKeyDown={(e) =>
+                        (e.key === "Enter" || e.key === " ") && handleSelect(idx)
+                      }
+                      className="pl-[44px] sm:pl-[54px] group cursor-pointer transition-colors"
+                    >
+                      <span className="font-playfair text-[#6f7479] group-hover:text-neutral-900 text-xl sm:text-[22px] md:text-[24px] font-normal tracking-normal transition-colors duration-200">
+                        {c.name}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Right Column: Full-Height Image + Floating Glass Card */}
+        <div className="relative w-full h-[500px] sm:h-[600px] lg:h-auto min-h-full overflow-hidden bg-neutral-900">
+          {/* Previous image (fading out) */}
+          {prevBgUrl && (
+            <Image
+              src={prevBgUrl}
+              alt=""
+              fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              quality={95}
+              unoptimized={true}
+              className={
+                "object-cover object-center transition-opacity duration-600 " +
+                (showNew ? "opacity-0" : "opacity-100")
+              }
+              priority
+            />
+          )}
+
+          {/* Active image */}
           <Image
-            src={prevBgUrl}
-            alt=""
+            src={activeBg}
+            alt={categories[activeIndex].name}
             fill
-            sizes="100vw"
+            sizes="(max-width: 1024px) 100vw, 50vw"
             quality={95}
             unoptimized={true}
             className={
               "object-cover object-center transition-opacity duration-600 " +
-              (showNew ? "opacity-0" : "opacity-100")
+              (showNew ? "opacity-100" : "opacity-0")
             }
             priority
           />
-        )}
-        {/* Active image */}
-        <Image
-          src={activeBg}
-          alt=""
-          fill
-          sizes="100vw"
-          quality={95}
-          unoptimized={true}
-          className={
-            "object-cover object-center transition-opacity duration-600 " +
-            (showNew ? "opacity-100" : "opacity-0")
-          }
-          priority
-        />
-        {/* Balanced cinematic gradient matching reference design */}
-        <div
-          aria-hidden
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to right, rgba(12, 14, 16, 0.86) 0%, rgba(12, 14, 16, 0.68) 38%, rgba(12, 14, 16, 0.26) 72%, rgba(12, 14, 16, 0.30) 100%)",
-          }}
-        />
-        {/* Subtle vertical vignette */}
-        <div
-          aria-hidden
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to bottom, rgba(0, 0, 0, 0.35) 0%, transparent 28%, transparent 72%, rgba(0, 0, 0, 0.45) 100%)",
-          }}
-        />
-      </div>
 
-      {/* Content */}
-      <div className="relative z-10 max-w-[1552px] mx-auto px-[5%] sm:px-8 md:px-14 lg:px-20 pt-16 sm:pt-20 md:pt-24 lg:pt-28 pb-20 sm:pb-24 md:pb-28 lg:pb-32">
-        <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-12 lg:gap-16 w-full">
-          {/* Left Column: Heading + Category Accordion */}
-          <div className="w-full max-w-[560px] lg:max-w-[620px]">
-            {/* Top section: Label + Heading */}
-            <div className="mb-9 sm:mb-11">
-              {/* "ROOMS & STAY" label */}
-              <div className="mb-4 sm:mb-5">
-                <span className="text-white/80 text-[10.5px] sm:text-[11.5px] font-bricolage font-semibold uppercase tracking-[0.25em]">
-                  {content?.label || "Rooms & Stay"}
-                </span>
-              </div>
+          {/* Subtle soft gradient at bottom for card readability */}
+          <div
+            aria-hidden
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                "linear-gradient(to top, rgba(0, 0, 0, 0.25) 0%, transparent 40%)",
+            }}
+          />
 
-              {/* Main heading: Upright Roman serif (not italic) with period */}
-              <h2 className="font-playfair font-normal text-white text-[38px] sm:text-[48px] md:text-[56px] lg:text-[64px] leading-[1.05] tracking-tight">
-                {!content?.heading ||
-                content.heading === "Rooms & Stay" ||
-                content.heading === "Experience the comfort." ? (
-                  <>
-                    Experience the
-                    <br />
-                    comfort.
-                  </>
-                ) : (
-                  content.heading.split("\n").map((line: string, i: number) => (
-                    <React.Fragment key={i}>
-                      {i > 0 && <br />}
-                      {line}
-                    </React.Fragment>
-                  ))
-                )}
-              </h2>
-            </div>
-
-            {/* Category Accordion List with Horizontal Dividers */}
-            <div className="w-full">
-              <div className="space-y-0">
-                {categories.map((c, idx) => {
-                  const selected = idx === activeIndex;
-                  const num = String(idx + 1).padStart(2, "0");
-
-                  return (
-                    <div key={c.id}>
-                      {/* Divider line before item (items 02, 03, 04) */}
-                      {idx > 0 && <div className="h-px bg-white/18 w-full" />}
-
-                      <div
-                        role="button"
-                        tabIndex={0}
-                        onClick={() => handleSelect(idx)}
-                        onKeyDown={(e) =>
-                          (e.key === "Enter" || e.key === " ") &&
-                          handleSelect(idx)
-                        }
-                        className={
-                          "w-full text-left py-4 sm:py-4.5 transition-all duration-300 relative " +
-                          (selected ? "cursor-default" : "cursor-pointer group")
-                        }
-                      >
-                        {selected ? (
-                          <div className="relative pl-6 sm:pl-7 animate-in fade-in slide-in-from-bottom-2 duration-300">
-                            {/* Left orange accent bar: strictly on active item, full height */}
-                            <div className="absolute left-0 top-0.5 bottom-0.5 w-[2.5px] bg-[#D4763A] rounded-full" />
-
-                            {/* Number + Title */}
-                            <div className="flex items-baseline gap-3.5">
-                              <span className="text-[#D4763A] text-xs sm:text-[13px] font-bricolage font-medium tabular-nums">
-                                {num}
-                              </span>
-                              <span className="font-playfair text-[#D4763A] text-2xl sm:text-[26px] md:text-[28px] font-normal tracking-normal leading-none">
-                                {c.name}
-                              </span>
-                            </div>
-
-                            {/* Description */}
-                            <p className="text-white/75 text-[13px] sm:text-[13.5px] font-bricolage font-light leading-relaxed mt-3 mb-4 max-w-[440px]">
-                              {c.description}
-                            </p>
-
-                            {/* Underlined Explore Collection CTA */}
-                            <button
-                              type="button"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                router.push(`/stays?category=${c.id}`);
-                              }}
-                              className="inline-flex items-center gap-2 group/cta cursor-pointer"
-                            >
-                              <span className="text-white text-[11px] sm:text-xs font-bricolage font-semibold uppercase tracking-[0.2em] border-b border-white pb-0.5 group-hover/cta:border-white/70 transition-colors">
-                                EXPLORE COLLECTION
-                              </span>
-                              <ArrowRight className="w-3.5 h-3.5 text-white group-hover/cta:translate-x-1 transition-transform duration-200" />
-                            </button>
-                          </div>
-                        ) : (
-                          <div className="flex items-baseline gap-3.5 pl-6 sm:pl-7 group">
-                            <span className="text-white/45 text-xs sm:text-[13px] font-bricolage font-medium tabular-nums group-hover:text-white/70 transition-colors">
-                              {num}
-                            </span>
-                            <span className="font-playfair text-white/75 group-hover:text-white text-xl sm:text-[22px] md:text-[24px] font-normal tracking-tight transition-colors duration-200">
-                              {c.name}
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-
-          {/* Floating Tagline Pill (bottom-right) */}
+          {/* Floating Glass Card (bottom-right/center) */}
           <button
             type="button"
             onClick={() =>
               router.push(`/stays?category=${categories[activeIndex].id}`)
             }
-            className="hidden md:flex items-center gap-4 bg-black/45 hover:bg-black/65 backdrop-blur-md border border-white/20 rounded-full px-7 sm:px-8 py-3.5 sm:py-4 transition-all duration-300 cursor-pointer group shadow-[0_8px_32px_rgba(0,0,0,0.5)] self-end lg:mb-2 shrink-0"
+            className="absolute bottom-6 sm:bottom-12 right-4 sm:right-10 left-4 sm:left-auto min-w-0 sm:min-w-[320px] max-w-[420px] bg-black/25 hover:bg-black/35 backdrop-blur-md border border-white/25 rounded-2xl p-5 sm:p-7 text-left transition-all duration-300 cursor-pointer group shadow-[0_8px_32px_rgba(0,0,0,0.25)]"
           >
-            <span className="font-playfair text-white text-2xl sm:text-[28px] md:text-[32px] font-normal tracking-wide">
+            <p className="text-white/80 text-[10px] sm:text-[11px] font-bricolage font-semibold uppercase tracking-[0.22em] mb-1.5 sm:mb-2">
+              FEATURED PROPERTY
+            </p>
+            <h3 className="font-playfair font-normal text-white text-xl sm:text-[26px] md:text-3xl tracking-wide group-hover:text-white/95 transition-colors">
               {activeTagline}
-            </span>
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-white/30 group-hover:border-white/60 flex items-center justify-center transition-colors">
-              <ExternalLink className="w-4 h-4 text-white/90 group-hover:text-white" />
-            </div>
+            </h3>
           </button>
         </div>
       </div>
