@@ -20,7 +20,7 @@ export default function TestimonialsSection({
     "Notes from those who've stayed and returned for more";
 
   return (
-    <section className="py-16 sm:py-20 md:py-28 bg-[#FAF8F5] overflow-hidden">
+    <section className="pt-16 sm:pt-20 md:pt-24 pb-4 sm:pb-6 md:pb-8 bg-white overflow-hidden">
       {/* Centered Editorial Header */}
       <Reveal>
         <div className="text-center max-w-2xl mx-auto mb-10 md:mb-14 px-4">

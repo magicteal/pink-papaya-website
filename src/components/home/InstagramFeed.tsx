@@ -76,8 +76,12 @@ export default function InstagramFeed({ content }: { content?: any }) {
   const profileUrl = content?.profileUrl || PROFILE_URL;
 
   return (
-    <section className="relative z-20 w-full bg-[#FAF8F5] py-16 sm:py-20 md:py-28 font-bricolage">
-      <div className="w-[90%] mx-auto max-w-[1552px]">
+    <section className="relative z-20 w-full bg-white pt-4 sm:pt-6 md:pt-8 pb-16 sm:pb-20 md:pb-24 font-bricolage">
+      {/* Fades to the footer's own #F9F7F4 (not a generic shadow) so the two sections
+          read as one continuous surface — see the note in Footer.tsx for why a plain
+          box-shadow doesn't generalize to pages where the color below already matches. */}
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-24 sm:h-32 bg-gradient-to-b from-transparent to-[#F9F7F4]" />
+      <div className="relative w-[90%] mx-auto max-w-[1552px]">
         {/* Editorial Centered Header */}
         <Reveal>
           <div className="mb-10 sm:mb-14 flex flex-col items-center text-center">

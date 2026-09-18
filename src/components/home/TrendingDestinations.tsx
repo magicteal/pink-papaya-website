@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/ui/Reveal";
-import { ArrowRight, MapPin, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, MapPin } from "lucide-react";
 import { isPreOptimizedMedia } from "@/lib/media-url";
 import { DEFAULT_PLACEHOLDER } from "@/utils/image";
 
@@ -79,9 +79,6 @@ function slugify(str: string): string {
 export default function TrendingDestinations() {
   const [destinations, setDestinations] = useState<Destination[]>([]);
   const [loading, setLoading] = useState(true);
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
 
   useEffect(() => {
     fetch("/api/stays")
@@ -121,7 +118,7 @@ export default function TrendingDestinations() {
             slug: slugify(name),
           }))
           .sort((a, b) => b.stayCount - a.stayCount)
-          .slice(0, 8); // Limit to 8 destinations
+          .slice(0, 4); // Top 4 destinations only
 
         setDestinations(dests);
         setLoading(false);
@@ -129,109 +126,41 @@ export default function TrendingDestinations() {
       .catch(() => setLoading(false));
   }, []);
 
-  const updateScrollButtons = () => {
-    if (!scrollRef.current) return;
-    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-    setCanScrollLeft(scrollLeft > 5);
-    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 5);
-  };
-
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (el) {
-      el.addEventListener("scroll", updateScrollButtons);
-      // Initial check after render
-      setTimeout(updateScrollButtons, 100);
-      return () => el.removeEventListener("scroll", updateScrollButtons);
-    }
-  }, [destinations]);
-
-  const scroll = (direction: "left" | "right") => {
-    if (!scrollRef.current) return;
-    const scrollAmount = scrollRef.current.clientWidth * 0.7;
-    scrollRef.current.scrollBy({
-      left: direction === "left" ? -scrollAmount : scrollAmount,
-      behavior: "smooth",
-    });
-  };
-
   if (!loading && destinations.length === 0) return null;
 
   return (
-    <section className="py-10 sm:py-16 md:py-20 bg-[#F9F7F4]">
+    <section className="py-10 sm:py-16 md:py-20 bg-white">
       <div className="w-[90%] mx-auto">
         <Reveal>
           {/* Header Row */}
-          <div className="flex items-end justify-between mb-8 sm:mb-12">
-            <div>
-              <p className="text-[#A04415] text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] font-bricolage mb-2 sm:mb-3">
-                Explore
-              </p>
-              <h2 className="font-playfair italic font-normal text-3xl sm:text-4xl md:text-5xl text-neutral-900 tracking-tight">
-                Trending Destinations
-              </h2>
-            </div>
-
-            {/* Scroll Arrows — Desktop Only */}
-            <div className="hidden md:flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => scroll("left")}
-                disabled={!canScrollLeft}
-                className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-200 cursor-pointer ${
-                  canScrollLeft
-                    ? "border-[#A04415]/30 text-[#A04415] hover:bg-[#A04415] hover:text-white hover:border-[#A04415]"
-                    : "border-neutral-200 text-neutral-300 cursor-not-allowed"
-                }`}
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <button
-                type="button"
-                onClick={() => scroll("right")}
-                disabled={!canScrollRight}
-                className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-200 cursor-pointer ${
-                  canScrollRight
-                    ? "border-[#A04415]/30 text-[#A04415] hover:bg-[#A04415] hover:text-white hover:border-[#A04415]"
-                    : "border-neutral-200 text-neutral-300 cursor-not-allowed"
-                }`}
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </div>
+          <div className="mb-8 sm:mb-12">
+            <p className="text-[#A04415] text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] font-bricolage mb-2 sm:mb-3">
+              Explore
+            </p>
+            <h2 className="font-playfair italic font-normal text-3xl sm:text-4xl md:text-5xl text-neutral-900 tracking-tight">
+              Trending Destinations
+            </h2>
           </div>
 
-          {/* Destination Cards — Horizontal Scroll */}
+          {/* Destination Cards — 4-up grid */}
           {loading ? (
-            <div className="flex gap-5 overflow-hidden">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
               {Array.from({ length: 4 }).map((_, i) => (
                 <div
                   key={i}
-                  className="shrink-0 w-[260px] sm:w-[280px] md:w-[300px] rounded-2xl bg-neutral-200/60 animate-pulse aspect-[3/4]"
+                  className="rounded-[22px] bg-neutral-200/60 animate-pulse aspect-[3/4]"
                 />
               ))}
             </div>
           ) : (
-            <div
-              ref={scrollRef}
-              className="flex gap-5 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-2 -mb-2"
-              style={{
-                scrollbarWidth: "none",
-                msOverflowStyle: "none",
-              }}
-            >
-              {destinations.map((dest, idx) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {destinations.map((dest) => (
                 <Link
                   key={dest.slug}
                   href={`/stays?location=${encodeURIComponent(dest.name)}`}
-                  className="group shrink-0 snap-start"
+                  className="group block"
                 >
-                  <div
-                    className="relative w-[240px] sm:w-[260px] md:w-[280px] lg:w-[300px] rounded-[22px] overflow-hidden bg-neutral-100 shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.1)] transition-all duration-500"
-                    style={{
-                      animationDelay: `${idx * 80}ms`,
-                    }}
-                  >
+                  <div className="relative w-full rounded-[22px] overflow-hidden bg-neutral-100 shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.1)] transition-all duration-500">
                     {/* Image */}
                     <div className="relative aspect-[3/4] w-full overflow-hidden">
                       <Image
@@ -239,7 +168,7 @@ export default function TrendingDestinations() {
                         alt={`${dest.name} - Goa destination`}
                         fill
                         unoptimized={isPreOptimizedMedia(dest.image)}
-                        sizes="(max-width: 768px) 60vw, (max-width: 1200px) 30vw, 300px"
+                        sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 23vw"
                         className="object-cover transition-transform duration-700 group-hover:scale-[1.06]"
                       />
 
@@ -278,13 +207,6 @@ export default function TrendingDestinations() {
           )}
         </Reveal>
       </div>
-
-      {/* Hide scrollbar CSS */}
-      <style jsx>{`
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
     </section>
   );
 }

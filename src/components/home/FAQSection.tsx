@@ -43,7 +43,7 @@ export default function FAQSection({ content }: { content?: any }) {
   const faqs = content?.faqs?.length ? content.faqs : DEFAULT_FAQS;
 
   return (
-    <section className="py-16 sm:py-20 md:py-28 bg-[#FAF8F5]">
+    <section className="pt-4 sm:pt-6 md:pt-8 pb-4 sm:pb-6 md:pb-8 bg-white">
       <div className="w-[90%] mx-auto max-w-[1552px]">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
           {/* Left Column: Heading, Description & Concierge Link */}

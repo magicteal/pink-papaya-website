@@ -82,13 +82,15 @@ export default function Navbar({ className }: { className?: string }) {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300 pt-3 sm:pt-4 pointer-events-none",
+        // Gutter matches HomeHero's fixed px inset so the pill and the hero card
+        // share one left/right edge at every landscape width.
+        "fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300 pt-3 sm:pt-4 px-4 sm:px-5 lg:px-7 pointer-events-none",
         className
       )}
     >
       <div
         className={cn(
-          "w-[90%] mx-auto bg-white/95 backdrop-blur-md border border-neutral-200/70 transition-all duration-300 pointer-events-auto px-5 sm:px-6 md:px-8 py-2.5 sm:py-3.5",
+          "w-full mx-auto bg-white/95 backdrop-blur-md border border-neutral-200/70 transition-all duration-300 pointer-events-auto px-5 sm:px-6 md:px-8 2xl:px-12 py-2.5 sm:py-3.5 2xl:py-5",
           menuOpen ? "rounded-3xl" : "rounded-full",
           scrolled ? "shadow-[0_8px_30px_rgba(0,0,0,0.08)] border-neutral-200" : "shadow-sm"
         )}
@@ -102,12 +104,12 @@ export default function Navbar({ className }: { className?: string }) {
               width={140}
               height={40}
               priority
-              className="h-auto w-[115px] sm:w-[135px] md:w-[145px] transition-opacity duration-300"
+              className="h-auto w-[115px] sm:w-[135px] md:w-[145px] 2xl:w-[185px] transition-opacity duration-300"
             />
           </Link>
 
           {/* Desktop nav — centered */}
-          <nav className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-8 lg:gap-10 font-bricolage">
+          <nav className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-8 lg:gap-10 2xl:gap-14 font-bricolage">
             {NAV_ITEMS.map((it) => {
               const active = isActive(it.href);
               return (
@@ -115,7 +117,7 @@ export default function Navbar({ className }: { className?: string }) {
                   key={it.href}
                   href={it.href}
                   className={cn(
-                    "text-[12px] lg:text-[13px] font-semibold tracking-[0.05em] uppercase transition-colors group relative py-1",
+                    "text-[12px] lg:text-[13px] 2xl:text-[15px] font-semibold tracking-[0.05em] uppercase transition-colors group relative py-1",
                     active
                       ? "text-[#B84A17]"
                       : "text-neutral-600 hover:text-neutral-900"
@@ -140,7 +142,7 @@ export default function Navbar({ className }: { className?: string }) {
               <button
                 ref={contactBtnRef}
                 type="button"
-                className="bg-[#9E3B09] hover:bg-[#802F07] active:scale-95 text-white rounded-full px-5 sm:px-6 py-2 sm:py-2.5 text-[11px] sm:text-[12px] font-semibold tracking-widest uppercase shadow-sm transition-all duration-200 cursor-pointer"
+                className="bg-[#9E3B09] hover:bg-[#802F07] active:scale-95 text-white rounded-full px-5 sm:px-6 2xl:px-8 py-2 sm:py-2.5 2xl:py-3.5 text-[11px] sm:text-[12px] 2xl:text-[14px] font-semibold tracking-widest uppercase shadow-sm transition-all duration-200 cursor-pointer"
                 onClick={() => setContactOpen((v) => !v)}
                 aria-expanded={contactOpen}
                 aria-haspopup="true"

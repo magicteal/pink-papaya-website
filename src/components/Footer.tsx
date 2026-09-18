@@ -6,7 +6,13 @@ import { PiInstagramLogo, PiSpotifyLogo, PiLinktreeLogo } from "react-icons/pi";
 
 export default function Footer() {
   return (
-    <footer className="relative w-full bg-[#F9F7F4] text-[#1a1a1a] pb-12 pt-16 md:pt-20 font-bricolage shadow-[0_-8px_30px_rgba(0,0,0,0.05)] z-20">
+    // Kept deliberately light (4% vs. the old 5%, spread out over 24px) — a box-shadow
+    // here darkens whatever sits above it, which reads as a soft blend on pages where
+    // that's a different color (home's white) but as a faint band on pages where the
+    // section above is already this exact cream (/about's CTA). This value is chosen
+    // so that band stays subtle rather than trying to eliminate it, since the shadow
+    // was specifically asked for as a visual "lift" on every page.
+    <footer className="relative w-full bg-[#F9F7F4] text-[#1a1a1a] pb-12 pt-24 md:pt-28 font-bricolage shadow-[0_-10px_24px_rgba(0,0,0,0.04)] z-20">
       
       {/* Wrapper to clip background graphic without clipping the footer's shadow */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">

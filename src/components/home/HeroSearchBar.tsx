@@ -66,11 +66,11 @@ export default function HeroSearchBar() {
   return (
     <div
       ref={containerRef}
-      className="relative z-30 -mt-7 sm:-mt-10 md:-mt-12 mb-8 sm:mb-14 w-[92%] sm:w-[88%] md:w-[80%] lg:w-[72%] max-w-5xl mx-auto"
+      className="relative z-30 -mt-7 sm:-mt-10 md:-mt-12 mb-8 sm:mb-14 w-[92%] sm:w-[88%] md:w-[80%] lg:w-[72%] max-w-5xl 2xl:max-w-6xl mx-auto"
     >
       {/* Single Horizontal Bar Across ALL Screen Sizes */}
-      <div className="bg-white rounded-full shadow-[0_12px_32px_rgba(0,0,0,0.10)] border border-neutral-200/80 p-1.5 sm:p-2.5 md:p-3 px-3 sm:px-6 md:px-8 lg:px-10 flex flex-row items-center justify-between gap-1 sm:gap-2 md:gap-4 transition-all duration-300">
-        
+      <div className="bg-white rounded-full shadow-[0_12px_32px_rgba(0,0,0,0.10)] border border-neutral-200/80 p-1.5 sm:p-2.5 md:p-3 2xl:p-4 px-3 sm:px-6 md:px-8 lg:px-10 2xl:px-12 flex flex-row items-center justify-between gap-1 sm:gap-2 md:gap-4 transition-all duration-300">
+
         {/* Location Field */}
         <div className="relative flex-1 min-w-0 group">
           <button
@@ -202,9 +202,9 @@ export default function HeroSearchBar() {
           type="button"
           onClick={handleSearch}
           aria-label="Search Stays"
-          className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-[#9E3B09] hover:bg-[#802F07] active:scale-95 transition-all duration-200 flex items-center justify-center text-white shadow-sm cursor-pointer shrink-0 ml-1 sm:ml-2 group"
+          className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 2xl:w-14 2xl:h-14 rounded-full bg-[#9E3B09] hover:bg-[#802F07] active:scale-95 transition-all duration-200 flex items-center justify-center text-white shadow-sm cursor-pointer shrink-0 ml-1 sm:ml-2 group"
         >
-          <Search className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 group-hover:scale-110 transition-transform duration-200" />
+          <Search className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 2xl:w-6 2xl:h-6 group-hover:scale-110 transition-transform duration-200" />
         </button>
       </div>
     </div>
