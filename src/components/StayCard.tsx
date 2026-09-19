@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "@/utils/utils";
 import { formatPriceString } from "@/utils/formatCurrency";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, CarouselDots } from "@/components/ui/carousel";
 import Link from "next/link";
 import Image from "next/image";
 import { Users, BedDouble, Bath, Heart, PawPrint } from "lucide-react";
@@ -106,6 +106,7 @@ export default function StayCard({
                 </CarouselContent>
                 <CarouselPrevious className="left-2 h-6.5 w-6.5 opacity-0 group-hover:opacity-100 transition-opacity border-none bg-white/90 text-neutral-900 hover:bg-white shadow-sm" />
                 <CarouselNext className="right-2 h-6.5 w-6.5 opacity-0 group-hover:opacity-100 transition-opacity border-none bg-white/90 text-neutral-900 hover:bg-white shadow-sm" />
+                <CarouselDots className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20" />
               </Carousel>
             ) : (
               <Image

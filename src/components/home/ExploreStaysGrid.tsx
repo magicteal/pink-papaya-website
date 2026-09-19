@@ -64,7 +64,10 @@ export default function ExploreStaysGrid({
             </button>
           </div>
 
-          {/* Cards Grid */}
+          {/* Cards Grid — spans the same left/right edges as the header row above it
+              (both live in the same w-[90%] container, no separate inner max-width),
+              so the first card starts flush under the "E" of the heading instead of
+              being centered narrower with its own margin. */}
           {loading ? (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
               {Array.from({ length: 3 }).map((_, i) => (
