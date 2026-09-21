@@ -30,7 +30,10 @@ export default function FeedbackCard({
   return (
     <div
       className={cn(
-        "h-full w-full bg-[#F5F2EC] border border-[#E7E2D6] p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 min-h-[360px] md:min-h-[390px] select-none",
+        // Colors sampled directly from the reference design: card bg #F5F3EE and
+        // border #E9E3D2 are near-identical to the previous values, but the star
+        // fill was a clearly brighter, more saturated orange (#FF8243 vs #E06437).
+        "h-full w-full bg-[#F5F3EE] border border-[#E9E3D2] p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 min-h-[360px] md:min-h-[390px] select-none",
         className
       )}
     >
@@ -42,7 +45,7 @@ export default function FeedbackCard({
             className={cn(
               "h-4 w-4 sm:h-[18px] sm:w-[18px]",
               filled
-                ? "fill-[#E06437] text-[#E06437]"
+                ? "fill-[#FF8243] text-[#FF8243]"
                 : "text-neutral-300"
             )}
           />
