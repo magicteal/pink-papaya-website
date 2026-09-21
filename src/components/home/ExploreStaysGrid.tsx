@@ -41,8 +41,8 @@ export default function ExploreStaysGrid({
       .catch(() => setLoading(false));
   }, []);
 
-  // Display 3 cards initially, expand to 6 when showAll is true
-  const visibleStays = showAll ? stays.slice(0, 6) : stays.slice(0, 3);
+  // Display 4 cards initially, expand to 8 when showAll is true
+  const visibleStays = showAll ? stays.slice(0, 8) : stays.slice(0, 4);
 
   return (
     <section id="explore" className="py-10 sm:py-16 md:py-20 bg-white">
@@ -69,8 +69,8 @@ export default function ExploreStaysGrid({
               so the first card starts flush under the "E" of the heading instead of
               being centered narrower with its own margin. */}
           {loading ? (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-              {Array.from({ length: 3 }).map((_, i) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
+              {Array.from({ length: 4 }).map((_, i) => (
                 <div
                   key={i}
                   className="rounded-2xl bg-neutral-100 animate-pulse aspect-[4/3]"
@@ -78,7 +78,7 @@ export default function ExploreStaysGrid({
               ))}
             </div>
           ) : visibleStays.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
               {visibleStays.map((s) => (
                 <StayCard
                   key={s.id}
