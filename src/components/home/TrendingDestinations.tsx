@@ -130,7 +130,7 @@ export default function TrendingDestinations() {
 
   return (
     <section className="py-10 sm:py-16 md:py-20 bg-white">
-      <div className="w-[90%] mx-auto">
+      <div className="w-[90%] max-w-[1552px] mx-auto">
         <Reveal>
           {/* Header Row */}
           <div className="mb-8 sm:mb-12">

@@ -240,7 +240,7 @@ export default function StayGallery({
   );
 
   return (
-    <section className="w-full bg-white pt-[calc(var(--navbar-h,80px)+0.75rem)] md:pt-[calc(var(--navbar-h,80px)+1.25rem)] pb-4 font-bricolage">
+    <section className="w-full bg-white pt-24 sm:pt-28 md:pt-32 2xl:pt-36 pb-4 font-bricolage">
       <Container>
         {/* ---------------------------------------------------- */}
         {/* DESKTOP HERO GRID (5 Images at Top - Tisya Style)    */}

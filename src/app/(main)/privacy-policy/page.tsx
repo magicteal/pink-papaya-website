@@ -3,7 +3,7 @@ import Container from "@/components/Container";
 export default function PrivacyPolicyPage() {
   return (
     <>
-      <section className="pt-12 pb-16 md:pt-20 md:pb-32 bg-white">
+      <section className="pt-24 sm:pt-28 md:pt-36 pb-16 md:pb-32 bg-white">
         <Container className="max-w-4xl mx-auto">
           <div className="mb-12 md:mb-16 text-center">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-playfair mb-4 leading-tight">Privacy policy</h1>

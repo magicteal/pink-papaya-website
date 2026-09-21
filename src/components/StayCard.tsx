@@ -72,7 +72,7 @@ export default function StayCard({
       <CardWrapper {...(cardWrapperProps as any)} className="block w-full h-full flex flex-col justify-between">
         <div>
           {/* Image & Carousel Header */}
-          <div className="relative aspect-[4/3] w-full overflow-hidden bg-neutral-100 rounded-t-[18px] sm:rounded-t-[20px]">
+          <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-100 rounded-t-[18px] sm:rounded-t-[20px]">
             {/* Badge Overlay */}
             {defaultBadge && (
               <div className="absolute top-3 left-3 z-20 bg-[#F7F2EA] text-[#A04415] px-3 py-1 rounded-full text-[11px] font-semibold shadow-sm flex items-center gap-1.5 border border-[#EFE5D8]">
@@ -91,7 +91,7 @@ export default function StayCard({
                   {displayImages.slice(0, 5).map((src, idx) => (
                     <CarouselItem
                       key={idx}
-                      className="!pl-0 relative aspect-[4/3] w-full h-full overflow-hidden"
+                      className="!pl-0 relative aspect-[16/10] w-full h-full overflow-hidden"
                     >
                       <Image
                         src={src}
@@ -121,18 +121,18 @@ export default function StayCard({
           </div>
 
           {/* Card Body Content */}
-          <div className="p-4 sm:p-4.5 xl:p-5 space-y-2.5 sm:space-y-3">
+          <div className="pt-3 sm:pt-3.5 px-4 sm:px-4.5 xl:px-5 pb-1.5 space-y-1.5">
             <div>
               <h3 className="font-playfair font-bold text-lg sm:text-xl lg:text-[19px] xl:text-xl text-[#A04415] leading-snug line-clamp-1 group-hover:text-[#B84A17] transition-colors">
                 {title}
               </h3>
 
-              <p className="text-neutral-500 text-xs sm:text-sm font-bricolage font-normal mt-1 truncate">
+              <p className="text-neutral-500 text-xs sm:text-sm font-bricolage font-normal mt-0.5 truncate">
                 {location || "Assagao, Goa"}
               </p>
             </div>
 
-            <div className="pt-0.5">
+            <div>
               <p className="text-neutral-900 font-bold text-base sm:text-lg font-bricolage">
                 From {rawPrice} <span className="font-bold text-neutral-900">/ night</span>
               </p>
@@ -143,20 +143,30 @@ export default function StayCard({
           </div>
         </div>
 
-        {/* Specs Pills — individual badges matching Tisya style */}
-        <div className="px-3.5 sm:px-4 xl:px-5 pb-3.5 sm:pb-4 xl:pb-5 flex flex-wrap gap-2">
-          <span className="flex items-center gap-1.5 rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1.5 font-bricolage text-[11px] sm:text-xs font-medium text-neutral-700 whitespace-nowrap">
-            <Users className="w-3 h-3 text-neutral-500 shrink-0" />
-            {guests || "4 Guests"}
-          </span>
-          <span className="flex items-center gap-1.5 rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1.5 font-bricolage text-[11px] sm:text-xs font-medium text-neutral-700 whitespace-nowrap">
-            <BedDouble className="w-3 h-3 text-neutral-500 shrink-0" />
-            {bed || "2 Rooms"}
-          </span>
-          <span className="flex items-center gap-1.5 rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1.5 font-bricolage text-[11px] sm:text-xs font-medium text-neutral-700 whitespace-nowrap">
-            <Bath className="w-3 h-3 text-neutral-500 shrink-0" />
-            {area || "2 Bathrooms"}
-          </span>
+        {/* Specs Pill Box Inside Card Padding */}
+        <div className="px-4 sm:px-4.5 xl:px-5 pb-3 sm:pb-3.5 pt-1">
+          <div className="rounded-xl border border-neutral-200/90 bg-white py-1.5 px-1 grid grid-cols-3 divide-x divide-neutral-200/80 text-center font-bricolage shadow-none">
+            <div className="flex items-center justify-center gap-1 sm:gap-1.5 px-0.5 sm:px-1">
+              <Users className="w-3.5 h-3.5 text-[#A04415] shrink-0" />
+              <span className="text-[11px] sm:text-xs font-semibold text-[#A04415] truncate">
+                {guests || "4 Guests"}
+              </span>
+            </div>
+
+            <div className="flex items-center justify-center gap-1 sm:gap-1.5 px-0.5 sm:px-1">
+              <BedDouble className="w-3.5 h-3.5 text-[#A04415] shrink-0" />
+              <span className="text-[11px] sm:text-xs font-semibold text-[#A04415] truncate">
+                {bed || "2 Rooms"}
+              </span>
+            </div>
+
+            <div className="flex items-center justify-center gap-1 sm:gap-1.5 px-0.5 sm:px-1">
+              <Bath className="w-3.5 h-3.5 text-[#A04415] shrink-0" />
+              <span className="text-[11px] sm:text-xs font-semibold text-[#A04415] truncate">
+                {area || "2 Bathrooms"}
+              </span>
+            </div>
+          </div>
         </div>
       </CardWrapper>
     </div>

@@ -66,7 +66,7 @@ export default function HeroSearchBar() {
   return (
     <div
       ref={containerRef}
-      className="relative z-30 -mt-7 sm:-mt-10 md:-mt-12 mb-8 sm:mb-14 w-[92%] sm:w-[88%] md:w-[80%] lg:w-[72%] max-w-5xl 2xl:max-w-6xl mx-auto"
+      className="relative z-30 -mt-7 sm:-mt-10 md:-mt-12 mb-6 sm:mb-8 md:mb-10 w-[92%] sm:w-[88%] md:w-[80%] lg:w-[72%] max-w-5xl 2xl:max-w-6xl mx-auto"
     >
       {/* Single Horizontal Bar Across ALL Screen Sizes */}
       <div className="bg-white rounded-full shadow-[0_12px_32px_rgba(0,0,0,0.10)] border border-neutral-200/80 p-1.5 sm:p-2.5 md:p-3 2xl:p-4 px-3 sm:px-6 md:px-8 lg:px-10 2xl:px-12 flex flex-row items-center justify-between gap-1 sm:gap-2 md:gap-4 transition-all duration-300">

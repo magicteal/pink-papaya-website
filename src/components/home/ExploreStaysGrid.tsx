@@ -41,15 +41,15 @@ export default function ExploreStaysGrid({
       .catch(() => setLoading(false));
   }, []);
 
-  // Display 4 cards initially, expand to 8 when showAll is true
-  const visibleStays = showAll ? stays.slice(0, 8) : stays.slice(0, 4);
+  // Display 3 cards initially, expand to 6 when showAll is true
+  const visibleStays = showAll ? stays.slice(0, 6) : stays.slice(0, 3);
 
   return (
-    <section id="explore" className="py-10 sm:py-16 md:py-20 bg-white">
-      <div className="w-[90%] mx-auto">
+    <section id="explore" className="py-8 sm:py-12 md:py-14 bg-white">
+      <div className="w-[90%] max-w-[1552px] mx-auto">
         <Reveal>
           {/* Header Row: Title on Left, VIEW ALL -> on Right */}
-          <div className="flex items-center justify-between mb-8 sm:mb-12">
+          <div className="flex items-center justify-between mb-6 sm:mb-8">
             <h2 className="font-playfair italic font-normal text-3xl sm:text-4xl md:text-5xl text-neutral-900 tracking-tight">
               {content?.heading || "Explore Stays"}
             </h2>
@@ -64,21 +64,18 @@ export default function ExploreStaysGrid({
             </button>
           </div>
 
-          {/* Cards Grid — spans the same left/right edges as the header row above it
-              (both live in the same w-[90%] container, no separate inner max-width),
-              so the first card starts flush under the "E" of the heading instead of
-              being centered narrower with its own margin. */}
+          {/* Cards Grid — spans the same left/right edges as the header row above it */}
           {loading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
-              {Array.from({ length: 4 }).map((_, i) => (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
+              {Array.from({ length: 3 }).map((_, i) => (
                 <div
                   key={i}
-                  className="rounded-2xl bg-neutral-100 animate-pulse aspect-[4/3]"
+                  className="rounded-2xl bg-neutral-100 animate-pulse aspect-[16/10]"
                 />
               ))}
             </div>
           ) : visibleStays.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
               {visibleStays.map((s) => (
                 <StayCard
                   key={s.id}
