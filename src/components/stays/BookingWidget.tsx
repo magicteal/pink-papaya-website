@@ -18,8 +18,8 @@ export default function BookingWidget({ pricePerNight = "" }: { pricePerNight?: 
             <p className="font-bricolage text-[10px] uppercase tracking-[0.14em] text-neutral-400 mb-1.5">
               {hasPrice ? "Starting from" : "Pricing"}
             </p>
-            <p className="font-playfair text-4xl text-[#16323C] leading-none">
-              {hasPrice ? pricePerNight.replace(/\$/g, "₹") : pricePerNight}
+            <p className={`font-playfair text-[#16323C] leading-none ${hasPrice ? "text-4xl" : "text-2xl sm:text-3xl font-medium"}`}>
+              {hasPrice ? pricePerNight.replace(/\$/g, "₹") : "Price on request"}
             </p>
             {hasPrice && (
               <p className="font-bricolage text-xs text-neutral-400 mt-1.5">per night · taxes included</p>

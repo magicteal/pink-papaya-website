@@ -129,31 +129,31 @@ export default function TrendingDestinations() {
   if (!loading && destinations.length === 0) return null;
 
   return (
-    <section className="py-10 sm:py-16 md:py-20 bg-white">
-      <div className="w-[90%] max-w-[1552px] mx-auto">
+    <section className="py-8 sm:py-12 md:py-14 bg-white">
+      <div className="w-[90%] max-w-[1400px] mx-auto">
         <Reveal>
           {/* Header Row */}
-          <div className="mb-8 sm:mb-12">
-            <p className="text-[#A04415] text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] font-bricolage mb-2 sm:mb-3">
+          <div className="mb-6 sm:mb-9">
+            <p className="text-[#A04415] text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] font-bricolage mb-1.5 sm:mb-2">
               Explore
             </p>
-            <h2 className="font-playfair italic font-normal text-3xl sm:text-4xl md:text-5xl text-neutral-900 tracking-tight">
+            <h2 className="font-playfair italic font-normal text-2xl sm:text-3xl md:text-4xl lg:text-[40px] text-neutral-900 tracking-tight">
               Trending Destinations
             </h2>
           </div>
 
           {/* Destination Cards — 4-up grid */}
           {loading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
               {Array.from({ length: 4 }).map((_, i) => (
                 <div
                   key={i}
-                  className="rounded-[22px] bg-neutral-200/60 animate-pulse aspect-[3/4]"
+                  className="rounded-[22px] bg-neutral-200/60 animate-pulse aspect-[4/5]"
                 />
               ))}
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
               {destinations.map((dest) => (
                 <Link
                   key={dest.slug}
@@ -162,7 +162,7 @@ export default function TrendingDestinations() {
                 >
                   <div className="relative w-full rounded-[22px] overflow-hidden bg-neutral-100 shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.1)] transition-all duration-500">
                     {/* Image */}
-                    <div className="relative aspect-[3/4] w-full overflow-hidden">
+                    <div className="relative aspect-[4/5] w-full overflow-hidden">
                       <Image
                         src={dest.image}
                         alt={`${dest.name} - Goa destination`}

@@ -20,17 +20,35 @@ export default function Navbar({ className }: { className?: string }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [visible, setVisible] = useState(true);
 
+  const lastScrollY = useRef(0);
   const contactBtnRef = useRef<HTMLButtonElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
   const menuBtnRef = useRef<HTMLButtonElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 30);
-    window.addEventListener("scroll", fn, { passive: true });
-    fn();
-    return () => window.removeEventListener("scroll", fn);
+    function handleScroll() {
+      const currentScrollY = window.scrollY;
+      setScrolled(currentScrollY > 30);
+
+      if (currentScrollY <= 20) {
+        setVisible(true);
+      } else if (currentScrollY > lastScrollY.current && currentScrollY > 60) {
+        // Scrolling DOWN -> hide navbar
+        setVisible(false);
+      } else if (currentScrollY < lastScrollY.current) {
+        // Scrolling UP -> show navbar
+        setVisible(true);
+      }
+
+      lastScrollY.current = currentScrollY;
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
@@ -82,15 +100,16 @@ export default function Navbar({ className }: { className?: string }) {
   return (
     <header
       className={cn(
-        // Gutter matches HomeHero's fixed px inset so the pill and the hero card
-        // share one left/right edge at every landscape width.
-        "fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300 pt-3 sm:pt-4 px-4 sm:px-5 lg:px-7 pointer-events-none",
+        "fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300 ease-in-out pt-2 sm:pt-2.5 px-4 sm:px-5 lg:px-7 pointer-events-none",
+        visible || menuOpen
+          ? "translate-y-0 opacity-100"
+          : "-translate-y-full opacity-0 pointer-events-none",
         className
       )}
     >
       <div
         className={cn(
-          "w-full mx-auto bg-white/95 backdrop-blur-md border border-neutral-200/70 transition-all duration-300 pointer-events-auto px-5 sm:px-6 md:px-8 2xl:px-12 py-2.5 sm:py-3.5 2xl:py-5",
+          "w-full mx-auto bg-white/95 backdrop-blur-md border border-neutral-200/70 transition-all duration-300 pointer-events-auto px-4 sm:px-5 md:px-7 2xl:px-9 py-1.5 sm:py-2 2xl:py-3",
           menuOpen ? "rounded-3xl" : "rounded-full",
           scrolled ? "shadow-[0_8px_30px_rgba(0,0,0,0.08)] border-neutral-200" : "shadow-sm"
         )}
@@ -104,12 +123,12 @@ export default function Navbar({ className }: { className?: string }) {
               width={140}
               height={40}
               priority
-              className="h-auto w-[115px] sm:w-[135px] md:w-[145px] 2xl:w-[185px] transition-opacity duration-300"
+              className="h-auto w-[98px] sm:w-[115px] md:w-[125px] 2xl:w-[145px] transition-opacity duration-300"
             />
           </Link>
 
           {/* Desktop nav — centered */}
-          <nav className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-8 lg:gap-10 2xl:gap-14 font-bricolage">
+          <nav className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-6 lg:gap-8 2xl:gap-11 font-bricolage">
             {NAV_ITEMS.map((it) => {
               const active = isActive(it.href);
               return (
@@ -117,7 +136,7 @@ export default function Navbar({ className }: { className?: string }) {
                   key={it.href}
                   href={it.href}
                   className={cn(
-                    "text-[12px] lg:text-[13px] 2xl:text-[15px] font-semibold tracking-[0.05em] uppercase transition-colors group relative py-1",
+                    "text-[11px] lg:text-[12px] 2xl:text-[13.5px] font-semibold tracking-[0.05em] uppercase transition-colors group relative py-0.5",
                     active
                       ? "text-[#B84A17]"
                       : "text-neutral-600 hover:text-neutral-900"
@@ -142,7 +161,7 @@ export default function Navbar({ className }: { className?: string }) {
               <button
                 ref={contactBtnRef}
                 type="button"
-                className="bg-[#9E3B09] hover:bg-[#802F07] active:scale-95 text-white rounded-full px-5 sm:px-6 2xl:px-8 py-2 sm:py-2.5 2xl:py-3.5 text-[11px] sm:text-[12px] 2xl:text-[14px] font-semibold tracking-widest uppercase shadow-sm transition-all duration-200 cursor-pointer"
+                className="bg-[#9E3B09] hover:bg-[#802F07] active:scale-95 text-white rounded-full px-4.5 sm:px-5.5 2xl:px-7 py-1.5 sm:py-2 2xl:py-2.5 text-[10.5px] sm:text-[11.5px] 2xl:text-[13px] font-semibold tracking-widest uppercase shadow-sm transition-all duration-200 cursor-pointer"
                 onClick={() => setContactOpen((v) => !v)}
                 aria-expanded={contactOpen}
                 aria-haspopup="true"

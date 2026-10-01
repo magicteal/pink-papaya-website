@@ -59,8 +59,9 @@ export default function StayCard({
       ? "Pet Friendly"
       : null);
 
-  // Format price value cleanly
-  const rawPrice = pricePerNight ? formatPriceString(pricePerNight) : "₹8,200";
+  // Format price value cleanly (numeric vs on request)
+  const hasNumericPrice = Boolean(pricePerNight && /\d/.test(pricePerNight));
+  const rawPrice = hasNumericPrice ? formatPriceString(pricePerNight) : null;
 
   return (
     <div
@@ -133,12 +134,20 @@ export default function StayCard({
             </div>
 
             <div>
-              <p className="text-neutral-900 font-bold text-base sm:text-lg font-bricolage">
-                From {rawPrice} <span className="font-bold text-neutral-900">/ night</span>
-              </p>
-              <p className="text-[11px] sm:text-xs text-neutral-400 font-bricolage font-normal mt-0.5">
-                per night + taxes
-              </p>
+              {hasNumericPrice ? (
+                <>
+                  <p className="text-neutral-900 font-bold text-base sm:text-lg font-bricolage">
+                    From {rawPrice} <span className="font-bold text-neutral-900">/ night</span>
+                  </p>
+                  <p className="text-[11px] sm:text-xs text-neutral-400 font-bricolage font-normal mt-0.5">
+                    per night + taxes
+                  </p>
+                </>
+              ) : (
+                <p className="text-neutral-900 font-bold text-base sm:text-lg font-bricolage">
+                  Price on request
+                </p>
+              )}
             </div>
           </div>
         </div>

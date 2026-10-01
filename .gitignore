@@ -74,4 +74,5 @@ Desktop.ini
 
 # Miscellaneous / Temporary
 *.pem
+/scratch/
 

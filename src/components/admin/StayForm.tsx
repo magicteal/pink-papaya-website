@@ -10,6 +10,8 @@ import { Select } from "@/components/ui/select";
 import NextImage from "next/image";
 import { Stay, Collection, PropertyType } from "@/app/admin/stays/types";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import AmenityIconPicker from "@/components/admin/AmenityIconPicker";
+import { AmenityIcon, parseAmenity, detectAmenityIcon } from "@/lib/amenityIcons";
 
 const EMPTY: Stay = {
   id: "", title: "", imageUrl: "", area: "", bed: "", guests: "", category: "", propertyType: "",
@@ -36,6 +38,7 @@ export default function StayForm({ initialData }: { initialData?: Stay }) {
   const [galleryUploading, setGalleryUploading] = useState(false);
   const galleryFileRef = useRef<HTMLInputElement>(null);
   const [amenityInput, setAmenityInput] = useState("");
+  const [amenityIcon, setAmenityIcon] = useState("");
   const [nearbyPlaceName, setNearbyPlaceName] = useState("");
   const [nearbyPlaceDistance, setNearbyPlaceDistance] = useState("");
   const [faqQuestion, setFaqQuestion] = useState("");
@@ -179,11 +182,33 @@ export default function StayForm({ initialData }: { initialData?: Stay }) {
     finally { setSubmitting(false); }
   }
 
+  function handleAmenityInputChange(val: string) {
+    setAmenityInput(val);
+    if (!amenityIcon || amenityIcon === "Check") {
+      const detected = detectAmenityIcon(val);
+      if (detected && detected !== "Check") {
+        setAmenityIcon(detected);
+      }
+    }
+  }
+
   function addAmenity() {
     const v = amenityInput.trim();
-    if (!v || (form.amenities ?? []).includes(v)) { setAmenityInput(""); return; }
-    setForm((f) => ({ ...f, amenities: [...(f.amenities ?? []), v] }));
+    if (!v) return;
+
+    const current = form.amenities ?? [];
+    const alreadyExists = current.some((item) => parseAmenity(item).name.toLowerCase() === v.toLowerCase());
+    if (alreadyExists) {
+      setAmenityInput("");
+      setAmenityIcon("");
+      return;
+    }
+
+    const iconToSave = amenityIcon || detectAmenityIcon(v);
+    const newAmenity = { name: v, icon: iconToSave };
+    setForm((f) => ({ ...f, amenities: [...(f.amenities ?? []), newAmenity] }));
     setAmenityInput("");
+    setAmenityIcon("");
   }
 
   function addNearbyPlace() {
@@ -493,25 +518,110 @@ export default function StayForm({ initialData }: { initialData?: Stay }) {
           )}
         </div>
 
-        {/* Amenities */}
+        {/* Amenities with Custom Icon Support */}
         <div className="pt-6 border-t border-neutral-100 space-y-4">
-          <Label className="text-xs font-bold uppercase tracking-wide text-neutral-700">Amenities</Label>
-          <div className="flex gap-2 max-w-sm">
-            <Input
-              placeholder="e.g., Pool, WiFi"
-              value={amenityInput}
-              onChange={(e) => setAmenityInput(e.target.value)}
-              onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addAmenity(); } }}
-            />
-            <Button type="button" variant="outlineBlack" onClick={addAmenity}>Add</Button>
+          <div className="flex items-center justify-between">
+            <Label className="text-xs font-bold uppercase tracking-wide text-neutral-700">
+              Amenities & Icons
+            </Label>
+            <span className="text-[11px] text-neutral-400 font-bricolage">
+              Select an icon or upload a custom SVG/image
+            </span>
           </div>
-          <div className="flex flex-wrap gap-2">
-            {(form.amenities ?? []).map((a) => (
-              <span key={a} className="inline-flex items-center gap-2 bg-neutral-100 text-neutral-700 text-sm px-3 py-1.5 rounded-full font-bricolage">
-                {a}
-                <button onClick={() => setForm((f) => ({ ...f, amenities: (f.amenities ?? []).filter((x) => x !== a) }))} className="text-neutral-400 hover:text-red-500 leading-none">×</button>
-              </span>
-            ))}
+
+          <div className="flex items-center gap-2 max-w-lg">
+            {/* Visual Icon Picker Trigger */}
+            <AmenityIconPicker
+              selectedIcon={amenityIcon || (amenityInput ? detectAmenityIcon(amenityInput) : "Check")}
+              onSelect={(iconId) => setAmenityIcon(iconId)}
+              amenityName={amenityInput}
+            />
+
+            {/* Amenity Name Input */}
+            <Input
+              placeholder="e.g., Infinity Pool, High-Speed WiFi..."
+              value={amenityInput}
+              onChange={(e) => handleAmenityInputChange(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  addAmenity();
+                }
+              }}
+              className="flex-1"
+            />
+
+            <Button type="button" variant="outlineBlack" onClick={addAmenity}>
+              Add
+            </Button>
+          </div>
+
+          {/* Quick add popular hospitality amenities */}
+          <div className="flex flex-wrap items-center gap-1.5 text-xs text-neutral-500 font-bricolage">
+            <span className="text-[11px] text-neutral-400 mr-1">Quick add:</span>
+            {[
+              "Infinity Pool",
+              "High-Speed WiFi",
+              "Air Conditioning",
+              "King Bed",
+              "Smart TV",
+              "Breakfast",
+              "Private Garden",
+              "Free Parking",
+              "Pet Friendly",
+            ].map((quickName) => {
+              const current = form.amenities ?? [];
+              const alreadyAdded = current.some((item) => parseAmenity(item).name.toLowerCase() === quickName.toLowerCase());
+              if (alreadyAdded) return null;
+
+              return (
+                <button
+                  key={quickName}
+                  type="button"
+                  onClick={() => {
+                    const icon = detectAmenityIcon(quickName);
+                    setForm((f) => ({
+                      ...f,
+                      amenities: [...(f.amenities ?? []), { name: quickName, icon }],
+                    }));
+                  }}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-neutral-100 hover:bg-[#16323C] hover:text-white transition-all text-[11px] cursor-pointer"
+                >
+                  <span className="text-neutral-400 group-hover:text-white">+</span> {quickName}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* List of Added Amenities with Icons */}
+          <div className="flex flex-wrap gap-2 pt-1">
+            {(form.amenities ?? []).map((a, idx) => {
+              const parsed = parseAmenity(a);
+              return (
+                <span
+                  key={idx}
+                  className="inline-flex items-center gap-2 bg-[#F7F2EA] text-[#16323C] text-sm px-3.5 py-1.5 rounded-full font-bricolage border border-[#E7E2D6] shadow-2xs group hover:border-[#16323C]/30 transition-all"
+                >
+                  <div className="w-5 h-5 rounded-full bg-white flex items-center justify-center text-[#C07A5A] shrink-0 border border-neutral-200/80">
+                    <AmenityIcon icon={parsed.icon} className="w-3 h-3" fallback="Check" />
+                  </div>
+                  <span className="font-medium text-[13px]">{parsed.name}</span>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setForm((f) => ({
+                        ...f,
+                        amenities: (f.amenities ?? []).filter((_, i) => i !== idx),
+                      }))
+                    }
+                    className="text-neutral-400 hover:text-red-500 font-bold ml-1 leading-none text-base transition-colors cursor-pointer"
+                    title="Remove amenity"
+                  >
+                    ×
+                  </button>
+                </span>
+              );
+            })}
           </div>
         </div>
 

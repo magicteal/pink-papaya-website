@@ -77,3 +77,7 @@ Page/section content editor, roles, users, media library.
 - Domain access (e.g. `pinkpapayastays.com`) -> rewrite to `/coming-soon`
 - IP access (`187.127.187.184`) or localhost -> full site
 - Static assets (`/_next`, `/api`, `/media`, `/images`, `/logo-files`, `/favicon.ico`) bypass all gating
+
+## Key Gotchas
+- **JS vs TSX Files**: Several public page files are `.js` rather than `.tsx`: `src/app/(main)/stays/[id]/page.js`, `src/app/(main)/blog/[id]/page.js`, and `src/app/(main)/contact/page.js`. Grep for both extensions when searching routes.
+- **Generation-1 API Endpoints**: Some legacy content APIs (`/api/stays`, `/api/interior`, etc.) do not have strict RBAC/auth checks applied compared to `/api/cms/*`. Review before exposing domain publicly.

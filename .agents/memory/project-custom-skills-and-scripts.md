@@ -16,6 +16,7 @@ metadata:
 | `pushready` | `/pushready` | Build + lint clean, then commit + push to GitHub |
 | `pinkpapayalive` | `/pinkpapayalive` | Build, lint, push to GitHub, SSH deploy to VPS, verify live site |
 | `responsive` | `/responsive` | Full responsiveness audit across all screen sizes |
+| `startlocal` | `/startlocal` | Start local Next.js dev server on port 3000 & verify health |
 
 ## Global Skills (available in all projects)
 - `agy-customizations` — Antigravity customization system guide

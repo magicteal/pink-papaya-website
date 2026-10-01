@@ -38,7 +38,7 @@ export default function HomeHero({
   // rather than clipping the headline.
   return (
     <section
-      className={`pt-24 sm:pt-28 md:pt-32 px-4 sm:px-5 lg:px-7 bg-white lg:h-[100dvh] lg:flex lg:flex-col ${className || ""}`}
+      className={`pt-20 sm:pt-22 md:pt-[92px] lg:pt-[92px] px-4 sm:px-5 lg:px-7 bg-white lg:h-[100dvh] lg:flex lg:flex-col ${className || ""}`}
     >
       {/* Hero Rounded Container */}
       <div className="relative w-full mx-auto rounded-[24px] sm:rounded-[32px] md:rounded-[36px] overflow-hidden min-h-[440px] sm:min-h-[500px] md:min-h-[560px] lg:min-h-[420px] lg:flex-1 flex flex-col justify-center items-center text-center px-6 sm:px-12 py-16 shadow-lg bg-neutral-900">
@@ -64,14 +64,12 @@ export default function HomeHero({
         />
 
         {/* Content */}
-        {/* Type and measure scale with the viewport so the headline keeps the same
-            proportion to the hero on a 1280 laptop and a 2560 monitor alike. */}
-        <div className="relative z-20 max-w-3xl xl:max-w-4xl 2xl:max-w-5xl flex flex-col items-center">
-          <h1 className="font-playfair italic font-normal text-white text-3xl sm:text-5xl md:text-6xl xl:text-7xl 2xl:text-8xl leading-[1.18] tracking-tight drop-shadow-md">
+        <div className="relative z-20 max-w-2xl lg:max-w-3xl xl:max-w-4xl flex flex-col items-center">
+          <h1 className="font-playfair italic font-normal text-white text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-[68px] leading-[1.16] tracking-tight drop-shadow-md">
             {title}
           </h1>
 
-          <p className="font-bricolage font-light text-white/95 text-sm sm:text-base md:text-lg xl:text-xl 2xl:text-2xl mt-3 sm:mt-4 xl:mt-6 max-w-xl xl:max-w-2xl leading-relaxed drop-shadow-sm">
+          <p className="font-bricolage font-light text-white/95 text-xs sm:text-sm md:text-base lg:text-lg mt-3 sm:mt-4 max-w-lg lg:max-w-xl leading-relaxed drop-shadow-sm">
             {description}
           </p>
         </div>

@@ -43,64 +43,49 @@ export default function FAQSection({ content }: { content?: any }) {
   const faqs = content?.faqs?.length ? content.faqs : DEFAULT_FAQS;
 
   return (
-    <section className="pt-4 sm:pt-6 md:pt-8 pb-4 sm:pb-6 md:pb-8 bg-white">
-      <div className="w-[90%] mx-auto max-w-[1552px]">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
-          {/* Left Column: Heading, Description & Concierge Link */}
-          <div className="lg:col-span-5 xl:col-span-5 lg:sticky lg:top-32">
+    <section className="py-8 sm:py-12 md:py-14 bg-white border-t border-neutral-100/80">
+      <div className="w-[90%] mx-auto max-w-[1400px]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+          {/* Left Column: Heading & Description */}
+          <div className="lg:col-span-5 xl:col-span-5 lg:sticky lg:top-28">
             <Reveal>
-              <h2 className="font-playfair font-normal text-4xl sm:text-5xl md:text-[56px] text-neutral-900 leading-[1.06] tracking-tight">
-                Frequently
-                <br />
-                Asked
+              <h2 className="font-playfair font-normal text-3xl sm:text-4xl md:text-[42px] lg:text-[46px] text-neutral-900 leading-[1.08] tracking-tight">
+                Frequently Asked
                 <br />
                 Questions
               </h2>
-              <p className="mt-6 text-neutral-600 text-xs sm:text-[13px] md:text-sm font-bricolage leading-relaxed max-w-sm">
-                {subtitle}
+              <p className="mt-3.5 text-xs sm:text-[13px] md:text-sm font-bricolage text-neutral-500 font-normal leading-relaxed max-w-xs">
+                Quick answers to common questions about staying at Pink Papaya.
               </p>
-              <div className="mt-8">
-                <Link
-                  href={ctaHref}
-                  className="inline-flex items-center gap-2 text-[11px] sm:text-xs font-semibold tracking-[0.2em] font-bricolage uppercase text-[#9B4522] hover:text-neutral-900 transition-colors duration-200 group"
-                >
-                  <span>{ctaLabel}</span>
-                  <span className="transition-transform duration-200 group-hover:translate-x-1">
-                    →
-                  </span>
-                </Link>
-              </div>
             </Reveal>
           </div>
 
           {/* Right Column: Accordion List */}
           <div className="lg:col-span-7 xl:col-span-7">
             <Reveal>
-              <div className="border-t border-neutral-200/80 divide-y divide-neutral-200/80">
+              <div className="border-t border-neutral-100 divide-y divide-neutral-100">
                 {faqs.map((faq: any, idx: number) => {
                   const isOpen = openIdx === idx;
                   return (
-                    <div key={idx} className="py-6 sm:py-7">
+                    <div key={idx} className="py-4 sm:py-5 font-bricolage">
                       <button
                         type="button"
                         onClick={() => setOpenIdx(isOpen ? null : idx)}
                         aria-expanded={isOpen}
-                        className="w-full flex items-start justify-between gap-6 text-left group cursor-pointer"
+                        className="w-full flex items-center justify-between gap-6 text-left group cursor-pointer"
                       >
-                        <h3
-                          className={cn(
-                            "font-playfair font-normal text-xl sm:text-2xl text-neutral-900 leading-snug transition-colors duration-200",
-                            isOpen
-                              ? "text-neutral-950"
-                              : "text-neutral-800 group-hover:text-neutral-950"
-                          )}
-                        >
+                        <h3 className="text-[14px] sm:text-[15px] md:text-[16px] font-bold text-neutral-900 leading-snug transition-colors duration-200 group-hover:text-neutral-700">
                           {faq.question}
                         </h3>
-                        <span className="shrink-0 pt-1 text-neutral-400 group-hover:text-neutral-700 transition-transform duration-300 ease-out">
+                        <span
+                          className={cn(
+                            "shrink-0 flex h-6.5 w-6.5 items-center justify-center rounded-full border border-neutral-200/90 text-neutral-400 bg-white transition-all duration-200 group-hover:border-neutral-400 group-hover:text-neutral-700",
+                            isOpen && "bg-neutral-900 border-neutral-900 text-white group-hover:bg-neutral-800 group-hover:text-white"
+                          )}
+                        >
                           <Plus
                             className={cn(
-                              "w-4 h-4 transition-transform duration-300 ease-out stroke-[1.75]",
+                              "w-3.5 h-3.5 transition-transform duration-300 ease-out stroke-[1.5]",
                               isOpen ? "rotate-45" : "rotate-0"
                             )}
                           />
@@ -112,12 +97,12 @@ export default function FAQSection({ content }: { content?: any }) {
                         className={cn(
                           "grid transition-all duration-300 ease-in-out",
                           isOpen
-                            ? "grid-rows-[1fr] opacity-100 mt-4"
+                            ? "grid-rows-[1fr] opacity-100 mt-3"
                             : "grid-rows-[0fr] opacity-0 mt-0 pointer-events-none"
                         )}
                       >
                         <div className="overflow-hidden">
-                          <p className="font-bricolage text-neutral-600 text-xs sm:text-[13.5px] leading-relaxed max-w-xl pr-4 sm:pr-8">
+                          <p className="font-bricolage text-[13px] sm:text-[13.5px] md:text-sm text-neutral-500 leading-[1.75] pr-6 sm:pr-12">
                             {faq.answer}
                           </p>
                         </div>

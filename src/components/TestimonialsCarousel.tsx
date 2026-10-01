@@ -126,12 +126,12 @@ const TestimonialsCarousel = React.forwardRef<
 
         <div
           ref={marqueeRef}
-          className="flex gap-6 md:gap-8 will-change-transform"
+          className="flex gap-4 md:gap-5 will-change-transform"
         >
           {items.map((fb, idx) => (
             <div
               key={idx}
-              className="flex-shrink-0 w-[300px] sm:w-[380px] md:w-[420px]"
+              className="flex-shrink-0 w-[230px] sm:w-[270px] md:w-[300px]"
             >
               <FeedbackCard feedback={fb} />
             </div>

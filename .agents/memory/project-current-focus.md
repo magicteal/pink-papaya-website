@@ -1,32 +1,33 @@
 ---
 name: project-current-focus
-description: Active work and user preferences as of 2026-09-21
+description: Active work, user preferences, and state of play as of 2026-09-30
 metadata:
   type: project
 ---
 
-# Current Focus (as of 2026-09-21)
+# Current Focus (as of 2026-09-30)
 
-## Active Work
-- **Homepage visual polish**: reducing excessive whitespace between sections. Sections that share `bg-[#FAF8F5]` background double their padding; `pb` + `pt` must both be small at section boundaries.
-  - Sections already tightened: TestimonialsSection, FAQSection, InstagramFeed.
-- **Hero section**: refactored to `clamp()`/`vh`/`vw` units for consistent desktop/laptop proportions. Navbar and hero must not appear "jointed" — explicit top padding on hero accounts for navbar height.
-- **Stay cards**: Embla carousel with dot indicators (recently added, 2026-09-21 commit).
+## Active Work & Recent Direction
+- **Site-wide Layout Consistency**: Standardized home page sections (`ExploreStaysGrid`, `TrendingDestinations`, `TestimonialsSection`, etc.) to `w-[90%] max-w-[1552px] mx-auto` to ensure consistent horizontal alignment across all displays up to 27-inch (2560px) monitors.
+- **Stay Card Proportions**: Locked `StayCard.tsx` image ratio to `aspect-[16/10]` with a 4-column responsive grid on xl+ screens and a 3-column inner spec pills grid (`bed`, `guests`, `area`). User explicitly requested this ratio across all landscape displays.
+- **Testimonial Section Redesign**: Replaced generic feedback cards with an editorial luxury card design in `FeedbackCard.tsx`:
+  - Large decorative serif quotation mark in `#16323C`/15
+  - Italicized Playfair Display quote typography
+  - Monogram avatar circle with guest initials in `#16323C`
+  - Subtle top accent line gradient (`#16323C` to `#9A6648`)
+  - Warm parchment background (`#FDFAF6`) with border (`#E8E2D6`) and rounded-2xl corners
+  - 5-star rating in `#C07A5A` warm terracotta
+  - Infinite smooth GSAP marquee in `TestimonialsCarousel.tsx` with hover-pause and manual prev/next arrow controls.
+- **Leisure Highlights & Rooms & Stay**: Refined parallax sticky stacking effect and responsive proportions.
 
-## User Preferences
-- Tight layout — no large whitespace swaths between sections.
-- Hero must be fully visible above fold on all desktop/laptop sizes.
-- Navbar + Hero must have a clear white separator (no overlap).
-- `npm run dev` must start on port 3000 (not 3001); `scripts/dev.js` enforces this.
+## User Preferences & Critical Constraints
+- **Card sizing and ratio**: Keep `aspect-[16/10]` for stay cards; cards should feel balanced and not overly tall.
+- **Container widths**: All major home sections must match `w-[90%] max-w-[1552px] mx-auto` to prevent ragged edges or width mismatch on 27" screens.
+- **Tight whitespace**: Keep padding between home sections tight; avoid large vertical gaps.
+- **Coming Soon routing**: Public domain `pinkpapayastays.com` must route to `/coming-soon`; full site is accessed directly via VPS IP `187.127.187.184` or localhost (enforced in `middleware.ts`).
+- **Dev Server**: `npm run dev` executes `scripts/dev.js`, auto-allocating port 3000.
 
-## Recent Commits (as of 2026-09-21)
-1. `73a386e` — carousel dot indicators on stay cards, Explore Stays grid alignment fix
-2. `ad9b055` — landscape-width consistency on home/about heroes, footer blend, errorfree skill
-3. `6bcc975` — Leisure Highlights sticky parallax, Rooms & Stay responsiveness, responsive skill
-4. `59b95f0` — Rooms & Stay redesign, codebase structure organization, pushready skill
-
-## What to Avoid
-- Do not introduce large `py-28` or similar on sections that share background color.
-- Do not change `scripts/dev.js` default port away from 3000.
-- Domain `pinkpapayastays.com` must always serve `/coming-soon` (enforced by middleware).
-- Never read or record actual secret values from `.env`.
+## Pre-Launch Open Items
+1. **Root SSH Password**: Hardcoded in `scripts/vps-deploy.js` — must be moved to environment variable before production public release.
+2. **Auth Cookie**: Currently `secure: false` in `src/lib/auth.ts` for local/IP testing — needs `secure: true` on HTTPS domain launch.
+3. **Public Domain Launch**: Flipping domain from `/coming-soon` to the full site requires updating the hostname check in `src/middleware.ts`.

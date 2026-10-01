@@ -76,16 +76,16 @@ export default function InstagramFeed({ content }: { content?: any }) {
   const profileUrl = content?.profileUrl || PROFILE_URL;
 
   return (
-    <section className="relative z-20 w-full bg-white pt-4 sm:pt-6 md:pt-8 pb-16 sm:pb-20 md:pb-24 font-bricolage">
+    <section className="relative z-20 w-full bg-white pt-4 sm:pt-6 pb-12 sm:pb-16 md:pb-20 font-bricolage">
       {/* Fades to the footer's own #F9F7F4 (not a generic shadow) so the two sections
           read as one continuous surface — see the note in Footer.tsx for why a plain
           box-shadow doesn't generalize to pages where the color below already matches. */}
       <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-24 sm:h-32 bg-gradient-to-b from-transparent to-[#F9F7F4]" />
-      <div className="relative w-[90%] mx-auto max-w-[1552px]">
+      <div className="relative w-[90%] mx-auto max-w-[1400px]">
         {/* Editorial Centered Header */}
         <Reveal>
-          <div className="mb-10 sm:mb-14 flex flex-col items-center text-center">
-            <p className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.22em] text-[#A04415] font-bricolage mb-2 sm:mb-3">
+          <div className="mb-8 sm:mb-11 flex flex-col items-center text-center">
+            <p className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.22em] text-[#A04415] font-bricolage mb-1.5 sm:mb-2">
               {tagline}
             </p>
             <a
@@ -94,7 +94,7 @@ export default function InstagramFeed({ content }: { content?: any }) {
               rel="noopener noreferrer"
               className="group inline-block"
             >
-              <h2 className="font-playfair italic font-normal text-3xl sm:text-4xl md:text-5xl lg:text-[54px] text-neutral-900 tracking-tight leading-[1.1] transition-colors group-hover:text-[#A04415]">
+              <h2 className="font-playfair italic font-normal text-2xl sm:text-3xl md:text-4xl lg:text-[42px] text-neutral-900 tracking-tight leading-[1.1] transition-colors group-hover:text-[#A04415]">
                 {handle}
               </h2>
             </a>

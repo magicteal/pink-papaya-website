@@ -71,20 +71,20 @@ export default function LeisureHighlights({ content }: { content?: any }) {
         />
 
         {/* Content */}
-        <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
+        <div className="relative z-10 max-w-2xl lg:max-w-3xl mx-auto flex flex-col items-center">
           <Reveal y={20}>
-            <h2 className="font-playfair italic font-normal text-white text-3xl sm:text-5xl md:text-6xl lg:text-[76px] xl:text-[84px] tracking-tight leading-tight px-2">
+            <h2 className="font-playfair italic font-normal text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[68px] tracking-tight leading-tight px-2">
               {heading}
             </h2>
           </Reveal>
           <Reveal y={20} delay={0.12}>
-            <p className="mt-3.5 sm:mt-5 md:mt-6 text-neutral-200/90 text-xs sm:text-sm md:text-base lg:text-lg font-bricolage font-light leading-relaxed max-w-xl px-4 sm:px-0">
+            <p className="mt-3 sm:mt-4 md:mt-5 text-neutral-200/90 text-xs sm:text-sm md:text-base font-bricolage font-light leading-relaxed max-w-lg px-4 sm:px-0">
               {bannerDescription}
             </p>
           </Reveal>
 
           {/* Subtle scroll cue */}
-          <div className="mt-6 sm:mt-8 md:mt-10 flex items-center gap-2 text-white/50 text-[10px] sm:text-[11px] font-bricolage tracking-[0.22em] uppercase">
+          <div className="mt-5 sm:mt-7 md:mt-8 flex items-center gap-2 text-white/50 text-[10px] sm:text-[11px] font-bricolage tracking-[0.22em] uppercase">
             <span>Scroll to explore</span>
             <span className="animate-bounce">↓</span>
           </div>
@@ -95,9 +95,9 @@ export default function LeisureHighlights({ content }: { content?: any }) {
       <div className="sticky top-0 z-20 h-[100dvh] min-h-[540px] w-full overflow-hidden shadow-[0_-30px_70px_rgba(0,0,0,0.9)] border-t border-white/10 bg-[#1C1B1A]">
         <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-2 md:grid-rows-1 h-full w-full">
           {/* Left Column: Dark Text Card */}
-          <div className="bg-[#232220] text-white flex flex-col justify-center items-center text-center p-5 sm:p-8 md:p-12 lg:p-18 xl:p-24 h-full border-b md:border-b-0 md:border-r border-white/5">
+          <div className="bg-[#232220] text-white flex flex-col justify-center items-center text-center p-5 sm:p-8 md:p-10 lg:p-14 xl:p-16 h-full border-b md:border-b-0 md:border-r border-white/5">
             <Reveal y={20}>
-              <h3 className="font-playfair italic font-normal text-xl sm:text-2xl md:text-[36px] lg:text-[44px] xl:text-[48px] text-white leading-snug max-w-lg mx-auto px-2">
+              <h3 className="font-playfair italic font-normal text-xl sm:text-2xl md:text-3xl lg:text-[36px] xl:text-[40px] text-white leading-snug max-w-lg mx-auto px-2">
                 {title1}
               </h3>
             </Reveal>
@@ -146,9 +146,9 @@ export default function LeisureHighlights({ content }: { content?: any }) {
           </div>
 
           {/* Right Column: Dark Text Card (desktop right, mobile top) */}
-          <div className="order-1 md:order-2 bg-[#232220] text-white flex flex-col justify-center items-center text-center p-5 sm:p-8 md:p-12 lg:p-18 xl:p-24 h-full border-b md:border-b-0 md:border-l border-white/5">
+          <div className="order-1 md:order-2 bg-[#232220] text-white flex flex-col justify-center items-center text-center p-5 sm:p-8 md:p-10 lg:p-14 xl:p-16 h-full border-b md:border-b-0 md:border-l border-white/5">
             <Reveal y={20}>
-              <h3 className="font-playfair italic font-normal text-xl sm:text-2xl md:text-[36px] lg:text-[44px] xl:text-[48px] text-white leading-snug max-w-lg mx-auto px-2">
+              <h3 className="font-playfair italic font-normal text-xl sm:text-2xl md:text-3xl lg:text-[36px] xl:text-[40px] text-white leading-snug max-w-lg mx-auto px-2">
                 {title2}
               </h3>
             </Reveal>

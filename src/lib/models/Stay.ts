@@ -23,7 +23,7 @@ export interface IStay extends Document {
   description?: string;
   pricePerNight?: string;
   images?: string[];
-  amenities?: string[];
+  amenities?: (string | { name: string; icon?: string })[];
   location?: string;
   aboutContent?: string;
   locationMapUrl?: string;
@@ -55,7 +55,7 @@ const StaySchema = new Schema<IStay>({
   description: { type: String },
   pricePerNight: { type: String },
   images: { type: [String], default: undefined },
-  amenities: { type: [String], default: undefined },
+  amenities: { type: [Schema.Types.Mixed], default: undefined },
   location: { type: String },
   aboutContent: { type: String },
   locationMapUrl: { type: String },

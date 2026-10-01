@@ -17,6 +17,8 @@ export function formatPriceString(raw?: string | number | null): string {
   if (typeof raw === "number") return formatCurrencyNumber(raw);
 
   const s = String(raw).trim();
+  if (/request/i.test(s)) return "Price on request";
+
   // match first numeric token, allow thousands separators and decimals
   const m = s.match(/-?[\d,]+(?:\.\d+)?/);
   if (m) {

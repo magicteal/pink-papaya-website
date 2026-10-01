@@ -44,6 +44,8 @@ metadata:
 - Serves static assets (`/logo-files/`, `/images/`, `/font-files/`) with immutable cache headers
 - Reverse proxies everything else to Next.js on port 3000
 
-## Key Gotcha
+## Key Gotchas & Security Notes
 - When deploying, do NOT run `npm install` manually — use `npm ci` to respect lockfile.
 - PM2 must be restarted after build, not reloaded (app pulls env vars at startup).
+- ⚠️ **Security Gotcha**: `scripts/vps-deploy.js` contains a hardcoded root SSH password; this must be migrated to an environment variable before public release.
+- ⚠️ **Cookie Security**: `auth` cookie has `secure: false` in `src/lib/auth.ts` so it functions over plain HTTP (IP-based access). When domain goes live with SSL, toggle `secure: true`.

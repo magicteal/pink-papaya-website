@@ -45,12 +45,12 @@ export default function ExploreStaysGrid({
   const visibleStays = showAll ? stays.slice(0, 6) : stays.slice(0, 3);
 
   return (
-    <section id="explore" className="py-8 sm:py-12 md:py-14 bg-white">
-      <div className="w-[90%] max-w-[1552px] mx-auto">
+    <section id="explore" className="py-6 sm:py-10 md:py-12 bg-white">
+      <div className="w-[90%] max-w-[1400px] mx-auto">
         <Reveal>
           {/* Header Row: Title on Left, VIEW ALL -> on Right */}
-          <div className="flex items-center justify-between mb-6 sm:mb-8">
-            <h2 className="font-playfair italic font-normal text-3xl sm:text-4xl md:text-5xl text-neutral-900 tracking-tight">
+          <div className="flex items-center justify-between mb-5 sm:mb-7">
+            <h2 className="font-playfair italic font-normal text-2xl sm:text-3xl md:text-4xl lg:text-[40px] text-neutral-900 tracking-tight">
               {content?.heading || "Explore Stays"}
             </h2>
 

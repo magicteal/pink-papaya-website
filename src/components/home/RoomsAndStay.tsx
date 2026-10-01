@@ -96,11 +96,11 @@ export default function RoomsAndStay({ content }: { content?: any }) {
 
   return (
     <section className="w-full bg-white overflow-hidden">
-      <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[620px] lg:min-h-[720px] xl:min-h-[760px]">
+      <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[460px] sm:min-h-[520px] lg:min-h-[560px] xl:min-h-[600px]">
         {/* Left Column: Clean White Content */}
-        <div className="flex flex-col justify-center px-5 sm:px-10 md:px-14 lg:px-16 xl:px-24 py-12 sm:py-16 lg:py-24 max-w-2xl mx-auto lg:mx-0 w-full">
+        <div className="flex flex-col justify-center px-5 sm:px-10 md:px-14 lg:px-16 xl:px-24 py-8 sm:py-12 lg:py-16 max-w-2xl mx-auto lg:mx-0 w-full">
           {/* Main Heading: "Rooms & Stay" */}
-          <h2 className="font-playfair text-neutral-900 text-[32px] sm:text-[44px] md:text-[52px] lg:text-[60px] font-normal leading-tight tracking-tight mb-8 sm:mb-12">
+          <h2 className="font-playfair text-neutral-900 text-[30px] sm:text-[40px] md:text-[48px] lg:text-[54px] font-normal leading-tight tracking-tight mb-6 sm:mb-9">
             {content?.heading &&
             content.heading !== "Experience the comfort." &&
             content.heading !== "Experience the\ncomfort."
@@ -109,7 +109,7 @@ export default function RoomsAndStay({ content }: { content?: any }) {
           </h2>
 
           {/* Categories Accordion */}
-          <div className="space-y-6 sm:space-y-7">
+          <div className="space-y-5 sm:space-y-6">
             {categories.map((c, idx) => {
               const selected = idx === activeIndex;
 
@@ -118,7 +118,7 @@ export default function RoomsAndStay({ content }: { content?: any }) {
                   {selected ? (
                     <div className="animate-in fade-in duration-300">
                       {/* Active Title with Horizontal Dash Line */}
-                      <div className="flex items-center gap-3.5 sm:gap-4 mb-3">
+                      <div className="flex items-center gap-3.5 sm:gap-4 mb-2.5">
                         <div className="w-8 sm:w-10 h-px bg-neutral-400 shrink-0" />
                         <span className="font-playfair text-[#B85D26] text-2xl sm:text-[26px] md:text-[28px] font-normal tracking-normal leading-none">
                           {c.name}
@@ -155,7 +155,7 @@ export default function RoomsAndStay({ content }: { content?: any }) {
         </div>
 
         {/* Right Column: Full-Height Image + Floating Glass Card */}
-        <div className="relative w-full h-[500px] sm:h-[600px] lg:h-auto min-h-full overflow-hidden bg-neutral-900">
+        <div className="relative w-full h-[400px] sm:h-[480px] lg:h-auto min-h-full overflow-hidden bg-neutral-900">
           {/* Previous image (fading out) */}
           {prevBgUrl && (
             <Image

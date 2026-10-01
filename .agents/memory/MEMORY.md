@@ -4,8 +4,8 @@
 - [project-directory-structure](project-directory-structure.md) — Full src/ layout and what each folder owns
 - [project-routes-and-apis](project-routes-and-apis.md) — All App Router pages, admin, CMS, API endpoints, middleware routing
 - [project-data-models](project-data-models.md) — Mongoose models: Stay, User, RBAC, CMS content, MediaLibrary
-- [project-ui-and-styling-conventions](project-ui-and-styling-conventions.md) — Tailwind v4, design tokens, clamp/vh/vw, animation, section order, gotchas
+- [project-ui-and-styling-conventions](project-ui-and-styling-conventions.md) — Tailwind v4, Playfair Display/Bricolage fonts, 1552px layout tokens, 16:10 stay cards, testimonial design
 - [project-auth-and-admin](project-auth-and-admin.md) — Custom HMAC cookie auth, RBAC, admin + CMS portal
 - [project-deployment-and-env](project-deployment-and-env.md) — VPS 187.127.187.184, Nginx, PM2, env vars, media storage, domain routing
 - [project-custom-skills-and-scripts](project-custom-skills-and-scripts.md) — Workspace skills and their triggers
-- [project-current-focus](project-current-focus.md) — Active work, user preferences, recent commits (2026-09-21)
+- [project-current-focus](project-current-focus.md) — Active work, layout standardization, user preferences, security notes (2026-09-30)

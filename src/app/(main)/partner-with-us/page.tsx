@@ -71,48 +71,68 @@ export default function BecomeHostPage() {
           <div className="absolute inset-0 bg-black/55" />
           {/* Extra left-side gradient for text legibility */}
           <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
-          {/* Soft white fade at the bottom */}
-          <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-white to-transparent z-[1]" />
+          {/* Ultra-smooth progressive fog & seamless white blend */}
+          <div
+            className="absolute inset-x-0 bottom-0 h-80 sm:h-96 md:h-[500px] pointer-events-none z-[1]"
+            style={{
+              backdropFilter: "blur(24px)",
+              WebkitBackdropFilter: "blur(24px)",
+              maskImage:
+                "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.15) 20%, rgba(0,0,0,0.5) 45%, rgba(0,0,0,0.85) 75%, black 100%)",
+              WebkitMaskImage:
+                "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.15) 20%, rgba(0,0,0,0.5) 45%, rgba(0,0,0,0.85) 75%, black 100%)",
+            }}
+          />
+          <div
+            className="absolute inset-x-0 bottom-0 h-80 sm:h-96 md:h-[500px] pointer-events-none z-[2]"
+            style={{
+              background:
+                "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.015) 12%, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.16) 40%, rgba(255,255,255,0.32) 55%, rgba(255,255,255,0.54) 70%, rgba(255,255,255,0.78) 84%, rgba(255,255,255,0.93) 94%, #FFFFFF 100%)",
+            }}
+          />
         </div>
 
         {/* Content grid */}
         <div className="relative z-10 min-h-screen">
         <Container className="h-full">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-8 min-h-screen">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 min-h-screen items-center">
           {/* Left: text, vertically centered */}
-          <div className="flex flex-col justify-center pb-16 pt-32 lg:pt-24">
+          <div className="lg:col-span-7 flex flex-col justify-center pb-10 pt-32 lg:pt-20">
             <Reveal>
-              <h1 className="font-playfair text-5xl md:text-6xl lg:text-7xl font-medium text-white leading-[1.1]">
+              <h1 className="font-playfair text-5xl sm:text-6xl md:text-7xl lg:text-[80px] xl:text-[92px] font-medium text-white leading-[1.08] tracking-tight">
                 Partner with
               </h1>
-              <h1 className="font-playfair text-5xl md:text-6xl lg:text-7xl font-medium italic text-[#C07A5A] leading-[1.1] mt-1">
+              <h1 className="font-playfair text-5xl sm:text-6xl md:text-7xl lg:text-[80px] xl:text-[92px] font-medium italic text-[#C07A5A] leading-[1.08] tracking-tight mt-1">
                 Pink Papaya
               </h1>
-              <p className="mt-6 text-white/80 font-bricolage text-base md:text-lg max-w-xs leading-relaxed">
+              <p className="mt-6 text-white/90 font-bricolage text-base md:text-lg max-w-lg leading-relaxed">
                 Transform your property into a high-yield sanctuary. We blend data-driven management with the soul of luxury hospitality.
               </p>
             </Reveal>
           </div>
 
-          {/* Right: frosted glass form card, vertically centered */}
-          <div className="flex items-center justify-center lg:justify-end relative">
-            <Reveal delay={0.2} className="w-full max-w-lg md:max-w-xl lg:max-w-2xl">
+          {/* Right: frosted glass form card, shifted toward left */}
+          <div className="lg:col-span-5 flex items-center justify-center lg:justify-end lg:pr-10 xl:pr-20 pb-16 lg:py-20 relative">
+            <Reveal delay={0.2} className="w-full flex justify-center lg:justify-end">
               <div
-                className="rounded-[20px] p-9 border border-blue-200"
+                className="w-full max-w-[420px] rounded-2xl p-6 sm:p-8"
                 style={{
-                  background: "rgba(255, 255, 255, 0.52)",
-                  backdropFilter: "blur(20px)",
-                  WebkitBackdropFilter: "blur(20px)",
-                  border: "1px solid rgba(255,255,255,0.55)",
-                  boxShadow: "0 8px 40px rgba(0,0,0,0.12)",
+                  background: "rgba(255, 255, 255, 0.65)",
+                  backdropFilter: "blur(24px)",
+                  WebkitBackdropFilter: "blur(24px)",
+                  border: "1px solid rgba(255, 255, 255, 0.75)",
+                  boxShadow: "0 20px 50px -10px rgba(0, 0, 0, 0.16)",
                 }}
               >
-                <p className="font-playfair italic text-lg text-[#16323C] mb-5">
+                <h2 className="font-playfair italic text-2xl sm:text-[26px] text-[#16323C] mb-1 leading-snug">
                   Get Started Today
+                </h2>
+                <p className="font-bricolage text-xs text-[#16323C]/70 mb-5">
+                  Tell us about your home and our team will get back to you.
                 </p>
                 <form onSubmit={handleSubmit} className="space-y-3.5">
                   <div>
-                    <label className="block font-bricolage text-[10px] uppercase tracking-[0.12em] text-[#16323C]/60 mb-1.5">
+                    <label className="block font-bricolage text-[10px] uppercase tracking-[0.12em] text-[#16323C]/70 mb-1.5 font-semibold">
                       Full Name
                     </label>
                     <Input
@@ -122,11 +142,11 @@ export default function BecomeHostPage() {
                       value={formData.name}
                       onChange={handleChange}
                       placeholder="Elias Thorne"
-                      className="h-11 border-0 bg-white/70 placeholder:text-neutral-400 text-[#16323C] text-sm rounded-full px-4"
+                      className="h-11 border border-white/60 bg-white/80 focus:bg-white placeholder:text-neutral-400 text-[#16323C] text-sm rounded-xl px-4 transition-all shadow-xs"
                     />
                   </div>
                   <div>
-                    <label className="block font-bricolage text-[10px] uppercase tracking-[0.12em] text-[#16323C]/60 mb-1.5">
+                    <label className="block font-bricolage text-[10px] uppercase tracking-[0.12em] text-[#16323C]/70 mb-1.5 font-semibold">
                       Property Location
                     </label>
                     <Input
@@ -136,11 +156,11 @@ export default function BecomeHostPage() {
                       value={formData.location}
                       onChange={handleChange}
                       placeholder="Tuscany, Italy"
-                      className="h-11 border-0 bg-white/70 placeholder:text-neutral-400 text-[#16323C] text-sm rounded-full px-4"
+                      className="h-11 border border-white/60 bg-white/80 focus:bg-white placeholder:text-neutral-400 text-[#16323C] text-sm rounded-xl px-4 transition-all shadow-xs"
                     />
                   </div>
                   <div>
-                    <label className="block font-bricolage text-[10px] uppercase tracking-[0.12em] text-[#16323C]/60 mb-1.5">
+                    <label className="block font-bricolage text-[10px] uppercase tracking-[0.12em] text-[#16323C]/70 mb-1.5 font-semibold">
                       Email Address
                     </label>
                     <Input
@@ -150,7 +170,7 @@ export default function BecomeHostPage() {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="elias@estate.com"
-                      className="h-11 border-0 bg-white/70 placeholder:text-neutral-400 text-[#16323C] text-sm rounded-full px-4"
+                      className="h-11 border border-white/60 bg-white/80 focus:bg-white placeholder:text-neutral-400 text-[#16323C] text-sm rounded-xl px-4 transition-all shadow-xs"
                     />
                   </div>
                   {/* Honeypot — hidden from real users */}
@@ -167,7 +187,7 @@ export default function BecomeHostPage() {
                   <button
                     type="submit"
                     disabled={status === "submitting"}
-                    className="w-full mt-1 h-11 rounded-full font-bricolage text-sm font-medium text-white transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_8px_20px_rgba(22,50,60,0.2)] active:scale-[0.98] disabled:opacity-70 disabled:hover:scale-100"
+                    className="w-full mt-2 h-11 rounded-xl font-bricolage text-sm font-medium text-white transition-all duration-300 hover:bg-[#1f4350] hover:shadow-[0_8px_20px_rgba(22,50,60,0.22)] active:scale-[0.99] disabled:opacity-70 cursor-pointer"
                     style={{ background: "#16323C" }}
                   >
                     {status === "submitting"

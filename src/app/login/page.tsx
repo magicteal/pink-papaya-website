@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useRef, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
@@ -52,11 +54,20 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#FAFAF8] p-6">
       <div className="w-full max-w-sm">
-        <div className="text-center mb-10">
-          <h1 className="font-playfair text-3xl font-semibold text-neutral-900">
-            Pink Papaya
-          </h1>
-          <p className="mt-1 text-sm text-neutral-500 font-bricolage">Admin Portal</p>
+        <div className="text-center mb-8 flex flex-col items-center">
+          <Link href="/" className="inline-block transition-opacity hover:opacity-90">
+            <Image
+              src="/logo-files/logo-black.svg"
+              alt="Pink Papaya"
+              width={160}
+              height={33}
+              priority
+              className="h-8 w-auto object-contain"
+            />
+          </Link>
+          <p className="mt-2.5 text-[10px] uppercase tracking-[0.2em] text-[#C07A5A] font-bricolage font-bold">
+            Admin Portal
+          </p>
         </div>
 
         <div className="bg-white rounded-2xl border border-neutral-100 shadow-sm p-8 space-y-6">

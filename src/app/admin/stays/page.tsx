@@ -71,7 +71,9 @@ export default function AdminStaysPage() {
                   <div className="mt-2 text-sm text-neutral-500 font-bricolage">{s.area} · {s.bed} · {s.guests}</div>
                   {s.pricePerNight && (
                     <div className="mt-2 text-sm font-semibold text-neutral-800 font-bricolage">
-                      From {formatPriceString(s.pricePerNight)}/night
+                      {/\d/.test(s.pricePerNight)
+                        ? `From ${formatPriceString(s.pricePerNight)}/night`
+                        : "Price on request"}
                     </div>
                   )}
                   <div className="flex gap-3 mt-auto pt-5">

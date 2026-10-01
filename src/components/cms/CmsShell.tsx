@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 
 type NavItem = {
@@ -48,20 +49,20 @@ export default function CmsShell({ children, userEmail, role, navHrefs }: Props)
 
   const Sidebar = () => (
     <div className="flex flex-col h-full bg-[#16323C] text-white">
-      <div className="px-6 py-6 border-b border-white/10">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-[#C07A5A] flex items-center justify-center text-white text-sm font-bold font-playfair">
-            C
+      <div className="px-5 py-5 border-b border-white/10">
+        <Link href="/cms" className="block group">
+          <Image
+            src="/logo-files/logo-white.svg"
+            alt="Pink Papaya"
+            width={140}
+            height={29}
+            priority
+            className="h-6 w-auto object-contain transition-opacity group-hover:opacity-90"
+          />
+          <div className="text-[9.5px] uppercase tracking-[0.22em] text-[#C07A5A] font-bricolage font-bold mt-2">
+            CMS Portal
           </div>
-          <div>
-            <div className="font-playfair text-[15px] font-semibold leading-tight text-white">
-              Pink Papaya
-            </div>
-            <div className="text-[10px] uppercase tracking-[0.15em] text-white/40 font-bricolage">
-              CMS
-            </div>
-          </div>
-        </div>
+        </Link>
       </div>
 
       <nav className="flex-1 px-3 py-5 space-y-0.5 overflow-y-auto">
@@ -152,17 +153,31 @@ export default function CmsShell({ children, userEmail, role, navHrefs }: Props)
       )}
 
       <div className="flex-1 lg:ml-60 flex flex-col min-h-screen">
-        <header className="lg:hidden flex items-center gap-3 px-4 py-4 bg-[#16323C] text-white sticky top-0 z-20">
-          <button
-            onClick={() => setSidebarOpen(true)}
-            className="p-1.5 rounded-md hover:bg-white/10 transition"
-            aria-label="Open menu"
-          >
-            <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-          <span className="font-playfair text-base font-semibold">Pink Papaya CMS</span>
+        <header className="lg:hidden flex items-center justify-between px-4 py-3.5 bg-[#16323C] text-white sticky top-0 z-20">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setSidebarOpen(true)}
+              className="p-1.5 rounded-md hover:bg-white/10 transition"
+              aria-label="Open menu"
+            >
+              <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+            <Link href="/cms" className="flex items-center gap-2">
+              <Image
+                src="/logo-files/logo-white.svg"
+                alt="Pink Papaya"
+                width={120}
+                height={25}
+                priority
+                className="h-5 w-auto object-contain"
+              />
+              <span className="text-[9px] uppercase tracking-[0.18em] text-[#C07A5A] font-bricolage font-bold">
+                CMS
+              </span>
+            </Link>
+          </div>
         </header>
 
         <main className="flex-1 p-6 lg:p-8">{children}</main>
