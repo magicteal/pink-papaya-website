@@ -15,17 +15,17 @@ export default function MapSection({
   const activeMapUrl = mapUrl || fallbackMapUrl;
 
   return (
-    <section className="py-6 md:py-[5%]">
+    <section className="py-6 md:py-8 lg:py-10">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
         {/* Left column - headings & nearby list */}
         <div className="md:col-span-4 flex flex-col">
           <p className="font-bricolage text-[11px] uppercase tracking-[0.14em] text-[#C07A5A] mb-3">
             Location
           </p>
-          <h2 className="font-playfair text-3xl md:text-4xl text-[#16323C] mb-2 leading-tight">
+          <h2 className="font-playfair italic font-normal text-3xl md:text-4xl text-[#16323C] mb-2 leading-tight">
             Where you&apos;ll be
           </h2>
-          <p className="font-bricolage text-sm text-neutral-500 mb-8">
+          <p className="font-bricolage text-sm text-[#16323C]/70 mb-8 leading-relaxed">
             Everything within easy reach
           </p>
 

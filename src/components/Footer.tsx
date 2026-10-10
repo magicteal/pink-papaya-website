@@ -67,7 +67,7 @@ export default function Footer() {
 
           {/* Explore */}
           <div className="md:col-span-2 flex flex-col gap-5">
-            <h5 className="text-[11px] font-bold uppercase tracking-[0.16em] text-neutral-400">
+            <h5 className="font-bricolage text-[11px] font-semibold uppercase tracking-[0.16em] text-[#C07A5A]">
               Explore
             </h5>
             <ul className="flex flex-col gap-2.5 text-[13px] text-neutral-500">
@@ -79,7 +79,7 @@ export default function Footer() {
                 { href: "/blog", label: "Blog" },
               ].map(({ href, label }) => (
                 <li key={href}>
-                  <Link className="hover:text-[#16323C] hover:translate-x-1 transition-all duration-200 inline-block" href={href}>
+                  <Link className="hover:text-[#C07A5A] hover:translate-x-1 transition-all duration-200 inline-block" href={href}>
                     {label}
                   </Link>
                 </li>
@@ -89,7 +89,7 @@ export default function Footer() {
 
           {/* Collections */}
           <div className="md:col-span-3 flex flex-col gap-5">
-            <h5 className="text-[11px] font-bold uppercase tracking-[0.16em] text-neutral-400">
+            <h5 className="font-bricolage text-[11px] font-semibold uppercase tracking-[0.16em] text-[#C07A5A]">
               Collections
             </h5>
             <ul className="flex flex-col gap-2.5 text-[13px] text-neutral-500">
@@ -101,7 +101,7 @@ export default function Footer() {
                 { href: "/stays", label: "All Stays" },
               ].map(({ href, label }) => (
                 <li key={href}>
-                  <Link className="hover:text-[#16323C] hover:translate-x-1 transition-all duration-200 inline-block" href={href}>
+                  <Link className="hover:text-[#C07A5A] hover:translate-x-1 transition-all duration-200 inline-block" href={href}>
                     {label}
                   </Link>
                 </li>
@@ -112,14 +112,14 @@ export default function Footer() {
           {/* Contact */}
           <div className="md:col-span-4 flex flex-col gap-6">
             <div className="flex flex-col gap-5">
-              <h5 className="text-[11px] font-bold uppercase tracking-[0.16em] text-neutral-400">
+              <h5 className="font-bricolage text-[11px] font-semibold uppercase tracking-[0.16em] text-[#C07A5A]">
                 Get in Touch
               </h5>
               <div className="flex flex-col gap-3 text-[13px] text-neutral-500 font-bricolage">
                 <p>
                   <strong className="text-neutral-700 font-semibold block mb-0.5">Reservations & Enquiries</strong>
-                  <a href="mailto:hello@pinkpapayastays.com" className="hover:text-[#16323C] transition-colors">hello@pinkpapayastays.com</a><br/>
-                  <a href="tel:+919876543210" className="hover:text-[#16323C] transition-colors">+91 98765 43210</a>
+                  <a href="mailto:hello@pinkpapayastays.com" className="hover:text-[#C07A5A] transition-colors">hello@pinkpapayastays.com</a><br/>
+                  <a href="tel:+919876543210" className="hover:text-[#C07A5A] transition-colors">+91 98765 43210</a>
                 </p>
                 <p>
                   <strong className="text-neutral-700 font-semibold block mb-0.5">Office</strong>
@@ -132,16 +132,19 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-16 md:mt-20 border-t border-neutral-100 pt-8 flex flex-col items-center justify-between gap-4 md:flex-row text-[10.5px] text-neutral-400 tracking-wide uppercase">
+        <div className="mt-16 md:mt-20 border-t border-neutral-100 pt-8 flex flex-col items-center justify-between gap-4 md:flex-row text-[11px] text-neutral-400 tracking-[0.12em] uppercase font-bricolage">
           <div className="text-center md:text-left order-2 md:order-1">
             © {new Date().getFullYear()} Pink Papaya Stays. All rights reserved.
           </div>
           <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 order-1 md:order-2">
-            <Link className="hover:text-neutral-700 transition-colors" href="/privacy-policy">
+            <Link className="hover:text-[#C07A5A] transition-colors" href="/privacy-policy">
               Privacy Policy
             </Link>
-            <Link className="hover:text-neutral-700 transition-colors" href="/terms-and-conditions">
+            <Link className="hover:text-[#C07A5A] transition-colors" href="/terms-and-conditions">
               Terms and Conditions
+            </Link>
+            <Link className="hover:text-[#C07A5A] transition-colors" href="/cancellation-and-refund-policy">
+              Cancellation Policy
             </Link>
           </div>
         </div>

@@ -30,6 +30,7 @@ export interface IStay extends Document {
   nearbyPlaces?: INearbyPlace[];
   faqs?: IFaq[];
   featuredOnHome?: boolean;
+  brochureUrl?: string;
 }
 
 const NearbyPlaceSchema = new Schema<INearbyPlace>({
@@ -62,6 +63,7 @@ const StaySchema = new Schema<IStay>({
   nearbyPlaces: { type: [NearbyPlaceSchema], default: undefined },
   faqs: { type: [FaqSchema], default: undefined },
   featuredOnHome: { type: Boolean },
+  brochureUrl: { type: String },
 }, { timestamps: true, collection: 'stays' });
 
 export const Stay = (mongoose.models.Stay as mongoose.Model<IStay>) || mongoose.model<IStay>('Stay', StaySchema);

@@ -4,11 +4,13 @@ import Image from "next/image";
 import { isPreOptimizedMedia } from "@/lib/media-url";
 import { useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { ChevronLeft, ChevronRight, Grid, X, Share2, Check, MapPin, Users, Bed, Maximize2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, Grid, X, Share2, Check, MapPin, Users, Bed, Maximize2, Download } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Container from "@/components/Container";
+import BrochureModal from "@/components/stays/BrochureModal";
 
 interface StayGalleryProps {
+  stayId?: string;
   title: string;
   description?: string;
   location?: string;
@@ -16,9 +18,11 @@ interface StayGalleryProps {
   bed?: string;
   guests?: string;
   images?: string[];
+  brochureUrl?: string;
 }
 
 export default function StayGallery({
+  stayId = "",
   title,
   description,
   location,
@@ -26,6 +30,7 @@ export default function StayGallery({
   bed,
   guests,
   images = [],
+  brochureUrl,
 }: StayGalleryProps) {
   // Client mount check for React Portal
   const [mounted, setMounted] = useState(false);
@@ -51,6 +56,7 @@ export default function StayGallery({
   const [activeIdx, setActiveIdx] = useState(0);
   const [direction, setDirection] = useState(1);
   const [copied, setCopied] = useState(false);
+  const [brochureOpen, setBrochureOpen] = useState(false);
 
   // Mobile Hero Carousel State
   const [mobileIdx, setMobileIdx] = useState(0);
@@ -120,7 +126,7 @@ export default function StayGallery({
               <span className="font-semibold text-sm sm:text-base tracking-wide bg-neutral-100 text-neutral-800 border border-neutral-200/80 px-3.5 py-1 rounded-full">
                 {activeIdx + 1} / {galleryImages.length}
               </span>
-              <span className="hidden sm:inline-block font-serif text-lg text-[#16323C] font-semibold truncate max-w-xs md:max-w-md">
+              <span className="hidden sm:inline-block font-playfair italic text-lg text-[#16323C] font-normal truncate max-w-xs md:max-w-md">
                 {title}
               </span>
             </div>
@@ -370,7 +376,7 @@ export default function StayGallery({
         <div className="mt-6 sm:mt-8 pt-2 border-b border-neutral-100 pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="space-y-2.5">
             <div className="flex items-center gap-4 flex-wrap">
-              <h1 className="font-playfair text-3xl sm:text-4xl lg:text-[42px] text-[#16323C] font-semibold leading-tight">
+              <h1 className="font-playfair italic font-normal text-3xl sm:text-4xl lg:text-[42px] text-[#16323C] leading-tight">
                 {title}
               </h1>
             </div>
@@ -403,8 +409,18 @@ export default function StayGallery({
             </div>
           </div>
 
-          {/* Action Button (Share Link) */}
-          <div className="flex items-center gap-2.5 shrink-0">
+          {/* Action Buttons (Download Brochure & Share) */}
+          <div className="flex items-center gap-2.5 shrink-0 flex-wrap">
+            <button
+              onClick={() => setBrochureOpen(true)}
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-[#16323C] hover:bg-[#16323C]/90 text-white transition-all shadow-xs cursor-pointer active:scale-95"
+              title="Download property brochure"
+              type="button"
+            >
+              <Download className="w-4 h-4 text-[#C07A5A]" />
+              <span>Download Brochure</span>
+            </button>
+
             <button
               onClick={copyPageLink}
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold border border-neutral-200 hover:bg-neutral-50 text-neutral-800 transition-colors shadow-xs cursor-pointer"
@@ -426,6 +442,16 @@ export default function StayGallery({
           </div>
         </div>
       </Container>
+
+      {/* Property Brochure Lead Modal */}
+      <BrochureModal
+        isOpen={brochureOpen}
+        onClose={() => setBrochureOpen(false)}
+        stayId={stayId}
+        title={title}
+        location={location}
+        brochureUrl={brochureUrl}
+      />
 
       {/* Render Lightbox Modal via Portal to document.body */}
       {mounted && createPortal(renderLightboxModal(), document.body)}

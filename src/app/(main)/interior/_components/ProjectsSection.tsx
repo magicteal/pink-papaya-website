@@ -14,18 +14,18 @@ export default function ProjectsSection({ projects }: { projects: InteriorProjec
   const rightCol = projects.filter((_, i) => i % 2 === 1);
 
   return (
-    <section className="bg-white py-8 lg:py-[5%]">
+    <section className="bg-white py-12 sm:py-16 md:py-20">
       <Container>
-        <div className="h-px bg-neutral-200 mb-14 md:mb-20" />
+        <div className="h-px bg-neutral-200 mb-8 md:mb-12" />
 
         {/* Header row */}
-        <div className="flex items-start justify-between gap-10 mb-16 md:mb-20">
+        <div className="flex items-start justify-between gap-10 mb-10 md:mb-12">
           <div className="max-w-[380px]">
             <Reveal>
-              <h2 className="font-playfair font-normal text-[#16323C] mb-4" style={{ fontSize: "clamp(1.6rem, 2.5vw, 2.2rem)" }}>
+              <h2 className="font-playfair italic font-normal text-[#16323C] mb-4" style={{ fontSize: "clamp(1.6rem, 2.5vw, 2.2rem)" }}>
                 Projects
               </h2>
-              <p className="font-bricolage text-neutral-500 text-[13.5px] leading-relaxed">
+              <p className="font-bricolage text-[#16323C]/80 text-[15px] leading-relaxed">
                 A collection of residences across Goa, designed for both private living and guest stays. Each project is approached as a complete composition—where space, material, and environment exist in balance.
               </p>
             </Reveal>
@@ -82,18 +82,18 @@ function ProjectCard({ project }: { project: InteriorProject }) {
         />
       </div>
       <h3
-        className="font-playfair font-normal text-[#16323C] mt-4 group-hover:opacity-70 transition-opacity"
+        className="font-playfair italic font-normal text-[#16323C] mt-4 group-hover:text-[#C07A5A] transition-colors"
         style={{ fontSize: "clamp(1.2rem, 2vw, 1.7rem)" }}
       >
         {project.headline || project.title}
       </h3>
       {project.tagline && (
-        <span className="font-bricolage text-[#C07A5A] text-[11px] uppercase tracking-[0.14em] font-semibold mt-1.5 block group-hover:opacity-70 transition-opacity">
+        <span className="font-bricolage text-[#C07A5A] text-[11px] uppercase tracking-[0.14em] font-semibold mt-1.5 block group-hover:opacity-80 transition-opacity">
           {project.tagline}
         </span>
       )}
       {project.description && (
-        <p className="font-bricolage text-neutral-500 text-[13.5px] leading-relaxed mt-2 line-clamp-2 group-hover:opacity-70 transition-opacity">
+        <p className="font-bricolage text-[#16323C]/70 text-[14px] leading-relaxed mt-2 line-clamp-2">
           {project.description}
         </p>
       )}

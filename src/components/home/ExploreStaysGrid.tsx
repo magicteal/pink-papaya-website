@@ -45,19 +45,19 @@ export default function ExploreStaysGrid({
   const visibleStays = showAll ? stays.slice(0, 6) : stays.slice(0, 3);
 
   return (
-    <section id="explore" className="py-6 sm:py-10 md:py-12 bg-white">
+    <section id="explore" className="pt-4 sm:pt-6 md:pt-8 pb-8 sm:pb-10 md:pb-12 bg-white">
       <div className="w-[90%] max-w-[1400px] mx-auto">
         <Reveal>
           {/* Header Row: Title on Left, VIEW ALL -> on Right */}
           <div className="flex items-center justify-between mb-5 sm:mb-7">
-            <h2 className="font-playfair italic font-normal text-2xl sm:text-3xl md:text-4xl lg:text-[40px] text-neutral-900 tracking-tight">
+            <h2 className="font-playfair italic font-normal text-2xl sm:text-3xl md:text-4xl lg:text-[40px] text-[#16323C] tracking-tight">
               {content?.heading || "Explore Stays"}
             </h2>
 
             <button
               type="button"
               onClick={() => setShowAll((v) => !v)}
-              className="text-[#8F350A] hover:text-[#6E2806] font-semibold text-xs sm:text-sm uppercase tracking-widest flex items-center gap-1.5 transition-colors cursor-pointer group"
+              className="font-bricolage text-[#C07A5A] hover:text-[#A04415] font-semibold text-xs sm:text-sm uppercase tracking-[0.16em] flex items-center gap-1.5 transition-colors cursor-pointer group"
             >
               <span>{showAll ? "SHOW LESS" : "VIEW ALL"}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />

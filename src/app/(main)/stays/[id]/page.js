@@ -38,7 +38,7 @@ export default async function StayDetailPage({ params }) {
         return (
             <Container>
                 <div className="py-20 text-center">
-                    <h1 className="text-3xl font-serif">Stay not found</h1>
+                    <h1 className="text-3xl font-playfair italic font-normal text-[#16323C]">Stay not found</h1>
                 </div>
             </Container>
         );
@@ -51,12 +51,14 @@ export default async function StayDetailPage({ params }) {
         <div className="bg-white">
             {/* Header & Gallery Section */}
             <StayGallery
+                stayId={stay.id}
                 title={stay.title}
                 description={stay.description}
                 location={stay.location}
                 area={stay.area}
                 bed={stay.bed}
                 guests={stay.guests}
+                brochureUrl={stay.brochureUrl}
                 images={[stay.imageUrl, ...(stay.images || [])].filter((img, idx, self) => img && self.indexOf(img) === idx)}
             />
 
@@ -67,14 +69,14 @@ export default async function StayDetailPage({ params }) {
                         {/* About Section */}
                         <section className="mb-8 lg:mb-16">
                             <p className="font-bricolage text-[11px] uppercase tracking-[0.14em] text-[#C07A5A] mb-3">Overview</p>
-                            <h2 className="font-playfair text-3xl md:text-4xl text-[#16323C] mb-8">About this stay</h2>
+                            <h2 className="font-playfair italic font-normal text-3xl md:text-4xl text-[#16323C] mb-8">About this stay</h2>
                             <div className="space-y-4">
                                 {stay.aboutContent ? (
                                     stay.aboutContent.split('\n').filter(Boolean).map((paragraph, i) => (
-                                        <p key={i} className="font-bricolage text-[15px] text-neutral-600 leading-[1.75]">{paragraph}</p>
+                                        <p key={i} className="font-bricolage text-[15px] text-[#16323C]/80 leading-relaxed">{paragraph}</p>
                                     ))
                                 ) : (
-                                    <p className="font-bricolage text-[15px] text-neutral-600 leading-[1.75]">{stay.description}</p>
+                                    <p className="font-bricolage text-[15px] text-[#16323C]/80 leading-relaxed">{stay.description}</p>
                                 )}
                             </div>
                         </section>
@@ -128,13 +130,13 @@ export default async function StayDetailPage({ params }) {
             <Container>
                 <hr className="border-neutral-100" />
 
-                <section className="py-8 md:py-[5%]">
+                <section className="py-8 md:py-12 lg:py-14">
                     <div className="flex items-start justify-between mb-6 md:mb-10">
                         <div>
                             <p className="font-bricolage text-[11px] uppercase tracking-[0.14em] text-[#C07A5A] mb-3">More escapes</p>
-                            <h2 className="font-playfair text-3xl md:text-4xl text-[#16323C]">You might also love</h2>
+                            <h2 className="font-playfair italic font-normal text-3xl md:text-4xl text-[#16323C]">You might also love</h2>
                         </div>
-                        <Button variant="outline" className="font-bricolage text-[12px] tracking-[0.04em] shrink-0 mt-2" asChild>
+                        <Button variant="outline" className="font-bricolage text-xs uppercase tracking-[0.14em] font-semibold text-[#16323C] shrink-0 mt-2 hover:bg-[#F7F2EA]" asChild>
                             <Link href="/stays">View all stays</Link>
                         </Button>
                     </div>

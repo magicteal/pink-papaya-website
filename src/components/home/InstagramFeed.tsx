@@ -85,7 +85,7 @@ export default function InstagramFeed({ content }: { content?: any }) {
         {/* Editorial Centered Header */}
         <Reveal>
           <div className="mb-8 sm:mb-11 flex flex-col items-center text-center">
-            <p className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.22em] text-[#A04415] font-bricolage mb-1.5 sm:mb-2">
+            <p className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.18em] text-[#C07A5A] font-bricolage mb-1.5 sm:mb-2">
               {tagline}
             </p>
             <a
@@ -94,13 +94,13 @@ export default function InstagramFeed({ content }: { content?: any }) {
               rel="noopener noreferrer"
               className="group inline-block"
             >
-              <h2 className="font-playfair italic font-normal text-2xl sm:text-3xl md:text-4xl lg:text-[42px] text-neutral-900 tracking-tight leading-[1.1] transition-colors group-hover:text-[#A04415]">
+              <h2 className="font-playfair italic font-normal text-2xl sm:text-3xl md:text-4xl lg:text-[42px] text-[#16323C] tracking-tight leading-[1.1] transition-colors group-hover:text-[#C07A5A]">
                 {handle}
               </h2>
             </a>
             {profile && profile.followersCount > 0 && (
-              <p className="mt-3 font-bricolage text-xs sm:text-sm text-neutral-500">
-                <span className="font-semibold text-neutral-800">
+              <p className="mt-3 font-bricolage text-xs sm:text-sm text-[#16323C]/70">
+                <span className="font-semibold text-[#16323C]">
                   {profile.followersCount.toLocaleString("en-IN")}
                 </span>{" "}
                 followers

@@ -24,10 +24,10 @@ export default function TestimonialsSection({
       {/* Centered Editorial Header */}
       <Reveal>
         <div className="text-center max-w-xl mx-auto mb-6 md:mb-7 px-4">
-          <h2 className="font-playfair italic font-normal text-2xl sm:text-3xl md:text-[34px] text-neutral-900 tracking-tight">
+          <h2 className="font-playfair italic font-normal text-2xl sm:text-3xl md:text-[34px] text-[#16323C] tracking-tight">
             {heading}
           </h2>
-          <p className="mt-2.5 text-xs sm:text-[13px] text-neutral-500 font-bricolage leading-relaxed">
+          <p className="mt-2.5 text-xs sm:text-sm text-[#16323C]/75 font-bricolage leading-relaxed">
             {description}
           </p>
         </div>

@@ -10,7 +10,7 @@ const inputBase =
   "w-full bg-transparent border-0 border-b border-neutral-300 focus:border-[#16323C] outline-none font-bricolage text-[13.5px] text-[#16323C] placeholder:text-transparent py-2 transition-colors duration-200";
 
 const labelBase =
-  "font-bricolage text-[9px] uppercase tracking-[0.22em] font-semibold text-neutral-400 block mb-2";
+  "font-bricolage text-[11px] uppercase tracking-[0.14em] font-semibold text-[#C07A5A] block mb-2";
 
 export default function ContactSection() {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
@@ -39,9 +39,9 @@ export default function ContactSection() {
   };
 
   return (
-    <section className="bg-white pt-3 pb-8 lg:pt-4 lg:pb-10">
+    <section className="bg-white py-12 sm:py-16 md:py-20">
       <Container>
-        <div className="h-px bg-neutral-200 mb-10 md:mb-14" />
+        <div className="h-px bg-neutral-200 mb-8 md:mb-12" />
 
         <div className="grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-12 lg:gap-16 items-start">
 
@@ -50,12 +50,12 @@ export default function ContactSection() {
             <div className="flex flex-col justify-between h-full min-h-[480px] lg:min-h-[540px]">
               <div>
                 <h2
-                  className="font-playfair font-normal text-[#16323C] mb-6"
+                  className="font-playfair italic font-normal text-[#16323C] mb-6"
                   style={{ fontSize: "clamp(1.8rem, 2.8vw, 2.6rem)" }}
                 >
                   Contact
                 </h2>
-                <p className="font-bricolage text-neutral-500 text-[13.5px] leading-relaxed max-w-[300px]">
+                <p className="font-bricolage text-[#16323C]/80 text-[15px] leading-relaxed max-w-[300px]">
                   Pink Papaya Studio undertakes a limited number of projects each year. Enquiries.
                 </p>
               </div>

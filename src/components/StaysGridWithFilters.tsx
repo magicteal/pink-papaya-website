@@ -173,12 +173,12 @@ export default function StaysGridWithFilters({ stays, locations, propertyTypes, 
 
       <div className="flex-1 min-w-0 w-full">
         <div className="hidden lg:flex items-center justify-between mb-8">
-          <div className="text-sm font-medium text-neutral-500 uppercase tracking-widest">
+          <div className="font-bricolage text-[11px] font-semibold text-[#C07A5A] uppercase tracking-[0.18em]">
             Showing {filteredStays.length} {filteredStays.length === 1 ? "stay" : "stays"}
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-7">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 xl:gap-7">
           {filteredStays.length > 0 ? (
             filteredStays.map((s) => (
               <StayCard
@@ -198,11 +198,11 @@ export default function StaysGridWithFilters({ stays, locations, propertyTypes, 
           ) : (
             <div className="col-span-full bg-neutral-50 rounded-2xl border-2 border-dashed border-neutral-200 py-20 text-center">
               <div className="max-w-xs mx-auto">
-                <p className="text-lg font-playfair font-medium text-neutral-900 mb-2">No stays match your criteria</p>
-                <p className="text-sm text-neutral-500 mb-6">Try adjusting your filters to find your perfect stay.</p>
+                <p className="text-xl font-playfair italic font-normal text-[#16323C] mb-2">No stays match your criteria</p>
+                <p className="text-sm font-bricolage text-[#16323C]/70 mb-6 leading-relaxed">Try adjusting your filters to find your perfect stay.</p>
                 <button
                   onClick={handleClearFilters}
-                  className="px-6 py-2 bg-neutral-900 text-white rounded-full text-sm font-medium hover:bg-neutral-800 transition-colors"
+                  className="px-7 py-2.5 bg-[#16323C] text-white rounded-full font-bricolage text-xs uppercase tracking-[0.15em] font-semibold hover:bg-[#C07A5A] transition-colors cursor-pointer"
                 >
                   Clear all filters
                 </button>

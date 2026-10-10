@@ -14,11 +14,11 @@ export default function BookingWidget({ pricePerNight = "" }: { pricePerNight?: 
       <div className="rounded-[20px] border border-neutral-100 bg-white shadow-[0_4px_40px_rgba(0,0,0,0.06)] overflow-hidden">
         {/* Price header */}
         {pricePerNight && (
-          <div className="px-7 pt-7 pb-6 border-b border-neutral-100">
+          <div className="px-5 sm:px-7 pt-6 sm:pt-7 pb-5 sm:pb-6 border-b border-neutral-100">
             <p className="font-bricolage text-[10px] uppercase tracking-[0.14em] text-neutral-400 mb-1.5">
               {hasPrice ? "Starting from" : "Pricing"}
             </p>
-            <p className={`font-playfair text-[#16323C] leading-none ${hasPrice ? "text-4xl" : "text-2xl sm:text-3xl font-medium"}`}>
+            <p className={`font-playfair text-[#16323C] leading-none ${hasPrice ? "text-3xl sm:text-4xl" : "text-2xl sm:text-3xl font-medium"}`}>
               {hasPrice ? pricePerNight.replace(/\$/g, "₹") : "Price on request"}
             </p>
             {hasPrice && (
@@ -28,20 +28,20 @@ export default function BookingWidget({ pricePerNight = "" }: { pricePerNight?: 
         )}
 
         {/* Contact options */}
-        <div className="px-7 py-6 flex flex-col gap-3">
+        <div className="px-5 sm:px-7 py-5 sm:py-6 flex flex-col gap-3">
           <p className="font-bricolage text-[11px] uppercase tracking-[0.1em] text-neutral-400 mb-1">
             Reserve this stay
           </p>
           <a
             href="tel:+919226591522"
-            className="flex items-center gap-3 px-4 py-3 rounded-[10px] bg-[#F7F2EA] text-[#16323C] hover:bg-neutral-100 transition-colors font-bricolage text-[13px]"
+            className="flex items-center gap-3 px-3.5 sm:px-4 py-3 rounded-[10px] bg-[#F7F2EA] text-[#16323C] hover:bg-neutral-100 transition-colors font-bricolage text-[13px]"
           >
             <Phone size={14} className="text-[#C07A5A] shrink-0" />
             +91 9226591522
           </a>
           <a
             href="mailto:reservations@pinkpapayastays.com"
-            className="flex items-center gap-3 px-4 py-3 rounded-[10px] bg-[#F7F2EA] text-[#16323C] hover:bg-neutral-100 transition-colors font-bricolage text-[13px] break-all"
+            className="flex items-center gap-3 px-3.5 sm:px-4 py-3 rounded-[10px] bg-[#F7F2EA] text-[#16323C] hover:bg-neutral-100 transition-colors font-bricolage text-[13px] break-all"
           >
             <Mail size={14} className="text-[#C07A5A] shrink-0" />
             reservations@pinkpapayastays.com
@@ -49,9 +49,9 @@ export default function BookingWidget({ pricePerNight = "" }: { pricePerNight?: 
         </div>
 
         {/* CTA */}
-        <div className="px-7 pb-7">
+        <div className="px-5 sm:px-7 pb-6 sm:pb-7">
           <Button
-            className="w-full font-bricolage text-[12.5px] tracking-[0.04em]"
+            className="w-full font-bricolage text-xs uppercase tracking-[0.15em] font-semibold rounded-xl"
             size="default"
             asChild
           >

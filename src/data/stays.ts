@@ -22,6 +22,8 @@ export type Stay = {
   faqs?: { question: string; answer: string }[];
   /** show this stay in the home page 6×2 featured grid */
   featuredOnHome?: boolean;
+  /** Property brochure PDF URL */
+  brochureUrl?: string;
 };
 
 export const stayCategories = [

@@ -129,15 +129,15 @@ export default function TrendingDestinations() {
   if (!loading && destinations.length === 0) return null;
 
   return (
-    <section className="py-8 sm:py-12 md:py-14 bg-white">
+    <section className="pt-4 sm:pt-6 md:pt-8 pb-10 sm:pb-12 md:pb-14 bg-white">
       <div className="w-[90%] max-w-[1400px] mx-auto">
         <Reveal>
           {/* Header Row */}
           <div className="mb-6 sm:mb-9">
-            <p className="text-[#A04415] text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] font-bricolage mb-1.5 sm:mb-2">
+            <p className="text-[#C07A5A] text-[11px] sm:text-xs font-semibold uppercase tracking-[0.18em] font-bricolage mb-1.5 sm:mb-2">
               Explore
             </p>
-            <h2 className="font-playfair italic font-normal text-2xl sm:text-3xl md:text-4xl lg:text-[40px] text-neutral-900 tracking-tight">
+            <h2 className="font-playfair italic font-normal text-2xl sm:text-3xl md:text-4xl lg:text-[40px] text-[#16323C] tracking-tight">
               Trending Destinations
             </h2>
           </div>
@@ -186,7 +186,7 @@ export default function TrendingDestinations() {
                         </div>
 
                         {/* Destination Name */}
-                        <h3 className="font-playfair text-white text-xl sm:text-2xl font-semibold leading-tight mb-2 drop-shadow-sm">
+                        <h3 className="font-playfair italic text-white text-xl sm:text-2xl font-medium leading-tight mb-2 drop-shadow-sm">
                           {dest.name}
                         </h3>
 

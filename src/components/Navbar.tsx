@@ -136,16 +136,16 @@ export default function Navbar({ className }: { className?: string }) {
                   key={it.href}
                   href={it.href}
                   className={cn(
-                    "text-[11px] lg:text-[12px] 2xl:text-[13.5px] font-semibold tracking-[0.05em] uppercase transition-colors group relative py-0.5",
+                    "text-[11px] lg:text-[12px] 2xl:text-[13.5px] font-semibold tracking-[0.08em] uppercase transition-colors group relative py-0.5",
                     active
-                      ? "text-[#B84A17]"
+                      ? "text-[#C07A5A]"
                       : "text-neutral-600 hover:text-neutral-900"
                   )}
                 >
                   {it.label}
                   <span
                     className={cn(
-                      "absolute bottom-0 left-0 h-[2px] bg-[#B84A17] transition-[width] duration-300 ease-out rounded-full",
+                      "absolute bottom-0 left-0 h-[2px] bg-[#C07A5A] transition-[width] duration-300 ease-out rounded-full",
                       active ? "w-full" : "w-0 group-hover:w-full"
                     )}
                   />
@@ -161,7 +161,7 @@ export default function Navbar({ className }: { className?: string }) {
               <button
                 ref={contactBtnRef}
                 type="button"
-                className="bg-[#9E3B09] hover:bg-[#802F07] active:scale-95 text-white rounded-full px-4.5 sm:px-5.5 2xl:px-7 py-1.5 sm:py-2 2xl:py-2.5 text-[10.5px] sm:text-[11.5px] 2xl:text-[13px] font-semibold tracking-widest uppercase shadow-sm transition-all duration-200 cursor-pointer"
+                className="bg-[#C07A5A] hover:bg-[#A04415] active:scale-95 text-white rounded-full px-4.5 sm:px-5.5 2xl:px-7 py-1.5 sm:py-2 2xl:py-2.5 text-[10.5px] sm:text-[11.5px] 2xl:text-[13px] font-semibold tracking-[0.14em] uppercase shadow-sm transition-all duration-200 cursor-pointer font-bricolage"
                 onClick={() => setContactOpen((v) => !v)}
                 aria-expanded={contactOpen}
                 aria-haspopup="true"
@@ -172,14 +172,14 @@ export default function Navbar({ className }: { className?: string }) {
               {contactOpen && (
                 <div
                   ref={contactRef}
-                  className="absolute right-0 top-full mt-3 w-[310px] rounded-2xl bg-white border border-neutral-100 shadow-[0_12px_36px_rgba(0,0,0,0.12)] overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-150"
+                  className="absolute right-0 top-full mt-3 w-[310px] max-w-[calc(100vw-32px)] rounded-2xl bg-white border border-neutral-100 shadow-[0_12px_36px_rgba(0,0,0,0.12)] overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-150"
                 >
                   <a
                     href="tel:+919226591522"
                     className="flex items-center gap-3 px-5 py-4 text-[13px] text-[#16323C] hover:bg-[#F7F2EA] transition-all duration-200 font-bricolage"
                   >
                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#F7F2EA]">
-                      <Phone size={13} className="text-[#9E3B09]" />
+                      <Phone size={13} className="text-[#C07A5A]" />
                     </span>
                     <span className="font-semibold text-neutral-800">+91 9226591522</span>
                   </a>
@@ -189,7 +189,7 @@ export default function Navbar({ className }: { className?: string }) {
                     className="flex items-center gap-3 px-5 py-4 hover:bg-[#F7F2EA] transition-all duration-200 font-bricolage min-w-0 overflow-hidden"
                   >
                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#F7F2EA]">
-                      <Mail size={13} className="text-[#9E3B09]" />
+                      <Mail size={13} className="text-[#C07A5A]" />
                     </span>
                     <span className="text-[12px] text-neutral-800 font-medium truncate min-w-0">reservations@pinkpapayastays.com</span>
                   </a>
@@ -200,11 +200,11 @@ export default function Navbar({ className }: { className?: string }) {
             {/* Mobile menu button */}
             <button
               ref={menuBtnRef}
-              className="md:hidden flex items-center justify-center w-9 h-9 rounded-full text-neutral-800 hover:text-black hover:bg-neutral-100/60 transition-colors"
+              className="md:hidden flex items-center justify-center w-11 h-11 rounded-full text-neutral-800 hover:text-black hover:bg-neutral-100/60 transition-colors cursor-pointer"
               onClick={() => setMenuOpen((v) => !v)}
               aria-label="Toggle menu"
             >
-              {menuOpen ? <X size={20} /> : <Menu size={20} />}
+              {menuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </div>
@@ -228,7 +228,7 @@ export default function Navbar({ className }: { className?: string }) {
                   className={cn(
                     "py-3 text-[13px] tracking-wider uppercase font-semibold transition-colors",
                     active
-                      ? "text-[#B84A17]"
+                      ? "text-[#C07A5A]"
                       : "text-neutral-600 hover:text-neutral-900"
                   )}
                 >
@@ -240,18 +240,18 @@ export default function Navbar({ className }: { className?: string }) {
           <div className="pt-4 pb-2 flex flex-col gap-3">
             <button
               type="button"
-              className="w-full justify-center bg-[#9E3B09] text-white rounded-full py-3 text-xs font-semibold tracking-wider uppercase shadow-sm"
+              className="w-full justify-center bg-[#C07A5A] hover:bg-[#A04415] text-white rounded-full py-3 text-xs font-semibold tracking-wider uppercase shadow-sm font-bricolage"
               onClick={() => setContactOpen(!contactOpen)}
             >
               GET IN TOUCH
             </button>
             {contactOpen && (
               <div className="flex flex-col gap-2 pt-2 text-xs text-neutral-600 font-bricolage px-1">
-                <a href="tel:+919226591522" className="flex items-center gap-2 hover:text-[#9E3B09]">
-                  <Phone size={13} className="text-[#9E3B09]" /> +91 9226591522
+                <a href="tel:+919226591522" className="flex items-center gap-2 hover:text-[#C07A5A]">
+                  <Phone size={13} className="text-[#C07A5A]" /> +91 9226591522
                 </a>
-                <a href="mailto:reservations@pinkpapayastays.com" className="flex items-center gap-2 hover:text-[#9E3B09]">
-                  <Mail size={13} className="text-[#9E3B09]" /> reservations@pinkpapayastays.com
+                <a href="mailto:reservations@pinkpapayastays.com" className="flex items-center gap-2 hover:text-[#C07A5A]">
+                  <Mail size={13} className="text-[#C07A5A]" /> reservations@pinkpapayastays.com
                 </a>
               </div>
             )}

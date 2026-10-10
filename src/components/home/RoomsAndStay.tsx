@@ -100,7 +100,7 @@ export default function RoomsAndStay({ content }: { content?: any }) {
         {/* Left Column: Clean White Content */}
         <div className="flex flex-col justify-center px-5 sm:px-10 md:px-14 lg:px-16 xl:px-24 py-8 sm:py-12 lg:py-16 max-w-2xl mx-auto lg:mx-0 w-full">
           {/* Main Heading: "Rooms & Stay" */}
-          <h2 className="font-playfair text-neutral-900 text-[30px] sm:text-[40px] md:text-[48px] lg:text-[54px] font-normal leading-tight tracking-tight mb-6 sm:mb-9">
+          <h2 className="font-playfair italic font-normal text-[#16323C] text-[30px] sm:text-[40px] md:text-[48px] lg:text-[54px] leading-tight tracking-tight mb-6 sm:mb-9">
             {content?.heading &&
             content.heading !== "Experience the comfort." &&
             content.heading !== "Experience the\ncomfort."
@@ -119,15 +119,15 @@ export default function RoomsAndStay({ content }: { content?: any }) {
                     <div className="animate-in fade-in duration-300">
                       {/* Active Title with Horizontal Dash Line */}
                       <div className="flex items-center gap-3.5 sm:gap-4 mb-2.5">
-                        <div className="w-8 sm:w-10 h-px bg-neutral-400 shrink-0" />
-                        <span className="font-playfair text-[#B85D26] text-2xl sm:text-[26px] md:text-[28px] font-normal tracking-normal leading-none">
+                        <div className="w-8 sm:w-10 h-px bg-[#C07A5A] shrink-0" />
+                        <span className="font-playfair italic text-[#C07A5A] text-2xl sm:text-[26px] md:text-[28px] font-normal tracking-normal leading-none">
                           {c.name}
                         </span>
                       </div>
 
                       {/* Description indented to align with title */}
                       <div className="pl-[44px] sm:pl-[54px]">
-                        <p className="text-neutral-600 text-[13.5px] sm:text-[14px] font-bricolage font-light leading-relaxed max-w-[380px] sm:max-w-[420px]">
+                        <p className="text-[#16323C]/75 text-[14px] sm:text-[15px] font-bricolage font-normal leading-relaxed max-w-[380px] sm:max-w-[420px]">
                           {c.description}
                         </p>
                       </div>
@@ -141,9 +141,9 @@ export default function RoomsAndStay({ content }: { content?: any }) {
                       onKeyDown={(e) =>
                         (e.key === "Enter" || e.key === " ") && handleSelect(idx)
                       }
-                      className="pl-[44px] sm:pl-[54px] group cursor-pointer transition-colors"
+                      className="pl-[44px] sm:pl-[54px] py-1.5 sm:py-2 group cursor-pointer transition-colors"
                     >
-                      <span className="font-playfair text-[#6f7479] group-hover:text-neutral-900 text-xl sm:text-[22px] md:text-[24px] font-normal tracking-normal transition-colors duration-200">
+                      <span className="font-playfair text-[#16323C]/60 group-hover:text-[#16323C] text-xl sm:text-[22px] md:text-[24px] font-normal tracking-normal transition-colors duration-200">
                         {c.name}
                       </span>
                     </div>
@@ -206,10 +206,10 @@ export default function RoomsAndStay({ content }: { content?: any }) {
             }
             className="absolute bottom-6 sm:bottom-12 right-4 sm:right-10 left-4 sm:left-auto min-w-0 sm:min-w-[320px] max-w-[420px] bg-black/25 hover:bg-black/35 backdrop-blur-md border border-white/25 rounded-2xl p-5 sm:p-7 text-left transition-all duration-300 cursor-pointer group shadow-[0_8px_32px_rgba(0,0,0,0.25)]"
           >
-            <p className="text-white/80 text-[10px] sm:text-[11px] font-bricolage font-semibold uppercase tracking-[0.22em] mb-1.5 sm:mb-2">
+            <p className="text-white/80 text-[10px] sm:text-[11px] font-bricolage font-semibold uppercase tracking-[0.18em] mb-1.5 sm:mb-2">
               FEATURED PROPERTY
             </p>
-            <h3 className="font-playfair font-normal text-white text-xl sm:text-[26px] md:text-3xl tracking-wide group-hover:text-white/95 transition-colors">
+            <h3 className="font-playfair italic font-normal text-white text-xl sm:text-[26px] md:text-3xl tracking-wide group-hover:text-white/95 transition-colors">
               {activeTagline}
             </h3>
           </button>

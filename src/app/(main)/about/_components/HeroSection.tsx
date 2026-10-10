@@ -1,87 +1,93 @@
-import Image from "next/image";
-import Container from "@/components/Container";
-import Reveal from "@/components/ui/Reveal";
+"use client";
 
-// Tied to whichever axis is tighter, so the headline stays in proportion to the
-// collage on both a short-wide laptop and a tall 2560 monitor. The old
-// `clamp(1.8rem, 9.5vw, 9rem)` hit its 9rem cap at 1600 and then stopped growing
-// while the cards kept getting taller.
-const HEADLINE_SIZE = "clamp(1.8rem, min(6.8vw, 13dvh), 12rem)";
+import { useEffect, useRef } from "react";
 
-export default function HeroSection() {
+type Props = {
+  content?: {
+    title?: string;
+    description?: string;
+    badge?: string;
+    videoUrl?: string;
+    posterUrl?: string;
+  };
+  className?: string;
+};
+
+const DEFAULT_VIDEO = "/videos/hotel-hero.mp4";
+const FALLBACK_VIDEO = "https://assets.mixkit.co/videos/4196/4196-720.mp4";
+const DEFAULT_POSTER = "/images/luxury-villas.jpg";
+
+export default function HeroSection({ content, className }: Props) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    // Ensure video attempts to play smoothly on all browsers
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {
+        // Autoplay policy fallback: poster remains visible
+      });
+    }
+  }, []);
+
+  const badge = content?.badge || "Our Story & Essence";
+  const title = content?.title || "About Pink Papaya Stays";
+  const description =
+    content?.description ||
+    "Architectural sanctuaries designed for the modern wanderer. We blend the warmth of home with the precision of a gallery.";
+
+  const videoSrc = content?.videoUrl || DEFAULT_VIDEO;
+  const posterSrc = content?.posterUrl || DEFAULT_POSTER;
+
   return (
-    // From lg up the hero is exactly one viewport tall and the collage is sized from
-    // viewport HEIGHT (lg:h-[..dvh] + aspect-ratio drives the width) rather than from
-    // width. Sizing by width made the cards balloon on wide screens — they overflowed
-    // the section by 79px at 1920 and 131px at 2560 — and shrink on short ones, so the
-    // composition changed with every screen. Height-based keeps it identical.
     <section
-      className="relative bg-white overflow-hidden min-h-[calc(50vh_-_var(--navbar-h))] md:min-h-[calc(80vh_-_var(--navbar-h))] lg:min-h-0 lg:h-[100dvh] mt-6 md:mt-[5%] lg:mt-0"
-      style={{
-        isolation: "isolate",
-        // One scale drives the whole collage. Height is the primary axis (so the pair
-        // fills the screen) but capped by 36vw, otherwise a 16:10 screen — where dvh is
-        // large relative to vw — makes the cards wide enough to sit on the headline.
-        ["--card-b-h" as string]: "min(70dvh, 36vw)",
-        ["--card-a-h" as string]: "calc(var(--card-b-h) * 0.925)",
-        // Card B hugs the right edge; card A is offset by exactly card B's own width
-        // (height × 3/4) less a 1vw overlap, so the two keep their relationship at any
-        // aspect ratio. A fixed left-% could not — card B was clipped at 1366.
-        ["--card-b-right" as string]: "max(6vw, calc((100vw - 2200px) / 2))",
-        ["--card-a-right" as string]: "calc(var(--card-b-right) + var(--card-b-h) * 0.75 - 2vw)",
-        // Centred vertically, then nudged down so the bottoms sit near the fold.
-        ["--card-b-top" as string]: "calc((100dvh - var(--card-b-h)) / 2 + 5dvh)",
-        ["--card-a-top" as string]: "calc((100dvh - var(--card-a-h)) / 2 + 6dvh)",
-      }}
+      className={`pt-20 sm:pt-22 md:pt-[92px] lg:pt-[92px] px-4 sm:px-5 lg:px-7 bg-white lg:h-[100dvh] lg:flex lg:flex-col pb-4 sm:pb-6 lg:pb-8 ${className || ""}`}
     >
-      <div
-        className="absolute overflow-hidden shadow-2xl w-[28%] md:w-[25%] lg:w-auto lg:h-[var(--card-a-h)] left-[45%] md:left-[40%] lg:left-auto top-[calc(var(--navbar-h)_+_16px)] lg:top-[var(--card-a-top)] lg:right-[var(--card-a-right)]"
-        style={{
-          aspectRatio: "3 / 4.2",
-          transform: "rotate(-6deg)", borderRadius: "22px", zIndex: 1,
-        }}
-      >
-        <Image src="/images/stay-view.png" alt="Pink Papaya interiors" fill sizes="(max-width: 1024px) 30vw, 35vw" className="object-cover" />
-        <div className="absolute inset-0 bg-black/50" />
-      </div>
-
-      <div
-        className="absolute overflow-hidden shadow-2xl w-[32%] md:w-[29%] lg:w-auto lg:h-[var(--card-b-h)] left-[67%] md:left-[64%] lg:left-auto top-[calc(var(--navbar-h)_-_20px)] lg:top-[var(--card-b-top)] lg:right-[var(--card-b-right)]"
-        style={{
-          aspectRatio: "3 / 4",
-          transform: "rotate(4deg)", borderRadius: "22px", zIndex: 1,
-        }}
-      >
-        <Image src="/images/host-pool.png" alt="Pink Papaya stay details" fill sizes="(max-width: 1024px) 34vw, 40vw" className="object-cover" />
-        <div className="absolute inset-0 bg-black/50" />
-      </div>
-
-      <Container className="lg:h-full lg:max-w-none lg:px-[12vw]">
-        <div
-          className="relative lg:h-full lg:flex lg:flex-col lg:justify-center"
-          style={{ zIndex: 2, paddingTop: "var(--navbar-h)" }}
+      {/* Hero Rounded Container — Identical layout and framing to HomePage Hero */}
+      <div className="relative w-full mx-auto rounded-[24px] sm:rounded-[32px] md:rounded-[36px] overflow-hidden min-h-[460px] sm:min-h-[520px] md:min-h-[580px] lg:min-h-[420px] lg:flex-1 flex flex-col justify-center items-center text-center px-6 sm:px-12 py-16 shadow-lg bg-neutral-900">
+        {/* Background Video */}
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster={posterSrc}
+          className="pointer-events-none absolute inset-0 w-full h-full object-cover object-center z-0"
         >
-          <Reveal>
-            <div className="max-w-[42%] md:max-w-[58%] lg:max-w-[46%] pb-8 md:pb-24 lg:pb-0">
-              <h1 className="font-playfair font-medium text-[#16323C]" style={{ fontSize: HEADLINE_SIZE, lineHeight: 0.92 }}>
-                About
-              </h1>
-              <h1 className="font-playfair font-medium italic text-[#C07A5A]" style={{ fontSize: HEADLINE_SIZE, lineHeight: 0.92 }}>
-                Pink
-              </h1>
-              <h1 className="font-playfair font-medium text-[#16323C]" style={{ fontSize: HEADLINE_SIZE, lineHeight: 0.92 }}>
-                Papaya
-              </h1>
-              <h1 className="font-playfair font-medium text-[#16323C]" style={{ fontSize: HEADLINE_SIZE, lineHeight: 0.92 }}>
-                Stays
-              </h1>
-              <p className="font-bricolage text-neutral-400 text-base xl:text-lg 2xl:text-xl leading-relaxed mt-7 2xl:mt-9 max-w-[280px] xl:max-w-[340px] 2xl:max-w-[420px]">
-                Architectural sanctuaries designed for the modern wanderer. We blend the warmth of home with the precision of a gallery.
-              </p>
+          <source src={videoSrc} type="video/mp4" />
+          <source src={FALLBACK_VIDEO} type="video/mp4" />
+        </video>
+
+        {/* Gradient Overlay for Text Readability — Matches HomePage Hero */}
+        <div
+          aria-hidden
+          className="absolute inset-0 z-10 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(15,15,15,0.45) 0%, rgba(15,15,15,0.30) 50%, rgba(15,15,15,0.60) 100%)",
+          }}
+        />
+
+        {/* Content */}
+        <div className="relative z-20 max-w-2xl lg:max-w-3xl xl:max-w-4xl flex flex-col items-center">
+          {badge && (
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-4 sm:mb-5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E0A88F] animate-pulse" />
+              <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-white/90 font-bricolage">
+                {badge}
+              </span>
             </div>
-          </Reveal>
+          )}
+
+          <h1 className="font-playfair italic font-normal text-white text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-[68px] leading-[1.16] tracking-tight drop-shadow-md">
+            {title}
+          </h1>
+
+          <p className="font-bricolage font-light text-white/95 text-xs sm:text-sm md:text-base lg:text-lg mt-3 sm:mt-5 max-w-lg lg:max-w-xl leading-relaxed drop-shadow-sm">
+            {description}
+          </p>
         </div>
-      </Container>
+      </div>
     </section>
   );
 }

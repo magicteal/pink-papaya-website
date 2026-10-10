@@ -12,11 +12,49 @@ import { Stay, Collection, PropertyType } from "@/app/admin/stays/types";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import AmenityIconPicker from "@/components/admin/AmenityIconPicker";
 import { AmenityIcon, parseAmenity, detectAmenityIcon } from "@/lib/amenityIcons";
+import { DEFAULT_PLACEHOLDER } from "@/utils/image";
+
+function AdminFormPreviewImage({
+  src,
+  alt = "",
+  className = "object-cover",
+  fill = true,
+}: {
+  src: string;
+  alt?: string;
+  className?: string;
+  fill?: boolean;
+}) {
+  const [imgSrc, setImgSrc] = useState(src || DEFAULT_PLACEHOLDER);
+  const [hasError, setHasError] = useState(false);
+
+  useEffect(() => {
+    setImgSrc(src || DEFAULT_PLACEHOLDER);
+    setHasError(false);
+  }, [src]);
+
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={hasError ? DEFAULT_PLACEHOLDER : imgSrc}
+      alt={alt}
+      loading="lazy"
+      onError={() => {
+        if (!hasError) {
+          setHasError(true);
+          setImgSrc(DEFAULT_PLACEHOLDER);
+        }
+      }}
+      className={`${className} ${fill ? "absolute inset-0 w-full h-full" : "w-full h-full"}`}
+    />
+  );
+}
 
 const EMPTY: Stay = {
   id: "", title: "", imageUrl: "", area: "", bed: "", guests: "", category: "", propertyType: "",
   description: "", pricePerNight: "", images: [], amenities: [], location: "",
   aboutContent: "", locationMapUrl: "", nearbyPlaces: [], faqs: [], featuredOnHome: false,
+  brochureUrl: "",
 };
 
 export default function StayForm({ initialData }: { initialData?: Stay }) {
@@ -37,6 +75,8 @@ export default function StayForm({ initialData }: { initialData?: Stay }) {
   const [imageUrlInput, setImageUrlInput] = useState("");
   const [galleryUploading, setGalleryUploading] = useState(false);
   const galleryFileRef = useRef<HTMLInputElement>(null);
+  const [brochureUploading, setBrochureUploading] = useState(false);
+  const brochureFileRef = useRef<HTMLInputElement>(null);
   const [amenityInput, setAmenityInput] = useState("");
   const [amenityIcon, setAmenityIcon] = useState("");
   const [nearbyPlaceName, setNearbyPlaceName] = useState("");
@@ -148,6 +188,23 @@ export default function StayForm({ initialData }: { initialData?: Stay }) {
     finally { setGalleryUploading(false); }
   }
 
+  async function handleBrochureUpload(file: File) {
+    setBrochureUploading(true);
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      const res = await fetch("/api/upload", { method: "POST", body: fd });
+      if (!res.ok) throw new Error("Brochure upload failed");
+      const data = await res.json();
+      setForm((f) => ({ ...f, brochureUrl: data.url }));
+      if (brochureFileRef.current) brochureFileRef.current.value = "";
+    } catch (e: any) {
+      alert(e?.message ?? "Brochure upload failed");
+    } finally {
+      setBrochureUploading(false);
+    }
+  }
+
   async function handleSubmit() {
     const v = validateForm();
     setErrors(v);
@@ -167,7 +224,8 @@ export default function StayForm({ initialData }: { initialData?: Stay }) {
         pricePerNight: normalizePrice(form.pricePerNight), 
         imageUrl: finalImageUrl, 
         images: finalGallery, 
-        amenities: form.amenities ?? [] 
+        amenities: form.amenities ?? [],
+        brochureUrl: (form.brochureUrl ?? "").trim(),
       };
 
       const res = await fetch(url, { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
@@ -312,6 +370,73 @@ export default function StayForm({ initialData }: { initialData?: Stay }) {
           </div>
         </div>
 
+        {/* Property Brochure (PDF) */}
+        <div className="pt-6 border-t border-neutral-100 space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <Label className="text-xs font-bold uppercase tracking-wide text-neutral-700">
+                Property Brochure (PDF)
+              </Label>
+              <p className="text-xs text-neutral-500 font-bricolage mt-0.5">
+                Upload a property PDF or provide a direct link. If empty, the default Pink Papaya brochure will be downloaded.
+              </p>
+            </div>
+            <div className="flex gap-2 shrink-0">
+              <input
+                ref={brochureFileRef}
+                type="file"
+                accept=".pdf,application/pdf"
+                className="hidden"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) handleBrochureUpload(file);
+                }}
+              />
+              <Button
+                type="button"
+                variant="outlineBlack"
+                onClick={() => brochureFileRef.current?.click()}
+                disabled={brochureUploading}
+              >
+                {brochureUploading ? "Uploading PDF..." : "Upload Brochure PDF"}
+              </Button>
+            </div>
+          </div>
+
+          <div className="flex gap-2">
+            <Input
+              placeholder="e.g. /brochures/my-villa.pdf or https://..."
+              value={form.brochureUrl || ""}
+              onChange={(e) => setForm((f) => ({ ...f, brochureUrl: e.target.value }))}
+            />
+            {form.brochureUrl && (
+              <Button
+                type="button"
+                variant="outline"
+                className="text-red-500 hover:text-red-700 hover:bg-red-50 border-neutral-200"
+                onClick={() => setForm((f) => ({ ...f, brochureUrl: "" }))}
+              >
+                Clear
+              </Button>
+            )}
+          </div>
+
+          {form.brochureUrl && (
+            <div className="flex items-center gap-2 p-3 rounded-xl bg-neutral-50 border border-neutral-200/80 text-xs text-neutral-700 font-bricolage">
+              <span className="font-semibold text-[#16323C]">Active Brochure:</span>
+              <a
+                href={form.brochureUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#C07A5A] hover:underline font-mono truncate max-w-md"
+              >
+                {form.brochureUrl}
+              </a>
+              <span className="text-neutral-400 text-[11px]">(Click to test/preview)</span>
+            </div>
+          )}
+        </div>
+
         {/* Unified Media Manager & 5 Hero Images Control */}
         <div className="pt-6 border-t border-neutral-100 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -374,7 +499,7 @@ export default function StayForm({ initialData }: { initialData?: Stay }) {
                 <div className="col-span-2 relative h-full rounded-lg overflow-hidden bg-neutral-100 border border-neutral-200">
                   {allImages[0] ? (
                     <>
-                      <NextImage src={allImages[0]} alt="" fill className="object-cover" unoptimized />
+                      <AdminFormPreviewImage src={allImages[0]} alt="" fill className="object-cover" />
                       <div className="absolute top-1.5 left-1.5 bg-[#C07A5A] text-white text-[10px] font-bold px-2 py-0.5 rounded shadow">
                         #1 Main Left
                       </div>
@@ -393,7 +518,7 @@ export default function StayForm({ initialData }: { initialData?: Stay }) {
                       <div key={slotIdx} className="relative h-full w-full rounded-lg overflow-hidden bg-neutral-100 border border-neutral-200">
                         {url ? (
                           <>
-                            <NextImage src={url} alt="" fill className="object-cover" unoptimized />
+                            <AdminFormPreviewImage src={url} alt="" fill className="object-cover" />
                             <div className="absolute top-1 left-1 bg-[#16323C] text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow opacity-90">
                               {labels[slotIdx - 1]}
                             </div>
@@ -440,7 +565,7 @@ export default function StayForm({ initialData }: { initialData?: Stay }) {
                         : "border-transparent hover:border-neutral-300"
                     }`}
                   >
-                    <NextImage src={url} alt="" fill className="object-cover" unoptimized />
+                    <AdminFormPreviewImage src={url} alt="" fill className="object-cover" />
                     
                     {/* Badge */}
                     <div className={`absolute top-2 left-2 text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md shadow-sm text-white ${
@@ -678,13 +803,13 @@ export default function StayForm({ initialData }: { initialData?: Stay }) {
       <div className="sticky top-8 flex flex-col gap-4">
         <h3 className="text-sm font-bold uppercase tracking-wide text-neutral-500 font-bricolage px-1">Live Preview</h3>
         <div className="bg-white rounded-2xl border border-neutral-200/80 overflow-hidden flex flex-col shadow-sm group">
-          <div className="relative w-full pt-[62%] bg-neutral-100">
+          <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-100">
             {showCarousel ? (
-              <Carousel className="absolute inset-0 w-full h-full" opts={{ loop: true }}>
+              <Carousel className="w-full h-full" opts={{ loop: true }}>
                 <CarouselContent className="h-full !ml-0">
                   {validImages.slice(0, 5).map((src, idx) => (
-                    <CarouselItem key={idx} className="!pl-0 relative w-full h-full overflow-hidden">
-                      <NextImage src={src} alt="" fill unoptimized className="object-cover transition-transform duration-700 scale-[1.01] group-hover:scale-[1.04]" />
+                    <CarouselItem key={idx} className="!pl-0 relative aspect-[16/10] w-full h-full overflow-hidden">
+                      <AdminFormPreviewImage src={src} alt="" fill className="object-cover transition-transform duration-700 scale-[1.01] group-hover:scale-[1.04]" />
                     </CarouselItem>
                   ))}
                 </CarouselContent>
@@ -692,7 +817,7 @@ export default function StayForm({ initialData }: { initialData?: Stay }) {
                 <CarouselNext className="right-3 h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity border-none bg-white/90 text-neutral-900 hover:bg-white" />
               </Carousel>
             ) : validImages.length > 0 ? (
-              <NextImage src={validImages[0]} alt="" fill unoptimized className="object-cover transition-transform duration-700 scale-[1.01] group-hover:scale-[1.04]" />
+              <AdminFormPreviewImage src={validImages[0]} alt="" fill className="object-cover transition-transform duration-700 scale-[1.01] group-hover:scale-[1.04]" />
             ) : (
               <div className="absolute inset-0 flex items-center justify-center text-neutral-400 text-sm font-bricolage">No Main Image</div>
             )}

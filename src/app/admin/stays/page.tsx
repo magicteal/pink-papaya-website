@@ -7,6 +7,33 @@ import { Button } from "@/components/ui/button";
 import { formatPriceString } from "@/utils/formatCurrency";
 import { Stay } from "@/app/admin/stays/types";
 
+import { DEFAULT_PLACEHOLDER } from "@/utils/image";
+
+function AdminStayCardImage({ src, alt }: { src?: string; alt: string }) {
+  const [imgSrc, setImgSrc] = useState(src || DEFAULT_PLACEHOLDER);
+  const [hasError, setHasError] = useState(false);
+
+  useEffect(() => {
+    setImgSrc(src || DEFAULT_PLACEHOLDER);
+    setHasError(false);
+  }, [src]);
+
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={hasError ? DEFAULT_PLACEHOLDER : imgSrc}
+      alt={alt}
+      onError={() => {
+        if (!hasError) {
+          setHasError(true);
+          setImgSrc(DEFAULT_PLACEHOLDER);
+        }
+      }}
+      className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+    />
+  );
+}
+
 export default function AdminStaysPage() {
   const router = useRouter();
   const [stays, setStays] = useState<Stay[]>([]);
@@ -49,10 +76,13 @@ export default function AdminStaysPage() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {stays.map((s, i) => (
-              <div key={s.id ? `${s.id}-${i}` : i} className="bg-white rounded-2xl border border-neutral-200/80 overflow-hidden flex flex-col">
-                <div className="relative w-full pt-[62%] bg-neutral-100">
-                  <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${s.imageUrl})` }} />
-                  <div className="absolute top-3 left-3 flex gap-1.5 flex-wrap pr-3">
+              <div key={s.id ? `${s.id}-${i}` : i} className="group bg-white rounded-2xl border border-neutral-200/80 overflow-hidden flex flex-col hover:shadow-md transition-shadow">
+                <div className="relative w-full pt-[62%] bg-neutral-100 overflow-hidden">
+                  <AdminStayCardImage
+                    src={s.imageUrl || s.images?.[0] || DEFAULT_PLACEHOLDER}
+                    alt={s.title || "Stay listing"}
+                  />
+                  <div className="absolute top-3 left-3 flex gap-1.5 flex-wrap pr-3 z-10 pointer-events-none">
                     {s.featuredOnHome && (
                       <span className="text-[10px] uppercase tracking-wide font-semibold bg-[#16323C] text-white px-2 py-0.5 rounded-full font-bricolage shadow-sm">
                         Featured

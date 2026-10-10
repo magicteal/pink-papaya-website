@@ -15,11 +15,11 @@ export default function AmenitiesSection({
   const hasMore = amenities.length > INITIAL_SHOW;
 
   return (
-    <section className="py-6 md:py-[5%]">
+    <section className="py-6 md:py-8 lg:py-10">
       <p className="font-bricolage text-[11px] uppercase tracking-[0.14em] text-[#C07A5A] mb-3">
         What&apos;s included
       </p>
-      <h2 className="font-playfair text-3xl md:text-4xl text-[#16323C] mb-10">
+      <h2 className="font-playfair italic font-normal text-3xl md:text-4xl text-[#16323C] mb-6 md:mb-8">
         Amenities
       </h2>
 

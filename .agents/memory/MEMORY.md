@@ -8,4 +8,5 @@
 - [project-auth-and-admin](project-auth-and-admin.md) — Custom HMAC cookie auth, RBAC, admin + CMS portal
 - [project-deployment-and-env](project-deployment-and-env.md) — VPS 187.127.187.184, Nginx, PM2, env vars, media storage, domain routing
 - [project-custom-skills-and-scripts](project-custom-skills-and-scripts.md) — Workspace skills and their triggers
-- [project-current-focus](project-current-focus.md) — Active work, layout standardization, user preferences, security notes (2026-09-30)
+- [project-current-focus](project-current-focus.md) — Active work, layout standardization, user preferences, security notes (2026-10-08)
+

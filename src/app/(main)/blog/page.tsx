@@ -27,15 +27,15 @@ function BlogPostCard({ post }: { post: any }) {
 
           <div className="absolute left-4 top-4 flex items-center gap-3">
             {post.category && (
-              <span className="text-[11px] text-white/90 bg-black/20 px-3 py-1 rounded-full uppercase tracking-wide">
+              <span className="font-bricolage text-[11px] text-white/95 bg-black/40 backdrop-blur-xs px-3 py-1 rounded-full uppercase tracking-[0.14em] font-semibold">
                 {post.category}
               </span>
             )}
-            <span className="text-[11px] text-white/80">{post.date}</span>
+            <span className="font-bricolage text-[11px] text-white/80">{post.date}</span>
           </div>
 
           <div className="absolute left-5 right-5 bottom-5">
-            <h3 className="font-playfair text-xl md:text-2xl text-white leading-tight drop-shadow-md">
+            <h3 className="font-playfair italic font-normal text-xl md:text-2xl text-white leading-tight drop-shadow-md">
               {post.title}
             </h3>
           </div>
@@ -65,7 +65,7 @@ export default async function BlogPage(props: {
         compact
       />
 
-      <section className="py-[5%]">
+      <section className="py-10 md:py-14 lg:py-16">
         <Container>
           <div className="flex justify-center mb-10">
             <Suspense>

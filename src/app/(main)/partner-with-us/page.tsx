@@ -99,10 +99,10 @@ export default function BecomeHostPage() {
           {/* Left: text, vertically centered */}
           <div className="lg:col-span-7 flex flex-col justify-center pb-10 pt-32 lg:pt-20">
             <Reveal>
-              <h1 className="font-playfair text-5xl sm:text-6xl md:text-7xl lg:text-[80px] xl:text-[92px] font-medium text-white leading-[1.08] tracking-tight">
+              <h1 className="font-playfair italic font-normal text-5xl sm:text-6xl md:text-7xl lg:text-[80px] xl:text-[92px] text-white leading-[1.08] tracking-tight">
                 Partner with
               </h1>
-              <h1 className="font-playfair text-5xl sm:text-6xl md:text-7xl lg:text-[80px] xl:text-[92px] font-medium italic text-[#C07A5A] leading-[1.08] tracking-tight mt-1">
+              <h1 className="font-playfair italic font-normal text-5xl sm:text-6xl md:text-7xl lg:text-[80px] xl:text-[92px] text-[#C07A5A] leading-[1.08] tracking-tight mt-1">
                 Pink Papaya
               </h1>
               <p className="mt-6 text-white/90 font-bricolage text-base md:text-lg max-w-lg leading-relaxed">
@@ -243,20 +243,20 @@ export default function BecomeHostPage() {
         </div>
       </section>
       {/* Stats Strip */}
-      <section className="bg-white py-[5%]">
+      <section className="bg-white py-10 md:py-14 border-b border-neutral-100">
         <Container>
-          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-neutral-300">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 md:gap-0 md:divide-x md:divide-neutral-200">
             {[
               { value: "10k+", label: "HAPPY GUESTS" },
               { value: "4.8", label: "STAR RATINGS" },
               { value: "1 in 10", label: "HOMES SELECTED" },
               { value: "24/7", label: "SUPPORT" },
             ].map((stat, idx) => (
-              <div key={idx} className="flex flex-col items-center justify-center py-4 px-6 gap-2">
-                <span className="font-playfair text-4xl md:text-5xl text-[#16323C] tracking-tight">
+              <div key={idx} className="flex flex-col items-center justify-center py-2 md:py-4 px-2 sm:px-4 md:px-6 gap-2 text-center">
+                <span className="font-playfair text-3xl sm:text-4xl md:text-5xl text-[#16323C] tracking-tight">
                   {stat.value}
                 </span>
-                <span className="font-bricolage text-[10px] uppercase tracking-[0.15em] text-neutral-400">
+                <span className="font-bricolage text-[10px] sm:text-[11px] uppercase tracking-[0.16em] text-[#C07A5A] font-semibold">
                   {stat.label}
                 </span>
               </div>
@@ -266,16 +266,16 @@ export default function BecomeHostPage() {
       </section>
 
       {/* Why Host With Us Section */}
-      <section className="py-[5%] bg-white">
+      <section className="py-12 sm:py-16 md:py-20 bg-white">
         <Container>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             {/* Left: Title + benefits list */}
             <div>
               <Reveal>
-                <h2 className="font-playfair text-4xl md:text-5xl font-medium text-[#16323C] mb-4 leading-tight">
+                <h2 className="font-playfair italic font-normal text-4xl md:text-5xl text-[#16323C] mb-4 leading-tight">
                   Why Host With Us
                 </h2>
-                <p className="text-neutral-500 font-bricolage leading-relaxed mb-12 max-w-sm">
+                <p className="text-[#16323C]/75 font-bricolage text-[15px] leading-relaxed mb-8 md:mb-10 max-w-sm">
                   We don&apos;t just manage properties; we curate experiences that honor the architectural spirit of your home.
                 </p>
               </Reveal>
@@ -347,7 +347,7 @@ export default function BecomeHostPage() {
                 </div>
 
                 {/* Floating glassmorphism card */}
-                <div className="absolute bottom-[-24px] left-[-16px] w-[280px] rounded-[20px] p-5 shadow-xl"
+                <div className="absolute bottom-[-16px] sm:bottom-[-24px] left-3 sm:left-[-16px] w-[260px] sm:w-[280px] max-w-[calc(100%-24px)] rounded-[20px] p-4 sm:p-5 shadow-xl"
                   style={{
                     background: "rgba(50, 50, 60, 0.55)",
                     backdropFilter: "blur(16px)",
@@ -379,18 +379,18 @@ export default function BecomeHostPage() {
       <HostTestimonialsCarousel />
 
       {/* Bottom CTA */}
-      <section className="py-[5%] bg-white text-center">
+      <section className="py-12 sm:py-16 md:py-20 bg-[#F7F2EA] text-center border-t border-neutral-100">
         <Container>
           <Reveal>
-            <h2 className="font-playfair text-4xl md:text-6xl font-medium text-[#16323C] mb-8 leading-tight">
+            <h2 className="font-playfair italic font-normal text-4xl md:text-6xl text-[#16323C] mb-6 leading-tight">
               Ready to Transform Your Property?
             </h2>
-            <p className="text-lg md:text-xl text-neutral-600 font-bricolage mb-12 max-w-2xl mx-auto">
+            <p className="text-base md:text-lg text-[#16323C]/70 font-bricolage mb-10 max-w-2xl mx-auto leading-relaxed">
               Join our exclusive network of hosts and start earning from your property today.
             </p>
             <Button
               size="lg"
-              className="px-16"
+              className="px-16 font-bricolage uppercase tracking-[0.15em] rounded-full"
             >
               Contact Us
             </Button>

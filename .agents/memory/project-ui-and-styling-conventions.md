@@ -32,11 +32,24 @@ metadata:
 - Reusable primitives: `src/components/ui/` (`Reveal`, `Counter`, `carousel`, etc.).
 - Shared layout components: `src/components/` root (`Navbar`, `Footer`, `StayCard`, `FeedbackCard`, `TestimonialsCarousel`, `Container`, `WhatsAppButton`, etc.).
 
+## Branding & Logos
+- **Official Logos**: Stored in `public/logo-files/`:
+  - `logo-black.svg` — Used on white/light surfaces (Navbar, staff login, admin headers).
+  - `logo-white.svg` — Used on dark backgrounds.
+- Used consistently across client Navbar, staff Login, AdminShell, and CmsShell.
+
+## Amenity Icons System (`src/lib/amenityIcons.tsx` & `AmenityIconPicker.tsx`)
+- Maps 40+ Lucide icons categorized into 6 sections: *Essentials*, *Climate & Comfort*, *Food & Dining*, *Outdoors & Views*, *Wellness & Leisure*, *Services & Safety*.
+- Provides fuzzy keyword tag matching via `getAmenityIcon(name)` for Airbnb/custom amenity strings.
+- Interactive modal selector `AmenityIconPicker.tsx` in admin `StayForm` for easy selection.
+
 ## Stay Cards (`src/components/StayCard.tsx`)
 - **Image Aspect Ratio**: Strict `aspect-[16/10]`. User requested: "now this should be the ratio in all landscape screens". Do NOT change this aspect ratio.
 - **Grid Layout**: 4 columns on large viewports (`grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4`).
 - **Spec Pills**: 3-column inner grid inside the card for `bed`, `guests`, `area`.
 - **Carousel**: Embla carousel with interactive dot indicators for browsing stay photos directly from the card.
+- **Pricing Fallback**: Supports numeric prices formatted in INR or "Price on Request" strings via `formatPriceString` in `@/utils/formatCurrency`.
+
 
 ## Testimonials (`FeedbackCard.tsx` & `TestimonialsCarousel.tsx`)
 - **Card Design**: Editorial luxury aesthetic on `#FDFAF6` warm parchment with `#E8E2D6` border and `rounded-2xl`.

@@ -40,7 +40,7 @@ export default async function InteriorDetailPage(props: { params: Promise<{ id: 
   }
   return (
     <>
-      <section className="py-8 lg:py-[5%] mt-10">
+      <section className="py-10 md:py-14 lg:py-16 mt-4 md:mt-6">
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-12 lg:gap-20 items-start">
             {/* Left: Image */}
@@ -65,7 +65,7 @@ export default async function InteriorDetailPage(props: { params: Promise<{ id: 
                     </span>
                   </div>
                 ) : null}
-                <h1 className="font-playfair text-3xl md:text-4xl text-[#16323C]">
+                <h1 className="font-playfair italic font-normal text-3xl md:text-4xl text-[#16323C]">
                   {project.headline || project.title}
                 </h1>
                 {project.tagline ? (
@@ -76,7 +76,7 @@ export default async function InteriorDetailPage(props: { params: Promise<{ id: 
                 {project.longDescription?.length ? (
                   <div className="flex flex-col gap-4 mt-4">
                     {project.longDescription.map((para, idx) => (
-                      <p key={idx} className="font-bricolage text-[15px] text-neutral-600 leading-[1.75]">
+                      <p key={idx} className="font-bricolage text-[15px] text-[#16323C]/80 leading-relaxed">
                         {para}
                       </p>
                     ))}
@@ -90,14 +90,14 @@ export default async function InteriorDetailPage(props: { params: Promise<{ id: 
 
       {/* All Photos grid 2 by 3 */}
       {project.photos?.length ? (
-        <section className="py-8 lg:py-[5%]">
+        <section className="py-10 md:py-14 lg:py-16 border-t border-neutral-100">
           <Container>
             <div className="mb-6 md:mb-8 ">
-              <h2 className="font-playfair text-center text-2xl md:text-3xl text-[#16323C]">
+              <h2 className="font-playfair italic font-normal text-center text-2xl md:text-3xl text-[#16323C]">
                 All Photos
               </h2>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 max-w-6xl mx-auto mt-10">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 max-w-6xl mx-auto mt-6 md:mt-8">
               {project.photos.slice(0, 6).map((src, i) => (
                 <Card
                   key={i}
@@ -118,10 +118,10 @@ export default async function InteriorDetailPage(props: { params: Promise<{ id: 
 
       {/* Before and After */}
       {project.beforeAfter?.length ? (
-        <section className="py-8 lg:py-[5%]">
+        <section className="py-10 md:py-14 lg:py-16 border-t border-neutral-100">
           <Container>
-            <div className="mb-8 md:mb-12 ">
-              <h2 className="font-playfair text-center text-2xl md:text-3xl text-[#16323C]">
+            <div className="mb-6 md:mb-8 ">
+              <h2 className="font-playfair italic font-normal text-center text-2xl md:text-3xl text-[#16323C]">
                 Before and After
               </h2>
             </div>
@@ -129,7 +129,7 @@ export default async function InteriorDetailPage(props: { params: Promise<{ id: 
               {project.beforeAfter.slice(0, 2).map((src, i) => (
                 <Card
                   key={i}
-                  className="rounded-10 !border-0 overflow-hidden bg-neutral-200 w-full max-w-[90vw] md:w-[648px] md:h-[443px]"
+                  className="rounded-2xl !border-0 overflow-hidden bg-neutral-200 w-full max-w-full md:max-w-[648px] md:h-[443px]"
                 >
                   <div className="relative w-full pt-[68%] md:pt-0 md:h-full">
                     <div
@@ -145,7 +145,7 @@ export default async function InteriorDetailPage(props: { params: Promise<{ id: 
       ) : null}
 
       {/* Contact Us Section */}
-      <section className="py-8 lg:py-[5%]">
+      <section className="py-12 sm:py-16 md:py-20 bg-[#F7F2EA] border-t border-neutral-100">
         <Container>
           <div className="text-center">
             <HeaderContent

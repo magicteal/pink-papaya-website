@@ -19,9 +19,9 @@ const ROWS = SERVICES.reduce<(typeof SERVICES)[]>((acc, s, i) => {
 
 export default function ServicesSection() {
   return (
-    <section className="bg-white pt-8 pb-3 lg:pt-[5%] lg:pb-4">
+    <section className="bg-white py-12 sm:py-16 md:py-20">
       <Container>
-        <div className="h-px bg-neutral-200 mb-14 md:mb-20" />
+        <div className="h-px bg-neutral-200 mb-8 md:mb-12" />
 
         {/* Main row */}
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_2.5fr] gap-12 lg:gap-20">
@@ -29,12 +29,12 @@ export default function ServicesSection() {
           {/* Left — label */}
           <Reveal>
             <h2
-              className="font-playfair font-normal text-[#16323C] mb-5"
+              className="font-playfair italic font-normal text-[#16323C] mb-5"
               style={{ fontSize: "clamp(1.6rem, 2.5vw, 2.2rem)" }}
             >
               Services
             </h2>
-            <p className="font-bricolage text-[9px] uppercase tracking-[0.22em] font-semibold text-[#16323C]">
+            <p className="font-bricolage text-[11px] uppercase tracking-[0.14em] font-semibold text-[#C07A5A]">
               Defined Offerings. Singular Intent.
             </p>
           </Reveal>
@@ -43,12 +43,12 @@ export default function ServicesSection() {
           <div>
             {ROWS.map((row, ri) => (
               <Reveal key={ri} delay={ri * 0.07}>
-                <div className="grid grid-cols-2 gap-x-8 py-5 border-b border-neutral-200 first:border-t first:border-neutral-200">
+                <div className="grid grid-cols-2 gap-x-8 py-5 border-b border-neutral-200 first:border-t border-neutral-200">
                   {row.map((s) => (
                     <div key={s.num} className="flex items-baseline gap-4">
                       <span className="font-bricolage text-[11px] text-neutral-400 shrink-0 w-5">{s.num}</span>
                       <span
-                        className="font-playfair font-normal text-[#16323C]"
+                        className="font-playfair font-medium text-[#16323C]"
                         style={{ fontSize: "clamp(1rem, 1.4vw, 1.2rem)" }}
                       >
                         {s.label}

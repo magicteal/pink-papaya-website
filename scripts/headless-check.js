@@ -2,9 +2,16 @@ const { spawn } = require("child_process");
 const fs = require("fs");
 const path = require("path");
 
-const CHROME_PATH = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
-const EDGE_PATH = "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe";
-const BROWSER_PATH = fs.existsSync(CHROME_PATH) ? CHROME_PATH : EDGE_PATH;
+const CANDIDATE_BROWSERS = [
+  "/usr/bin/google-chrome-stable",
+  "/usr/bin/google-chrome",
+  "/usr/bin/chromium",
+  "/usr/bin/chromium-browser",
+  "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+  "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+];
+const BROWSER_PATH = CANDIDATE_BROWSERS.find((p) => fs.existsSync(p)) || "google-chrome";
+
 
 const outputDir = path.join(__dirname, "..", "scratch", "screenshots");
 if (!fs.existsSync(outputDir)) {

@@ -49,12 +49,12 @@ export default function FAQSection({ content }: { content?: any }) {
           {/* Left Column: Heading & Description */}
           <div className="lg:col-span-5 xl:col-span-5 lg:sticky lg:top-28">
             <Reveal>
-              <h2 className="font-playfair font-normal text-3xl sm:text-4xl md:text-[42px] lg:text-[46px] text-neutral-900 leading-[1.08] tracking-tight">
+              <h2 className="font-playfair italic font-normal text-3xl sm:text-4xl md:text-[42px] lg:text-[46px] text-[#16323C] leading-[1.08] tracking-tight">
                 Frequently Asked
                 <br />
                 Questions
               </h2>
-              <p className="mt-3.5 text-xs sm:text-[13px] md:text-sm font-bricolage text-neutral-500 font-normal leading-relaxed max-w-xs">
+              <p className="mt-3.5 text-xs sm:text-[13px] md:text-sm font-bricolage text-[#16323C]/70 font-normal leading-relaxed max-w-xs">
                 Quick answers to common questions about staying at Pink Papaya.
               </p>
             </Reveal>
@@ -74,13 +74,13 @@ export default function FAQSection({ content }: { content?: any }) {
                         aria-expanded={isOpen}
                         className="w-full flex items-center justify-between gap-6 text-left group cursor-pointer"
                       >
-                        <h3 className="text-[14px] sm:text-[15px] md:text-[16px] font-bold text-neutral-900 leading-snug transition-colors duration-200 group-hover:text-neutral-700">
+                        <h3 className="text-[14px] sm:text-[15px] md:text-[16px] font-medium text-[#16323C] leading-snug transition-colors duration-200 group-hover:text-[#C07A5A]">
                           {faq.question}
                         </h3>
                         <span
                           className={cn(
                             "shrink-0 flex h-6.5 w-6.5 items-center justify-center rounded-full border border-neutral-200/90 text-neutral-400 bg-white transition-all duration-200 group-hover:border-neutral-400 group-hover:text-neutral-700",
-                            isOpen && "bg-neutral-900 border-neutral-900 text-white group-hover:bg-neutral-800 group-hover:text-white"
+                            isOpen && "bg-[#16323C] border-[#16323C] text-white group-hover:bg-[#16323C] group-hover:text-white"
                           )}
                         >
                           <Plus
@@ -102,7 +102,7 @@ export default function FAQSection({ content }: { content?: any }) {
                         )}
                       >
                         <div className="overflow-hidden">
-                          <p className="font-bricolage text-[13px] sm:text-[13.5px] md:text-sm text-neutral-500 leading-[1.75] pr-6 sm:pr-12">
+                          <p className="font-bricolage text-[13px] sm:text-[13.5px] md:text-sm text-[#16323C]/75 leading-[1.75] pr-6 sm:pr-12">
                             {faq.answer}
                           </p>
                         </div>

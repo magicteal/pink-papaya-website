@@ -4,9 +4,9 @@ import { useState, FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 
 const inputClass =
-  "w-full rounded-xl bg-[#F7F2EA] border-none px-5 py-4 text-sm text-neutral-900 placeholder:text-neutral-400 outline-none focus:ring-1 focus:ring-[#C07A5A]/20 transition-all";
+  "w-full rounded-xl bg-[#F7F2EA] border-none px-5 py-4 text-sm text-neutral-900 placeholder:text-neutral-400 outline-none focus:ring-1 focus:ring-[#C07A5A]/20 transition-all font-bricolage";
 const labelClass =
-  "text-[10px] uppercase tracking-[0.2em] font-bold text-neutral-500 ml-1";
+  "text-[11px] uppercase tracking-[0.14em] font-semibold text-[#C07A5A] ml-1 font-bricolage";
 
 export default function ContactForm() {
   const [data, setData] = useState({ name: "", phone: "", email: "", message: "" });
@@ -67,7 +67,7 @@ export default function ContactForm() {
       <input type="text" name="website" value={website} onChange={(e) => setWebsite(e.target.value)}
         tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
 
-      <Button type="submit" size="lg" className="w-full py-8" disabled={status === "submitting"}>
+      <Button type="submit" size="lg" className="w-full py-7 font-bricolage text-xs uppercase tracking-[0.15em] font-semibold rounded-full bg-[#16323C] hover:bg-[#C07A5A] transition-colors cursor-pointer" disabled={status === "submitting"}>
         {status === "submitting" ? "Sending..." : status === "success" ? "Message Sent!" : "Send Message"}
       </Button>
 

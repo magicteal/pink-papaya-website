@@ -74,8 +74,8 @@ export default function HeroContent({
     lg: "text-[40px] sm:text-[56px] md:text-[72px] lg:text-[88px] leading-[1.04]",
   }[titleSize];
 
-  const textColor = tone === "dark" ? "text-white" : "text-neutral-900";
-  const subTextColor = tone === "dark" ? "text-white/75" : "text-neutral-500";
+  const textColor = tone === "dark" ? "text-white" : "text-[#16323C]";
+  const subTextColor = tone === "dark" ? "text-white/80" : "text-[#16323C]/75";
 
   const descPad = descriptionPadding
     ? `${descriptionPadding.top ?? ""} ${descriptionPadding.right ?? ""} ${descriptionPadding.bottom ?? ""} ${descriptionPadding.left ?? ""}`.trim()
@@ -96,7 +96,7 @@ export default function HeroContent({
       )}
     >
       <Button
-        className="w-fit sm:w-auto"
+        className="w-fit sm:w-auto font-bricolage uppercase tracking-[0.14em]"
         size={ctaSize}
         variant={ctaVariant}
         onClick={onCtaClick}
@@ -115,8 +115,8 @@ export default function HeroContent({
               tone === "dark" ? "text-white/60" : "text-[#C07A5A]"
             )
           : cn(
-              "font-playfair text-[18px] font-normal mt-3",
-              tone === "dark" ? "text-white/80" : "text-[#9A2020]"
+              "font-playfair italic text-[18px] font-normal mt-3",
+              tone === "dark" ? "text-white/80" : "text-[#C07A5A]"
             ),
         subTitleClass
       )}
@@ -130,7 +130,7 @@ export default function HeroContent({
       {subTitlePosition === "above" && subTitleEl}
       <h1
         className={cn(
-          "font-semibold font-playfair max-w-full",
+          "font-playfair italic font-normal tracking-tight max-w-full",
           textColor,
           titleSizeClass,
           titleClass

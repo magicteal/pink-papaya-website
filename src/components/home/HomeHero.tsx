@@ -1,7 +1,9 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import HeroSearchBar from "@/components/home/HeroSearchBar";
+import { isPreOptimizedMedia } from "@/lib/media-url";
 
 type Props = {
   content?: {
@@ -22,7 +24,19 @@ export default function HomeHero({
   showSearchBar = true,
   className,
 }: Props) {
-  const bgUrl = content?.backgroundUrl || DEFAULT_HERO_BG;
+  const initialBg = (content?.backgroundUrl && content.backgroundUrl.trim() !== "")
+    ? content.backgroundUrl
+    : DEFAULT_HERO_BG;
+  const [imgSrc, setImgSrc] = useState(initialBg);
+
+  useEffect(() => {
+    if (content?.backgroundUrl && content.backgroundUrl.trim() !== "") {
+      setImgSrc(content.backgroundUrl);
+    } else {
+      setImgSrc(DEFAULT_HERO_BG);
+    }
+  }, [content?.backgroundUrl]);
+
   const title = content?.title || "Stay where every moment feels like a mood";
   const description =
     content?.description || "Curated vacation homes made for unforgettable getaways.";
@@ -44,12 +58,14 @@ export default function HomeHero({
       <div className="relative w-full mx-auto rounded-[24px] sm:rounded-[32px] md:rounded-[36px] overflow-hidden min-h-[440px] sm:min-h-[500px] md:min-h-[560px] lg:min-h-[420px] lg:flex-1 flex flex-col justify-center items-center text-center px-6 sm:px-12 py-16 shadow-lg bg-neutral-900">
         {/* Background Image */}
         <Image
-          src={bgUrl}
+          src={imgSrc}
           alt="Luxury Villa Background"
           fill
           priority
           sizes="100vw"
           quality={90}
+          unoptimized={isPreOptimizedMedia(imgSrc)}
+          onError={() => setImgSrc(DEFAULT_HERO_BG)}
           className="pointer-events-none absolute inset-0 object-cover object-center z-0"
         />
 

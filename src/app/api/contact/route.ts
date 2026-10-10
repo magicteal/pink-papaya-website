@@ -33,10 +33,13 @@ async function forwardToSheet(
   if (!res.ok) throw new Error(`sheet responded ${res.status}`);
 }
 
+import connectToDatabase from "@/lib/mongodb";
+import { BrochureLead } from "@/lib/models/BrochureLead";
+
 const str = z.string().max(5000);
 
 const schema = z.object({
-  formType: z.enum(["contact", "partner", "interior"]),
+  formType: z.enum(["contact", "partner", "interior", "brochure"]),
   // Honeypot: real users leave this empty; bots tend to fill every field.
   website: z.string().optional(),
   data: z.record(z.string(), str.optional()).default({}),
@@ -76,6 +79,17 @@ const FORM_META: Record<
       { key: "details", label: "Project Details" },
     ],
   },
+  brochure: {
+    subject: "New Property Brochure Download Lead",
+    fields: [
+      { key: "name", label: "Name" },
+      { key: "email", label: "Email" },
+      { key: "phone", label: "Phone / WhatsApp" },
+      { key: "stayTitle", label: "Property" },
+      { key: "stayId", label: "Property ID" },
+      { key: "location", label: "Location" },
+    ],
+  },
 };
 
 export async function POST(req: Request) {
@@ -100,19 +114,31 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Name and email are required" }, { status: 400 });
     }
 
-    const sheetUrl = formType === "partner" ? env.PARTNER_SHEET_WEBHOOK_URL : undefined;
-    const mailReady = isMailConfigured();
+    let delivered = false;
 
-    if (!sheetUrl && !mailReady) {
-      logger.error("Contact form received but no delivery channel is configured", { formType });
-      return NextResponse.json(
-        { error: "Submissions are not configured. Please try again later." },
-        { status: 503 }
-      );
+    // If brochure request, persist lead in MongoDB
+    if (formType === "brochure") {
+      try {
+        await connectToDatabase();
+        await BrochureLead.create({
+          name,
+          email,
+          phone: (data.phone || "").trim(),
+          stayId: (data.stayId || "").trim(),
+          stayTitle: (data.stayTitle || "").trim(),
+          location: (data.location || "").trim(),
+          brochureUrl: (data.brochureUrl || "").trim(),
+          travelDates: (data.travelDates || "").trim(),
+          message: (data.message || "").trim(),
+        });
+        delivered = true;
+      } catch (e: any) {
+        logger.error("Brochure lead database insert failed", { error: e?.message });
+      }
     }
 
-    // Deliver to every configured channel; succeed if at least one works.
-    let delivered = false;
+    const sheetUrl = formType === "partner" ? env.PARTNER_SHEET_WEBHOOK_URL : undefined;
+    const mailReady = isMailConfigured();
 
     if (sheetUrl) {
       try {
@@ -141,6 +167,13 @@ export async function POST(req: Request) {
     }
 
     if (!delivered) {
+      if (!sheetUrl && !mailReady && formType !== "brochure") {
+        logger.error("Contact form received but no delivery channel is configured", { formType });
+        return NextResponse.json(
+          { error: "Submissions are not configured. Please try again later." },
+          { status: 503 }
+        );
+      }
       return NextResponse.json({ error: "Failed to send. Please try again." }, { status: 500 });
     }
 

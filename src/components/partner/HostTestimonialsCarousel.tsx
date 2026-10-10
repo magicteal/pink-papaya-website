@@ -52,7 +52,7 @@ export default function HostTestimonialsCarousel() {
 
   return (
     <section
-      className="py-[5%] bg-white"
+      className="py-12 sm:py-16 md:py-20 bg-white border-t border-neutral-100"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -61,9 +61,9 @@ export default function HostTestimonialsCarousel() {
 
           {/* Left: sticky heading */}
           <div className="lg:pt-2">
-            <h2 className="font-playfair text-4xl md:text-5xl font-medium text-[#16323C] leading-tight">
+            <h2 className="font-playfair italic font-normal text-4xl md:text-5xl text-[#16323C] leading-tight">
               What Our<br />
-              <span className="italic font-normal">Hosts</span> Say
+              Hosts Say
             </h2>
 
             {/* Dot nav */}

@@ -45,16 +45,18 @@ src/
     mailer.ts             Nodemailer email sender
     media-storage.ts      File upload + Sharp WebP conversion
     media-url.ts          Media URL resolver (local vs VPS vs CDN)
+    amenityIcons.tsx      Amenity icon lookup registry & 40+ Lucide icon categorizations
     staysStore.ts         Stay CRUD helpers
     [other *Store.ts]     CRUD helpers per entity (blog, collections, locations, etc.)
     env.ts                Type-safe env var access
     logger.ts             Server-side structured logger
   data/                   Static data files
-  utils/                  Utility helpers (cn/classnames, etc.)
+  utils/                  Utility helpers (cn/classnames, formatCurrency, image, etc.)
   middleware.ts           Domain routing (domain -> /coming-soon, IP/localhost -> full site)
 scripts/
   dev.js                  Dev server launcher (auto-port from 3000)
   vps-deploy.js           SSH VPS deploy script
+  headless-check.js       Headless multi-viewport screen auditor (13" to 32")
   scrapers/               One-off Airbnb data scrapers
   seeds/                  DB seed scripts
   deploy/                 Deploy helpers
@@ -64,8 +66,8 @@ vps/
   scripts/                VPS-side setup/maintenance scripts
 public/
   images/                 Static imagery (leisure section, etc.)
-  logo-files/             SVG logo variants
+  logo-files/             Official SVG logo variants (logo-black.svg, logo-white.svg)
 .agents/
-  skills/                 Workspace-local skills: codebaselook, errorfree, pinkpapayalive, pushready, responsive
+  skills/                 Workspace-local skills: codebaselook, errorfree, pinkpapayalive, pushready, responsive, startlocal
   memory/                 Durable project memory files (this file)
 ```

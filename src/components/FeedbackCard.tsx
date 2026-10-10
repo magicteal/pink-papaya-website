@@ -51,21 +51,21 @@ export default function FeedbackCard({
 
       {/* Testimonial Quote - Large Serif Left Aligned */}
       <div className="flex-1 mb-4">
-        <p className="font-playfair text-sm sm:text-base md:text-[17px] text-neutral-800 leading-[1.42] font-normal">
+        <p className="font-playfair italic text-sm sm:text-base md:text-[17px] text-[#16323C] leading-relaxed font-normal">
           {quoteText}
         </p>
       </div>
 
       {/* Author Details - Left Aligned */}
       <div className="flex items-center gap-2.5 pt-1">
-        <div className="w-8 h-8 rounded-full bg-neutral-300/60 flex items-center justify-center text-neutral-600 shrink-0">
-          <User className="w-3.5 h-3.5 text-neutral-600 stroke-[1.8]" />
+        <div className="w-8 h-8 rounded-full bg-neutral-200/80 flex items-center justify-center text-[#16323C] shrink-0">
+          <User className="w-3.5 h-3.5 text-[#16323C]/70 stroke-[1.8]" />
         </div>
         <div className="flex flex-col">
-          <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-900 font-bricolage">
+          <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#16323C] font-bricolage">
             {feedback.name}
           </span>
-          <span className="text-[10px] sm:text-[11px] text-neutral-500 font-bricolage font-normal">
+          <span className="text-[10px] sm:text-[11px] text-[#16323C]/60 font-bricolage font-normal">
             {feedback.role}
           </span>
         </div>

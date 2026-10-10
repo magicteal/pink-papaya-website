@@ -23,7 +23,7 @@ function renderContent(content) {
     // H2
     if (line.startsWith("## ")) {
       elements.push(
-        <h2 key={i} className="font-playfair text-2xl md:text-3xl text-neutral-900 mt-12 mb-4">
+        <h2 key={i} className="font-playfair italic font-normal text-2xl md:text-3xl text-[#16323C] mt-12 mb-4">
           {line.slice(3)}
         </h2>
       );
@@ -40,12 +40,12 @@ function renderContent(content) {
       }
       const [quote, attribution] = quoteLines.join("\n").split("\n— ");
       elements.push(
-        <blockquote key={i} className="my-10 pl-6 border-l-2 border-neutral-200">
-          <p className="font-playfair text-xl md:text-2xl italic text-neutral-700 leading-relaxed">
+        <blockquote key={i} className="my-10 pl-6 border-l-2 border-[#C07A5A]">
+          <p className="font-playfair text-xl md:text-2xl italic text-[#16323C] leading-relaxed">
             {quote.replace(/^"/, "“").replace(/"$/, "”")}
           </p>
           {attribution && (
-            <footer className="mt-4 text-[11px] uppercase tracking-[0.16em] text-neutral-400 font-bricolage">
+            <footer className="mt-4 text-[11px] uppercase tracking-[0.14em] text-[#C07A5A] font-semibold font-bricolage">
               — {attribution}
             </footer>
           )}
@@ -82,7 +82,7 @@ function renderContent(content) {
 
     // Paragraph
     elements.push(
-      <p key={i} className="text-[15px] md:text-base text-neutral-600 leading-[1.85] font-bricolage">
+      <p key={i} className="text-[15px] md:text-base text-[#16323C]/80 leading-[1.8] font-bricolage">
         {line}
       </p>
     );
@@ -133,25 +133,25 @@ export default async function BlogPostPage({ params }) {
       </div>
 
       {/* Content */}
-      <div className="max-w-2xl mx-auto px-6 py-[5%]">
+      <div className="max-w-2xl mx-auto px-6 py-12 sm:py-16 md:py-20">
         {/* Eyebrow */}
         {post.category && (
-          <p className="font-bricolage text-[11px] uppercase tracking-[0.2em] text-[#C07A5A] text-center mb-5">
+          <p className="font-bricolage text-[11px] uppercase tracking-[0.18em] text-[#C07A5A] font-semibold text-center mb-4">
             {post.category}
           </p>
         )}
 
         {/* Title */}
-        <h1 className="font-playfair text-4xl md:text-5xl text-neutral-900 leading-[1.1] text-center mb-6">
+        <h1 className="font-playfair italic font-normal text-4xl md:text-5xl text-[#16323C] leading-[1.1] text-center mb-6">
           {post.title}
         </h1>
 
         {/* Meta */}
-        <p className="text-center text-[13px] text-neutral-400 font-bricolage mb-12">
+        <p className="text-center text-[13px] text-[#16323C]/60 font-bricolage mb-8 md:mb-10">
           By {post.author} &nbsp;·&nbsp; {post.date} &nbsp;·&nbsp; {estimateReadTime(post.content)}
         </p>
 
-        <hr className="border-neutral-100 mb-12" />
+        <hr className="border-neutral-100 mb-8 md:mb-10" />
 
         {/* Body */}
         <div className="space-y-6">

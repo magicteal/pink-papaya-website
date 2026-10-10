@@ -10,8 +10,8 @@ metadata:
 ## Stay (`stays` collection)
 Core property listing. Fields:
 - `id` (unique string slug), `title`, `imageUrl`, `area`, `bed`, `guests`
-- `category`, `categories[]`, `propertyType`, `description`, `pricePerNight`
-- `images[]`, `amenities[]`, `location`, `aboutContent`, `locationMapUrl`
+- `category`, `categories[]`, `propertyType`, `description`, `pricePerNight` (supports numeric strings or "Price on Request" fallback)
+- `images[]`, `amenities[]` (strings mapped to icons via `src/lib/amenityIcons.tsx`), `location`, `aboutContent`, `locationMapUrl`
 - `nearbyPlaces[]: {name, distance}`, `faqs[]: {question, answer}`
 - `featuredOnHome` (boolean — controls homepage display)
 - Timestamps: `createdAt`, `updatedAt`
@@ -37,7 +37,13 @@ Uploaded media metadata (filename, path, mimeType, size, etc.)
 ## AuditLog (`audit_logs` collection)
 Tracks admin/CMS actions.
 
+## Secondary JSON-Backed Stores (`src/lib/*Store.ts`)
+The following entities currently use in-memory stores initialized from static `src/data/*.json` files:
+- `locations` (`locations.json`), `collections` (`collections.json`), `propertyTypes` (`propertyTypes.json`)
+- `blog` (`blog.json`), `interior` (`interior.json`), `interiorFeedback` (`interiorFeedback.json`), `hostTestimonials` (`hostTestimonials.json`)
+
 ## Key Notes
 - The `Stay.id` field is a custom string slug (NOT `_id`). Use this for lookups and URLs.
 - All stores (e.g. `src/lib/staysStore.ts`) abstract DB access. Call store functions, don't query Mongoose directly in route handlers.
 - CMS content is fetched via `getCmsPublicContent(pageSlug)` from `src/lib/cms/store.ts` in page.tsx server components.
+

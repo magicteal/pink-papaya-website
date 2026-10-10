@@ -20,12 +20,14 @@ metadata:
 **Validation**: Zod
 
 **Scripts**:
-- `npm run dev` -> `node ./scripts/dev.js` (auto-finds free port starting at 3000)
+- `npm run dev` -> `node ./scripts/dev.js` (auto-finds free port starting at 3000, runs Next dev with Turbopack)
 - `npm run build` -> `next build`
 - `npm run lint` -> `eslint`
 - `scripts/vps-deploy.js` -> SSH deploy to VPS (git pull, npm ci, npm build, pm2 restart)
-- `scripts/scrapers/` -> one-off Airbnb data scraping utilities
-- `scripts/seeds/` -> DB seeding scripts
-- `scripts/deploy/` -> additional deployment helpers
+- `scripts/headless-check.js` -> Headless multi-viewport screen auditor across 6 viewports (13" to 32")
+- `scripts/scrapers/` -> One-off Airbnb data scraping & image matching utilities
+- `scripts/seeds/` -> DB seeding scripts (e.g. `seed-stays.js`, `sync_full_seed_to_mongo.mjs`)
+- `scripts/deploy/` -> VPS media check and env token update utilities
 
 **Node requirement**: `>=20.0.0`
+

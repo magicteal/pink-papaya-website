@@ -5,6 +5,7 @@ export type Stay = {
   locationMapUrl?: string; nearbyPlaces?: { name: string; distance: string }[];
   faqs?: { question: string; answer: string }[];
   featuredOnHome?: boolean;
+  brochureUrl?: string;
 };
 
 export type Collection = { id: string; name: string };

@@ -9,9 +9,14 @@ export const dynamic = "force-dynamic";
  * This avoids the 403 that Instagram CDN returns when browsers load images directly.
  */
 function proxyImageUrl(cdnUrl: string): string {
-  if (!cdnUrl || !cdnUrl.includes("cdninstagram.com")) return cdnUrl;
+  if (!cdnUrl) return cdnUrl;
+  if (cdnUrl.startsWith("/uploads/uploads/")) {
+    return cdnUrl.replace("/uploads/uploads/", "/media/uploads/");
+  }
+  if (!cdnUrl.includes("cdninstagram.com")) return cdnUrl;
   return `/api/instagram-image?url=${encodeURIComponent(cdnUrl)}`;
 }
+
 
 export async function GET() {
   let items = await getInstagramFeed(12);

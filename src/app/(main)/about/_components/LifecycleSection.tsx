@@ -11,10 +11,10 @@ const PHASES = [
 
 export default function LifecycleSection() {
   return (
-    <section className="bg-white py-8 md:py-[5%]">
+    <section className="bg-white py-12 sm:py-16 md:py-20">
       <Container>
         <Reveal>
-          <div className="flex items-center gap-6 mb-8 md:mb-20">
+          <div className="flex items-center gap-6 mb-6 sm:mb-8 md:mb-12">
             <h2 className="font-playfair italic font-normal text-[#16323C] shrink-0" style={{ fontSize: "clamp(2.2rem, 4.5vw, 4rem)" }}>
               Lifecycle of Stay
             </h2>

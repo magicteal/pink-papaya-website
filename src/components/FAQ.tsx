@@ -24,7 +24,7 @@ export default function FAQ({
   const [openIdx, setOpenIdx] = React.useState<number | null>(null);
 
   return (
-    <section id="faq" className={cn("py-8 md:py-[5%]", className)}>
+    <section id="faq" className={cn("py-10 md:py-14 lg:py-16", className)}>
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-16">
           {/* Left heading */}

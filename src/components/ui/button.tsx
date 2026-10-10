@@ -33,7 +33,7 @@ const buttonVariants = cva(
           "bg-white text-[#16323C] border border-neutral-100 shadow-sm rounded-[14px] font-semibold",
         // Warm terracotta accent
         accent:
-          "bg-[#9A6648] text-white hover:bg-[#8a5a3e] active:scale-[0.98] shadow-sm",
+          "bg-[#C07A5A] text-white hover:bg-[#A04415] active:scale-[0.98] shadow-sm",
       },
       size: {
         default: "h-11 px-8 text-sm tracking-wide",
