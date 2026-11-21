@@ -22,7 +22,7 @@ export default function CuratorsSection() {
             <Reveal key={p.name} delay={i * 0.1}>
               <div className="flex flex-col items-center">
                 <div className="w-full relative rounded-2xl overflow-hidden bg-neutral-200" style={{ aspectRatio: "3 / 4.4" }}>
-                  <Image src={p.src} alt={p.name} fill className="object-cover block" sizes="(max-width: 768px) 100vw, 33vw" />
+                  <Image src={p.src} alt={p.name} fill unoptimized={true} className="object-cover block" sizes="(max-width: 768px) 100vw, 33vw" />
                 </div>
                 <p className="font-playfair italic text-[#16323C] text-xl mt-5">{p.name}</p>
                 <p className="font-bricolage text-[10px] uppercase tracking-[0.18em] text-neutral-400 mt-1.5 text-center">{p.role}</p>

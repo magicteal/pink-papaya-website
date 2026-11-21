@@ -67,6 +67,7 @@ export default function BecomeHostPage() {
             alt="Partner With Us Background"
             fill
             className="object-cover object-center"
+            unoptimized={true}
             priority
           />
           <div className="absolute inset-0 bg-black/55" />
@@ -328,6 +329,7 @@ export default function BecomeHostPage() {
                     alt="Hands-on property care and housekeeping"
                     fill
                     className="object-cover"
+                    unoptimized={true}
                   />
                 </div>
 
