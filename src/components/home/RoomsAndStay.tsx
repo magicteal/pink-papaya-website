@@ -109,7 +109,7 @@ export default function RoomsAndStay({ content }: { content?: any }) {
 
   return (
     <section className="w-full bg-white overflow-hidden">
-      <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[460px] sm:min-h-[520px] lg:min-h-[560px] xl:min-h-[600px]">
+      <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[500px] sm:min-h-[560px] lg:min-h-[600px] xl:min-h-[640px]">
         {/* Left Column: Clean White Content */}
         <div className="flex flex-col justify-center px-5 sm:px-10 md:px-14 lg:px-16 xl:px-24 py-8 sm:py-12 lg:py-16 max-w-2xl mx-auto lg:mx-0 w-full">
           {/* Main Heading: "Curated collections" */}
@@ -172,7 +172,7 @@ export default function RoomsAndStay({ content }: { content?: any }) {
         </div>
 
         {/* Right Column: Full-Height Image + Floating Glass Card */}
-        <div className="relative w-full h-[400px] sm:h-[480px] lg:h-auto min-h-full overflow-hidden bg-neutral-900">
+        <div className="relative w-full h-[440px] sm:h-[500px] lg:h-auto min-h-full overflow-hidden bg-neutral-900">
           {/* Previous image (fading out) */}
           {prevBgUrl && (
             <Image
@@ -211,7 +211,7 @@ export default function RoomsAndStay({ content }: { content?: any }) {
             className="absolute inset-0 pointer-events-none"
             style={{
               background:
-                "linear-gradient(to top, rgba(0, 0, 0, 0.25) 0%, transparent 40%)",
+                "linear-gradient(to top, rgba(0, 0, 0, 0.3) 0%, transparent 45%)",
             }}
           />
 
@@ -220,12 +220,12 @@ export default function RoomsAndStay({ content }: { content?: any }) {
             href={activeLink}
             target={isExternalLink ? "_blank" : undefined}
             rel={isExternalLink ? "noopener noreferrer" : undefined}
-            className="absolute bottom-6 sm:bottom-12 right-4 sm:right-10 left-4 sm:left-auto min-w-0 sm:min-w-[320px] max-w-[420px] bg-black/25 hover:bg-black/35 backdrop-blur-md border border-white/25 rounded-2xl p-5 sm:p-7 text-left transition-all duration-300 cursor-pointer group shadow-[0_8px_32px_rgba(0,0,0,0.25)] block"
+            className="absolute bottom-6 sm:bottom-8 right-4 sm:right-8 md:right-10 left-4 sm:left-auto min-w-0 sm:min-w-[300px] max-w-[400px] bg-black/30 hover:bg-black/45 backdrop-blur-md border border-white/25 rounded-2xl p-4 sm:p-6 text-left transition-all duration-300 cursor-pointer group shadow-[0_12px_36px_rgba(0,0,0,0.3)] block"
           >
             <p className="text-white/80 text-[10px] sm:text-[11px] font-bricolage font-semibold uppercase tracking-[0.18em] mb-1.5 sm:mb-2">
               FEATURED PROPERTY
             </p>
-            <h3 className="font-playfair italic font-normal text-white text-xl sm:text-[26px] md:text-3xl tracking-wide group-hover:text-white/95 transition-colors">
+            <h3 className="font-playfair italic font-normal text-white text-xl sm:text-[24px] md:text-[28px] tracking-wide group-hover:text-white/95 transition-colors">
               {activeTagline}
             </h3>
           </a>

@@ -70,176 +70,157 @@ export default function BecomeHostPage() {
             unoptimized={true}
             priority
           />
-          <div className="absolute inset-0 bg-black/55" />
-          {/* Extra left-side gradient for text legibility */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
-          {/* Ultra-smooth progressive fog & seamless white blend */}
-          <div
-            className="absolute inset-x-0 bottom-0 h-80 sm:h-96 md:h-[500px] pointer-events-none z-[1]"
-            style={{
-              backdropFilter: "blur(24px)",
-              WebkitBackdropFilter: "blur(24px)",
-              maskImage:
-                "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.15) 20%, rgba(0,0,0,0.5) 45%, rgba(0,0,0,0.85) 75%, black 100%)",
-              WebkitMaskImage:
-                "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.15) 20%, rgba(0,0,0,0.5) 45%, rgba(0,0,0,0.85) 75%, black 100%)",
-            }}
-          />
-          <div
-            className="absolute inset-x-0 bottom-0 h-80 sm:h-96 md:h-[500px] pointer-events-none z-[2]"
-            style={{
-              background:
-                "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.015) 12%, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.16) 40%, rgba(255,255,255,0.32) 55%, rgba(255,255,255,0.54) 70%, rgba(255,255,255,0.78) 84%, rgba(255,255,255,0.93) 94%, #FFFFFF 100%)",
-            }}
-          />
+          {/* Subtle balanced scrim so the painted archway mural and villa pool stay vibrant and clear */}
+          <div className="absolute inset-0 bg-black/35" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/20 to-transparent" />
         </div>
 
         {/* Content grid */}
-        <div className="relative z-10 min-h-screen">
-        <Container className="h-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 min-h-screen items-center">
-          {/* Left: text, vertically centered */}
-          <div className="lg:col-span-7 flex flex-col justify-center pb-10 pt-32 lg:pt-20">
-            <Reveal>
-              <h1 className="font-playfair italic font-normal text-4xl sm:text-5xl md:text-6xl lg:text-[68px] xl:text-[76px] text-white leading-[1.12] tracking-tight">
-                Your home deserves good company{" "}
-                <span className="block text-[#C07A5A]">and great returns.</span>
-              </h1>
-              <p className="mt-6 text-white/90 font-bricolage text-base md:text-lg max-w-lg leading-relaxed">
-                Turn your property into a thoughtfully managed, high-performing holiday home.
-              </p>
-            </Reveal>
-          </div>
-
-          {/* Right: frosted glass form card, shifted toward left */}
-          <div className="lg:col-span-5 flex items-center justify-center lg:justify-end lg:pr-10 xl:pr-20 pb-16 lg:py-20 relative">
-            <Reveal delay={0.2} className="w-full flex justify-center lg:justify-end">
-              <div
-                className="w-full max-w-[420px] rounded-2xl p-6 sm:p-8"
-                style={{
-                  background: "rgba(255, 255, 255, 0.65)",
-                  backdropFilter: "blur(24px)",
-                  WebkitBackdropFilter: "blur(24px)",
-                  border: "1px solid rgba(255, 255, 255, 0.75)",
-                  boxShadow: "0 20px 50px -10px rgba(0, 0, 0, 0.16)",
-                }}
-              >
-                <h2 className="font-playfair italic text-2xl sm:text-[26px] text-[#16323C] mb-1 leading-snug">
-                  Get Started Today
-                </h2>
-                <p className="font-bricolage text-xs text-[#16323C]/70 mb-5">
-                  Tell us about your home and our team will get back to you.
-                </p>
-                <form onSubmit={handleSubmit} className="space-y-3.5">
-                  <div>
-                    <label className="block font-bricolage text-[10px] uppercase tracking-[0.12em] text-[#16323C]/70 mb-1.5 font-semibold">
-                      Full Name
-                    </label>
-                    <Input
-                      name="name"
-                      type="text"
-                      required
-                      value={formData.name}
-                      onChange={handleChange}
-                      placeholder="Elias Thorne"
-                      className="h-11 border border-white/60 bg-white/80 focus:bg-white placeholder:text-neutral-400 text-[#16323C] text-sm rounded-xl px-4 transition-all shadow-xs"
-                    />
-                  </div>
-                  <div>
-                    <label className="block font-bricolage text-[10px] uppercase tracking-[0.12em] text-[#16323C]/70 mb-1.5 font-semibold">
-                      Property Location
-                    </label>
-                    <Input
-                      name="location"
-                      type="text"
-                      required
-                      value={formData.location}
-                      onChange={handleChange}
-                      placeholder="Tuscany, Italy"
-                      className="h-11 border border-white/60 bg-white/80 focus:bg-white placeholder:text-neutral-400 text-[#16323C] text-sm rounded-xl px-4 transition-all shadow-xs"
-                    />
-                  </div>
-                  <div>
-                    <label className="block font-bricolage text-[10px] uppercase tracking-[0.12em] text-[#16323C]/70 mb-1.5 font-semibold">
-                      Email Address
-                    </label>
-                    <Input
-                      name="email"
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="elias@estate.com"
-                      className="h-11 border border-white/60 bg-white/80 focus:bg-white placeholder:text-neutral-400 text-[#16323C] text-sm rounded-xl px-4 transition-all shadow-xs"
-                    />
-                  </div>
-                  {/* Honeypot — hidden from real users */}
-                  <input
-                    type="text"
-                    name="website"
-                    value={website}
-                    onChange={(e) => setWebsite(e.target.value)}
-                    tabIndex={-1}
-                    autoComplete="off"
-                    aria-hidden="true"
-                    className="hidden"
-                  />
-                  <button
-                    type="submit"
-                    disabled={status === "submitting"}
-                    className="w-full mt-2 h-11 rounded-xl font-bricolage text-sm font-medium text-white transition-all duration-300 hover:bg-[#1f4350] hover:shadow-[0_8px_20px_rgba(22,50,60,0.22)] active:scale-[0.99] disabled:opacity-70 cursor-pointer"
-                    style={{ background: "#16323C" }}
-                  >
-                    {status === "submitting"
-                      ? "Submitting..."
-                      : status === "success"
-                      ? "Submitted!"
-                      : "Submit Interest"}
-                  </button>
-                  <div className="h-6 relative">
-                    <AnimatePresence mode="wait">
-                      {status === "success" ? (
-                        <motion.p
-                          key="success-msg"
-                          initial={{ opacity: 0, y: -5, scale: 0.95 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          exit={{ opacity: 0, y: 5, scale: 0.95 }}
-                          transition={{ duration: 0.4, type: "spring", bounce: 0.4 }}
-                          className="absolute inset-x-0 pt-1 text-center text-[11px] font-bricolage font-medium text-[#16323C]"
-                        >
-                          Thank you! We&apos;ll be in touch soon.
-                        </motion.p>
-                      ) : status === "error" ? (
-                        <motion.p
-                          key="error-msg"
-                          initial={{ opacity: 0, y: -5 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 5 }}
-                          transition={{ duration: 0.3 }}
-                          className="absolute inset-x-0 pt-1 text-center text-[10px] font-bricolage text-red-600"
-                        >
-                          Something went wrong. Please try again.
-                        </motion.p>
-                      ) : (
-                        <motion.p
-                          key="default-msg"
-                          initial={{ opacity: 0, y: -5 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 5 }}
-                          transition={{ duration: 0.3 }}
-                          className="absolute inset-x-0 pt-1 text-center text-[10px] font-bricolage text-[#16323C]/50"
-                        >
-                          We&apos;ll reach out within 24 hours.
-                        </motion.p>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                </form>
+        <div className="relative z-10 flex items-center" style={{ minHeight: "calc(100vh - var(--navbar-h))" }}>
+          <Container className="w-full py-16 sm:py-20 lg:py-24">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              {/* Left: text, vertically centered */}
+              <div className="lg:col-span-7 flex flex-col justify-center pt-8 sm:pt-12 lg:pt-0 pb-6 lg:pb-0">
+                <Reveal>
+                  <h1 className="font-playfair italic font-normal text-4xl sm:text-5xl md:text-6xl lg:text-[68px] xl:text-[76px] text-white leading-[1.12] tracking-tight">
+                    Your home deserves good company{" "}
+                    <span className="block text-[#C07A5A]">and great returns.</span>
+                  </h1>
+                  <p className="mt-6 text-white/90 font-bricolage text-base md:text-lg max-w-lg leading-relaxed">
+                    Turn your property into a thoughtfully managed, high-performing holiday home.
+                  </p>
+                </Reveal>
               </div>
-            </Reveal>
-          </div>
-        </div>
-        </Container>
+
+              {/* Right: frosted glass form card */}
+              <div className="lg:col-span-5 flex items-center justify-center lg:justify-end lg:pr-6 xl:pr-12 relative">
+                <Reveal delay={0.2} className="w-full flex justify-center lg:justify-end">
+                  <div
+                    className="w-full max-w-[420px] rounded-2xl p-6 sm:p-8"
+                    style={{
+                      background: "rgba(255, 255, 255, 0.65)",
+                      backdropFilter: "blur(24px)",
+                      WebkitBackdropFilter: "blur(24px)",
+                      border: "1px solid rgba(255, 255, 255, 0.75)",
+                      boxShadow: "0 20px 50px -10px rgba(0, 0, 0, 0.16)",
+                    }}
+                  >
+                    <h2 className="font-playfair italic text-2xl sm:text-[26px] text-[#16323C] mb-1 leading-snug">
+                      Get Started Today
+                    </h2>
+                    <p className="font-bricolage text-xs text-[#16323C]/70 mb-5">
+                      Tell us about your home and our team will get back to you.
+                    </p>
+                    <form onSubmit={handleSubmit} className="space-y-3.5">
+                      <div>
+                        <label className="block font-bricolage text-[10px] uppercase tracking-[0.12em] text-[#16323C]/70 mb-1.5 font-semibold">
+                          Full Name
+                        </label>
+                        <Input
+                          name="name"
+                          type="text"
+                          required
+                          value={formData.name}
+                          onChange={handleChange}
+                          placeholder="Elias Thorne"
+                          className="h-11 border border-white/60 bg-white/80 focus:bg-white placeholder:text-neutral-400 text-[#16323C] text-sm rounded-xl px-4 transition-all shadow-xs"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-bricolage text-[10px] uppercase tracking-[0.12em] text-[#16323C]/70 mb-1.5 font-semibold">
+                          Property Location
+                        </label>
+                        <Input
+                          name="location"
+                          type="text"
+                          required
+                          value={formData.location}
+                          onChange={handleChange}
+                          placeholder="Tuscany, Italy"
+                          className="h-11 border border-white/60 bg-white/80 focus:bg-white placeholder:text-neutral-400 text-[#16323C] text-sm rounded-xl px-4 transition-all shadow-xs"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-bricolage text-[10px] uppercase tracking-[0.12em] text-[#16323C]/70 mb-1.5 font-semibold">
+                          Email Address
+                        </label>
+                        <Input
+                          name="email"
+                          type="email"
+                          required
+                          value={formData.email}
+                          onChange={handleChange}
+                          placeholder="elias@estate.com"
+                          className="h-11 border border-white/60 bg-white/80 focus:bg-white placeholder:text-neutral-400 text-[#16323C] text-sm rounded-xl px-4 transition-all shadow-xs"
+                        />
+                      </div>
+                      {/* Honeypot — hidden from real users */}
+                      <input
+                        type="text"
+                        name="website"
+                        value={website}
+                        onChange={(e) => setWebsite(e.target.value)}
+                        tabIndex={-1}
+                        autoComplete="off"
+                        aria-hidden="true"
+                        className="hidden"
+                      />
+                      <button
+                        type="submit"
+                        disabled={status === "submitting"}
+                        className="w-full mt-2 h-11 rounded-xl font-bricolage text-sm font-medium text-white transition-all duration-300 hover:bg-[#1f4350] hover:shadow-[0_8px_20px_rgba(22,50,60,0.22)] active:scale-[0.99] disabled:opacity-70 cursor-pointer"
+                        style={{ background: "#16323C" }}
+                      >
+                        {status === "submitting"
+                          ? "Submitting..."
+                          : status === "success"
+                          ? "Submitted!"
+                          : "Submit Interest"}
+                      </button>
+                      <div className="h-6 relative">
+                        <AnimatePresence mode="wait">
+                          {status === "success" ? (
+                            <motion.p
+                              key="success-msg"
+                              initial={{ opacity: 0, y: -5, scale: 0.95 }}
+                              animate={{ opacity: 1, y: 0, scale: 1 }}
+                              exit={{ opacity: 0, y: 5, scale: 0.95 }}
+                              transition={{ duration: 0.4, type: "spring", bounce: 0.4 }}
+                              className="absolute inset-x-0 pt-1 text-center text-[11px] font-bricolage font-medium text-[#16323C]"
+                            >
+                              Thank you! We&apos;ll be in touch soon.
+                            </motion.p>
+                          ) : status === "error" ? (
+                            <motion.p
+                              key="error-msg"
+                              initial={{ opacity: 0, y: -5 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: 5 }}
+                              transition={{ duration: 0.3 }}
+                              className="absolute inset-x-0 pt-1 text-center text-[10px] font-bricolage text-red-600"
+                            >
+                              Something went wrong. Please try again.
+                            </motion.p>
+                          ) : (
+                            <motion.p
+                              key="default-msg"
+                              initial={{ opacity: 0, y: -5 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: 5 }}
+                              transition={{ duration: 0.3 }}
+                              className="absolute inset-x-0 pt-1 text-center text-[10px] font-bricolage text-[#16323C]/50"
+                            >
+                              We&apos;ll reach out within 24 hours.
+                            </motion.p>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    </form>
+                  </div>
+                </Reveal>
+              </div>
+            </div>
+          </Container>
         </div>
       </section>
       {/* Stats Strip */}
@@ -269,7 +250,7 @@ export default function BecomeHostPage() {
       </section>
 
       {/* Why Host With Us Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-white">
+      <section className="pt-16 sm:pt-20 md:pt-24 pb-28 sm:pb-36 lg:pb-44 bg-white">
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             {/* Left: Title + benefits list */}
@@ -320,10 +301,10 @@ export default function BecomeHostPage() {
               </div>
             </div>
 
-            {/* Right: Photo + floating card */}
+            {/* Right: Photo + floating card matching design reference */}
             <Reveal>
               <div className="relative">
-                <div className="relative aspect-[4/3.2] rounded-[28px] overflow-hidden shadow-2xl">
+                <div className="relative aspect-[16/11] rounded-[28px] sm:rounded-[36px] overflow-hidden shadow-2xl">
                   <Image
                     src="/media/partner/host-care.jpg"
                     alt="Hands-on property care and housekeeping"
@@ -334,25 +315,28 @@ export default function BecomeHostPage() {
                 </div>
 
                 {/* Floating glassmorphism card */}
-                <div className="absolute bottom-[-16px] sm:bottom-[-24px] left-3 sm:left-[-16px] w-[260px] sm:w-[280px] max-w-[calc(100%-24px)] rounded-[20px] p-4 sm:p-5 shadow-xl"
+                <div
+                  className="absolute -bottom-8 sm:-bottom-10 left-3 sm:-left-6 md:-left-8 w-[270px] sm:w-[300px] max-w-[calc(100%-24px)] rounded-[20px] p-5 sm:p-6 shadow-2xl"
                   style={{
-                    background: "rgba(50, 50, 60, 0.55)",
-                    backdropFilter: "blur(16px)",
-                    WebkitBackdropFilter: "blur(16px)",
-                    border: "1px solid rgba(255,255,255,0.15)",
+                    background: "linear-gradient(135deg, rgba(22, 34, 46, 0.78) 0%, rgba(15, 23, 42, 0.88) 100%)",
+                    backdropFilter: "blur(20px)",
+                    WebkitBackdropFilter: "blur(20px)",
+                    border: "1px solid rgba(255, 255, 255, 0.18)",
+                    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.45)",
                   }}
                 >
-                  <div className="flex items-center justify-center w-9 h-9 rounded-full mb-3"
-                    style={{ background: "rgba(255,255,255,0.15)" }}
+                  <div
+                    className="flex items-center justify-center w-9 h-9 rounded-full mb-3"
+                    style={{ background: "rgba(255, 255, 255, 0.15)", border: "1px solid rgba(255, 255, 255, 0.2)" }}
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
                     </svg>
                   </div>
-                  <h4 className="font-playfair text-white text-lg font-medium italic mb-2">
+                  <h4 className="font-playfair text-white text-lg sm:text-xl font-medium italic mb-2 tracking-wide">
                     Trusted Guests
                   </h4>
-                  <p className="text-white/75 font-bricolage text-xs leading-relaxed">
+                  <p className="text-white/80 font-bricolage text-xs sm:text-[13px] leading-relaxed">
                     A multi-step approach ensures your estate is only in the most respectful hands
                   </p>
                 </div>
