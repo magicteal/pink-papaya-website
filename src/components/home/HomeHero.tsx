@@ -16,21 +16,20 @@ type Props = {
   className?: string;
 };
 
-const DEFAULT_HERO_BG =
-  "https://a0.muscache.com/im/pictures/miso/Hosting-1419275858453353813/original/8640d142-0953-47f0-848b-a37f413adce1.jpeg";
+const DEFAULT_HERO_BG = "/images/hero-beach.jpg";
 
 export default function HomeHero({
   content,
   showSearchBar = true,
   className,
 }: Props) {
-  const initialBg = (content?.backgroundUrl && content.backgroundUrl.trim() !== "")
+  const initialBg = (content?.backgroundUrl && content.backgroundUrl.trim() !== "" && !content.backgroundUrl.includes("8640d142-0953-47f0-848b-a37f413adce1"))
     ? content.backgroundUrl
     : DEFAULT_HERO_BG;
   const [imgSrc, setImgSrc] = useState(initialBg);
 
   useEffect(() => {
-    if (content?.backgroundUrl && content.backgroundUrl.trim() !== "") {
+    if (content?.backgroundUrl && content.backgroundUrl.trim() !== "" && !content.backgroundUrl.includes("8640d142-0953-47f0-848b-a37f413adce1")) {
       setImgSrc(content.backgroundUrl);
     } else {
       setImgSrc(DEFAULT_HERO_BG);

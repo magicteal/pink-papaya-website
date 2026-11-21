@@ -70,7 +70,7 @@ export const cmsPageConfigs: CmsPageConfig[] = [
             label: "Hero Background Image URL",
             type: "image",
             help: "Paste a URL from Media Library",
-            defaultValue: "",
+            defaultValue: "/images/hero-beach.jpg",
           },
         ],
       },
@@ -132,7 +132,7 @@ export const cmsPageConfigs: CmsPageConfig[] = [
             key: "image1",
             label: "Image 1",
             type: "image",
-            defaultValue: "/images/luxury-villas.jpg",
+            defaultValue: "/images/sempre.jpg",
           },
           {
             key: "title2",
@@ -148,6 +148,7 @@ export const cmsPageConfigs: CmsPageConfig[] = [
             key: "image2",
             label: "Image 2",
             type: "image",
+            defaultValue: "/images/casa-sukriti.jpg",
           },
           {
             key: "title3",
@@ -163,6 +164,7 @@ export const cmsPageConfigs: CmsPageConfig[] = [
             key: "image3",
             label: "Image 3",
             type: "image",
+            defaultValue: "/images/the-fieldhouse.jpg",
           },
           {
             key: "title4",
@@ -178,6 +180,7 @@ export const cmsPageConfigs: CmsPageConfig[] = [
             key: "image4",
             label: "Image 4",
             type: "image",
+            defaultValue: "/images/la-amore.jpg",
           },
         ],
       },

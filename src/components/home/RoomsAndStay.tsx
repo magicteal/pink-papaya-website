@@ -8,23 +8,27 @@ import { stays as staysData, stayCategories } from "@/data/stays";
 // Category-specific background images and taglines
 const CATEGORY_META: Record<
   string,
-  { bg: string; tagline: string }
+  { bg: string; tagline: string; link?: string }
 > = {
   "luxury-villas": {
-    bg: "/images/mediterranean-villa.jpg",
-    tagline: "Tropical Escape",
+    bg: "/images/sempre.jpg",
+    tagline: "Sempre",
+    link: "https://www.airbnb.co.in/rooms/1584060007789227621?photo_id=2454055921&source_impression_id=p3_1767265086_P3SvFS47jqQMMU8s",
   },
   "walk-to-beach": {
-    bg: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=2070&auto=format&fit=crop",
-    tagline: "Beachfront Living",
+    bg: "/images/casa-sukriti.jpg",
+    tagline: "Casa Sukriti",
+    link: "https://www.airbnb.co.in/rooms/783630926435060967?locale=en&_set_bev_on_new_domain=1763482134_EAMGYyMTVhZmY0MG&set_everest_cookie_on_new_domain=1763482134.EAZTAwNzU1MmUzNmVkNz.uLnlvwD24MTUWL06jpQW_yqFT9cx7lzLN_nPA-m5UT8&source_impression_id=p3_1767269332_P3pajUtRCigbyD-M",
   },
   "expansive-views": {
-    bg: "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?q=80&w=2070&auto=format&fit=crop",
-    tagline: "Scenic Retreat",
+    bg: "/images/the-fieldhouse.jpg",
+    tagline: "The Fieldhouse",
+    link: "https://www.airbnb.co.in/rooms/1553441010980352073?source_impression_id=p3_1766430801_P3qvUxE2VYL6sjv3",
   },
   "romantic-jacuzzi-escapes": {
-    bg: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=2070&auto=format&fit=crop",
-    tagline: "Romantic Hideaway",
+    bg: "/images/la-amore.jpg",
+    tagline: "La Amore",
+    link: "https://www.airbnb.co.in/rooms/1254938866510280695?viralityEntryPoint=1&unique_share_id=617B080B-A902-4CDE-BAC0-8EB6D0AEE324&slcid=343df8497fde4101909c8020309d12ff&s=76&feature=share&set_everest_cookie_on_new_domain=1763482134.EAZTAwNzU1MmUzNmVkNz.uLnlvwD24MTUWL06jpQW_yqFT9cx7lzLN_nPA-m5UT8&adults=1&channel=native&slug=eOL7J3zY&source_impression_id=p3_1767272983_P3x56lAyS7x-_e8v",
   },
 };
 
@@ -67,7 +71,11 @@ export default function RoomsAndStay({ content }: { content?: any }) {
     if (
       customImage &&
       !customImage.includes("photo-1613977257363") &&
-      customImage !== "/images/luxury-villas.jpg"
+      !customImage.includes("photo-1520250497591") &&
+      !customImage.includes("photo-1578683010236") &&
+      !customImage.includes("photo-1551882547") &&
+      customImage !== "/images/luxury-villas.jpg" &&
+      customImage !== "/images/mediterranean-villa.jpg"
     ) {
       return customImage;
     }
@@ -80,8 +88,11 @@ export default function RoomsAndStay({ content }: { content?: any }) {
   }
 
   const activeBg = getBgImage(activeIndex);
-  const activeTagline =
-    CATEGORY_META[categories[activeIndex].id]?.tagline || "Tropical Escape";
+  const activeMeta = CATEGORY_META[categories[activeIndex].id];
+  const activeTagline = activeMeta?.tagline || "Sempre";
+  const activeLink =
+    activeMeta?.link || `/stays?category=${categories[activeIndex].id}`;
+  const isExternalLink = activeLink.startsWith("http");
 
   function handleSelect(idx: number) {
     if (idx === activeIndex) return;
@@ -122,23 +133,22 @@ export default function RoomsAndStay({ content }: { content?: any }) {
                 <div key={c.id}>
                   {selected ? (
                     <div className="animate-in fade-in duration-300">
-                      {/* Active Title with Horizontal Dash Line */}
-                      <div className="flex items-center gap-3.5 sm:gap-4 mb-2.5">
-                        <div className="w-8 sm:w-10 h-px bg-[#C07A5A] shrink-0" />
+                      {/* Active Title without Dash Line */}
+                      <div className="mb-2.5">
                         <span className="font-playfair italic text-[#C07A5A] text-2xl sm:text-[26px] md:text-[28px] font-normal tracking-normal leading-none">
                           {c.name}
                         </span>
                       </div>
 
-                      {/* Description indented to align with title */}
-                      <div className="pl-[44px] sm:pl-[54px]">
+                      {/* Description aligned flush */}
+                      <div>
                         <p className="text-[#16323C]/75 text-[14px] sm:text-[15px] font-bricolage font-normal leading-relaxed max-w-[380px] sm:max-w-[420px]">
                           {c.description}
                         </p>
                       </div>
                     </div>
                   ) : (
-                    /* Inactive Title indented to align with active title */
+                    /* Inactive Title aligned flush */
                     <div
                       role="button"
                       tabIndex={0}
@@ -146,7 +156,7 @@ export default function RoomsAndStay({ content }: { content?: any }) {
                       onKeyDown={(e) =>
                         (e.key === "Enter" || e.key === " ") && handleSelect(idx)
                       }
-                      className="pl-[44px] sm:pl-[54px] py-1.5 sm:py-2 group cursor-pointer transition-colors"
+                      className="py-1.5 sm:py-2 group cursor-pointer transition-colors"
                     >
                       <span className="font-playfair text-[#16323C]/60 group-hover:text-[#16323C] text-xl sm:text-[22px] md:text-[24px] font-normal tracking-normal transition-colors duration-200">
                         {c.name}
@@ -204,12 +214,11 @@ export default function RoomsAndStay({ content }: { content?: any }) {
           />
 
           {/* Floating Glass Card (bottom-right/center) */}
-          <button
-            type="button"
-            onClick={() =>
-              router.push(`/stays?category=${categories[activeIndex].id}`)
-            }
-            className="absolute bottom-6 sm:bottom-12 right-4 sm:right-10 left-4 sm:left-auto min-w-0 sm:min-w-[320px] max-w-[420px] bg-black/25 hover:bg-black/35 backdrop-blur-md border border-white/25 rounded-2xl p-5 sm:p-7 text-left transition-all duration-300 cursor-pointer group shadow-[0_8px_32px_rgba(0,0,0,0.25)]"
+          <a
+            href={activeLink}
+            target={isExternalLink ? "_blank" : undefined}
+            rel={isExternalLink ? "noopener noreferrer" : undefined}
+            className="absolute bottom-6 sm:bottom-12 right-4 sm:right-10 left-4 sm:left-auto min-w-0 sm:min-w-[320px] max-w-[420px] bg-black/25 hover:bg-black/35 backdrop-blur-md border border-white/25 rounded-2xl p-5 sm:p-7 text-left transition-all duration-300 cursor-pointer group shadow-[0_8px_32px_rgba(0,0,0,0.25)] block"
           >
             <p className="text-white/80 text-[10px] sm:text-[11px] font-bricolage font-semibold uppercase tracking-[0.18em] mb-1.5 sm:mb-2">
               FEATURED PROPERTY
@@ -217,7 +226,7 @@ export default function RoomsAndStay({ content }: { content?: any }) {
             <h3 className="font-playfair italic font-normal text-white text-xl sm:text-[26px] md:text-3xl tracking-wide group-hover:text-white/95 transition-colors">
               {activeTagline}
             </h3>
-          </button>
+          </a>
         </div>
       </div>
     </section>

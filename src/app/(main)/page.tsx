@@ -35,6 +35,12 @@ export default async function Home() {
   }
 
   const hero = cms?.sections?.hero ?? null;
+  const heroBg =
+    hero?.backgroundUrl &&
+    !hero.backgroundUrl.includes("frames-for-your-heart") &&
+    !hero.backgroundUrl.includes("8640d142-0953-47f0-848b-a37f413adce1")
+      ? hero.backgroundUrl
+      : "/images/hero-beach.jpg";
 
   return (
     <>
@@ -43,7 +49,7 @@ export default async function Home() {
           title: hero?.title,
           description: hero?.description,
           ctaLabel: hero?.ctaLabel,
-          backgroundUrl: hero?.backgroundUrl,
+          backgroundUrl: heroBg,
         }}
       />
       <ExploreStaysGrid content={cms?.sections?.explore_stays} />

@@ -15,17 +15,28 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const [animating, setAnimating] = useState(true);
+  const [animating, setAnimating] = useState(false);
+  const isFirstRender = React.useRef(true);
 
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
     setAnimating(true);
   }, [pathname]);
+
+  useEffect(() => {
+    if (!animating) return;
+    const timer = setTimeout(() => setAnimating(false), 1000);
+    return () => clearTimeout(timer);
+  }, [animating]);
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Navbar />
       <div className={`flex-grow grid grid-cols-1 relative w-full ${animating ? "overflow-hidden" : ""}`}>
-        <AnimatePresence>
+        <AnimatePresence initial={false}>
           <motion.main
             key={pathname}
             initial={{ y: "-100vh" }}

@@ -23,18 +23,18 @@ type Destination = {
   slug: string;
 };
 
-// Hand-curated destination data with beautiful Goa images
+// Hand-curated destination data with authentic Goa images
 const DESTINATION_IMAGES: Record<string, string> = {
+  "Candolim": "/images/destinations/candolim.jpg",
+  "Siolim": "/images/destinations/siolim.jpg",
+  "Reis Magos": "/images/destinations/reis-magos.jpg",
   "Assagao": "https://images.unsplash.com/photo-1582972236019-ea4af5ffe587?w=800&q=80",
-  "Candolim": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=800&q=80",
-  "Siolim": "https://images.unsplash.com/photo-1587922546307-776227941871?w=800&q=80",
   "Vagator": "https://images.unsplash.com/photo-1614082242765-7c98ca0f3df3?w=800&q=80",
   "Calangute": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
   "Aldona": "https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?w=800&q=80",
   "Anjuna": "https://images.unsplash.com/photo-1559494007-9f5847c49d94?w=800&q=80",
   "Morjim": "https://images.unsplash.com/photo-1520942702018-0862200e6873?w=800&q=80",
   "Panjim": "https://images.unsplash.com/photo-1583001931096-959e9a1a6223?w=800&q=80",
-  "Reis Magos": "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=800&q=80",
   "Marra": "https://images.unsplash.com/photo-1544550581-5f7ceaf7f992?w=800&q=80",
   "Saipem": "https://images.unsplash.com/photo-1540541338287-41700207dee6?w=800&q=80",
   "Baga": "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80",

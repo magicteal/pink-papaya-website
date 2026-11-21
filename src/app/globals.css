@@ -24,7 +24,7 @@
 
 
 
-html, body, :root { height: 100%; }
+html, body, :root { min-height: 100%; }
 
 :root {
   --rounded-10: 10px;
