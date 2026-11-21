@@ -226,6 +226,7 @@ export const cmsPageConfigs: CmsPageConfig[] = [
             key: "image1",
             label: "Image 1",
             type: "image",
+            defaultValue: "/images/leisure/go-beyond-guidebooks.jpg",
           },
           {
             key: "title2",
@@ -244,6 +245,7 @@ export const cmsPageConfigs: CmsPageConfig[] = [
             key: "image2",
             label: "Image 2",
             type: "image",
+            defaultValue: "/images/leisure/a-little-extra.jpg",
           },
           {
             key: "title3",
@@ -260,6 +262,7 @@ export const cmsPageConfigs: CmsPageConfig[] = [
             key: "image3",
             label: "Image 3",
             type: "image",
+            defaultValue: "/images/leisure/more-than-a-stay.jpg",
           },
         ],
       },
@@ -340,6 +343,7 @@ export const cmsPageConfigs: CmsPageConfig[] = [
             key: "backgroundUrl",
             label: "Background Image",
             type: "image",
+            defaultValue: "/images/stays-hero.jpg",
           },
         ],
       },

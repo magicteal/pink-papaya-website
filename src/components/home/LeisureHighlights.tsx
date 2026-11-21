@@ -34,7 +34,10 @@ export default function LeisureHighlights({ content }: { content?: any }) {
       ? content.desc1
       : "Secret spots, hidden beaches, beautiful tables and local favourites. Discover the Goa you won't find on every itinerary.";
 
-  const image1 = content?.image1 || "/images/leisure/sunsets-down.jpg?v=2";
+  const image1 =
+    content?.image1 && !content.image1.includes("photo-")
+      ? content.image1
+      : "/images/leisure/go-beyond-guidebooks.jpg";
 
   const title2 =
     content?.title2 &&
@@ -51,12 +54,15 @@ export default function LeisureHighlights({ content }: { content?: any }) {
       : "Private chefs, relaxing massages, intimate celebrations and thoughtful little surprises. Whatever the occasion, we make it special.";
 
   const image2 =
-    content?.image2 || "/images/leisure/a-look-into-every-sunset.jpg?v=2";
+    content?.image2 && !content.image2.includes("photo-")
+      ? content.image2
+      : "/images/leisure/a-little-extra.jpg";
 
   const bannerImage =
-    content?.bannerImage ||
-    content?.image3 ||
-    "/images/leisure/care-guidebooks.jpg?v=2";
+    (content?.bannerImage && !content.bannerImage.includes("photo-")) ||
+    (content?.image3 && !content.image3.includes("photo-"))
+      ? content.bannerImage || content.image3
+      : "/images/leisure/more-than-a-stay.jpg";
 
   return (
     <section className="relative w-full bg-[#1C1B1A]">

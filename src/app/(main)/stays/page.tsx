@@ -49,6 +49,12 @@ export default async function StaysPage(props: {
   }
 
   const hero = cms?.sections?.hero ?? null;
+  const heroBg =
+    hero?.backgroundUrl &&
+    !hero.backgroundUrl.includes("placeholder") &&
+    !hero.backgroundUrl.includes("photo-")
+      ? hero.backgroundUrl
+      : "/images/stays-hero.jpg";
 
   return (
     <>
@@ -58,7 +64,7 @@ export default async function StaysPage(props: {
           description:
             hero?.description ||
             "Curated spaces across Goa — crafted for comfort, style, and unforgettable moments.",
-          backgroundUrl: hero?.backgroundUrl || DEFAULT_PLACEHOLDER,
+          backgroundUrl: heroBg,
         }}
       />
       <section className="py-4 sm:py-6 md:py-8">
