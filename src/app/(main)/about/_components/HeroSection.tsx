@@ -13,9 +13,9 @@ type Props = {
   className?: string;
 };
 
-const DEFAULT_VIDEO = "/videos/hotel-hero.mp4";
+const DEFAULT_VIDEO = "/videos/about-hero.mp4";
 const FALLBACK_VIDEO = "https://assets.mixkit.co/videos/4196/4196-720.mp4";
-const DEFAULT_POSTER = "/images/luxury-villas.jpg";
+const DEFAULT_POSTER = "/images/about-curated-home.jpg";
 
 export default function HeroSection({ content, className }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);

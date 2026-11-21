@@ -5,7 +5,7 @@ import Reveal from "@/components/ui/Reveal";
 const CURATORS = [
   { src: "/images/mishika.svg", name: "Mishika Chowdhary", role: "Founder" },
   { src: "/images/vani.svg",    name: "Vanni Sharma",      role: "Co-Founder" },
-  { src: "/images/shika.svg",   name: "Shikha Chowdhary", role: "Director & Interior Design" },
+  { src: "/images/shikha.jpg",  name: "Shikha Chowdhary", role: "Director & Interior Design" },
 ];
 
 export default function CuratorsSection() {

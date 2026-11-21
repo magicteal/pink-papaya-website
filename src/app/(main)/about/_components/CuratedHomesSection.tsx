@@ -16,7 +16,7 @@ export default function CuratedHomesSection() {
           </div>
         </Reveal>
         <div className="relative min-h-[420px] lg:min-h-0">
-          <Image src="/images/host-why.png" alt="Curated interior" fill className="object-cover" />
+          <Image src="/images/about-curated-home.jpg" alt="Curated interior" fill className="object-cover" />
         </div>
       </div>
     </section>
