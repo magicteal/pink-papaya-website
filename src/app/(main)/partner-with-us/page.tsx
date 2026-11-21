@@ -63,8 +63,8 @@ export default function BecomeHostPage() {
         {/* Full-bleed background */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/host-hero-new.png"
-            alt="Luxury coastal room"
+            src="/images/partner-hero.jpg"
+            alt="Partner With Us Background"
             fill
             className="object-cover object-center"
             priority
@@ -324,8 +324,8 @@ export default function BecomeHostPage() {
               <div className="relative">
                 <div className="relative aspect-[4/3.2] rounded-[28px] overflow-hidden shadow-2xl">
                   <Image
-                    src="/images/host-pool.png"
-                    alt="Luxury infinity pool at sunset"
+                    src="/images/host-care.jpg"
+                    alt="Hands-on property care and housekeeping"
                     fill
                     className="object-cover"
                   />
