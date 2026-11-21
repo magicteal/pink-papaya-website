@@ -11,22 +11,22 @@ const CATEGORY_META: Record<
   { bg: string; tagline: string; link?: string }
 > = {
   "luxury-villas": {
-    bg: "/images/sempre.jpg",
+    bg: "/media/curated/sempre.jpg",
     tagline: "Sempre",
     link: "https://www.airbnb.co.in/rooms/1584060007789227621?photo_id=2454055921&source_impression_id=p3_1767265086_P3SvFS47jqQMMU8s",
   },
   "walk-to-beach": {
-    bg: "/images/casa-sukriti.jpg",
+    bg: "/media/curated/casa-sukriti.jpg",
     tagline: "Casa Sukriti",
     link: "https://www.airbnb.co.in/rooms/783630926435060967?locale=en&_set_bev_on_new_domain=1763482134_EAMGYyMTVhZmY0MG&set_everest_cookie_on_new_domain=1763482134.EAZTAwNzU1MmUzNmVkNz.uLnlvwD24MTUWL06jpQW_yqFT9cx7lzLN_nPA-m5UT8&source_impression_id=p3_1767269332_P3pajUtRCigbyD-M",
   },
   "expansive-views": {
-    bg: "/images/the-fieldhouse.jpg",
+    bg: "/media/curated/the-fieldhouse.jpg",
     tagline: "The Fieldhouse",
     link: "https://www.airbnb.co.in/rooms/1553441010980352073?source_impression_id=p3_1766430801_P3qvUxE2VYL6sjv3",
   },
   "romantic-jacuzzi-escapes": {
-    bg: "/images/la-amore.jpg",
+    bg: "/media/curated/la-amore.jpg",
     tagline: "La Amore",
     link: "https://www.airbnb.co.in/rooms/1254938866510280695?viralityEntryPoint=1&unique_share_id=617B080B-A902-4CDE-BAC0-8EB6D0AEE324&slcid=343df8497fde4101909c8020309d12ff&s=76&feature=share&set_everest_cookie_on_new_domain=1763482134.EAZTAwNzU1MmUzNmVkNz.uLnlvwD24MTUWL06jpQW_yqFT9cx7lzLN_nPA-m5UT8&adults=1&channel=native&slug=eOL7J3zY&source_impression_id=p3_1767272983_P3x56lAyS7x-_e8v",
   },
@@ -75,7 +75,9 @@ export default function RoomsAndStay({ content }: { content?: any }) {
       !customImage.includes("photo-1578683010236") &&
       !customImage.includes("photo-1551882547") &&
       customImage !== "/images/luxury-villas.jpg" &&
-      customImage !== "/images/mediterranean-villa.jpg"
+      customImage !== "/images/mediterranean-villa.jpg" &&
+      customImage !== "/media/curated/luxury-villas.jpg" &&
+      customImage !== "/media/curated/mediterranean-villa.jpg"
     ) {
       return customImage;
     }

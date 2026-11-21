@@ -54,7 +54,7 @@ export default async function StaysPage(props: {
     !hero.backgroundUrl.includes("placeholder") &&
     !hero.backgroundUrl.includes("photo-")
       ? hero.backgroundUrl
-      : "/images/stays-hero.jpg";
+      : "/media/stays/stays-hero.jpg";
 
   return (
     <>

@@ -63,7 +63,7 @@ export default function BecomeHostPage() {
         {/* Full-bleed background */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/partner-hero.jpg"
+            src="/media/partner/partner-hero.jpg"
             alt="Partner With Us Background"
             fill
             className="object-cover object-center"
@@ -324,7 +324,7 @@ export default function BecomeHostPage() {
               <div className="relative">
                 <div className="relative aspect-[4/3.2] rounded-[28px] overflow-hidden shadow-2xl">
                   <Image
-                    src="/images/host-care.jpg"
+                    src="/media/partner/host-care.jpg"
                     alt="Hands-on property care and housekeeping"
                     fill
                     className="object-cover"

@@ -25,9 +25,9 @@ type Destination = {
 
 // Hand-curated destination data with authentic Goa images
 const DESTINATION_IMAGES: Record<string, string> = {
-  "Candolim": "/images/destinations/candolim.jpg",
-  "Siolim": "/images/destinations/siolim.jpg",
-  "Reis Magos": "/images/destinations/reis-magos.jpg",
+  "Candolim": "/media/destinations/candolim.jpg",
+  "Siolim": "/media/destinations/siolim.jpg",
+  "Reis Magos": "/media/destinations/reis-magos.jpg",
   "Assagao": "https://images.unsplash.com/photo-1582972236019-ea4af5ffe587?w=800&q=80",
   "Vagator": "https://images.unsplash.com/photo-1614082242765-7c98ca0f3df3?w=800&q=80",
   "Calangute": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",

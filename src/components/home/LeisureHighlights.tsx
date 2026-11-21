@@ -37,7 +37,7 @@ export default function LeisureHighlights({ content }: { content?: any }) {
   const image1 =
     content?.image1 && !content.image1.includes("photo-")
       ? content.image1
-      : "/images/leisure/go-beyond-guidebooks.jpg";
+      : "/media/leisure/go-beyond-guidebooks.jpg";
 
   const title2 =
     content?.title2 &&
@@ -56,13 +56,13 @@ export default function LeisureHighlights({ content }: { content?: any }) {
   const image2 =
     content?.image2 && !content.image2.includes("photo-")
       ? content.image2
-      : "/images/leisure/a-little-extra.jpg";
+      : "/media/leisure/a-little-extra.jpg";
 
   const bannerImage =
     (content?.bannerImage && !content.bannerImage.includes("photo-")) ||
     (content?.image3 && !content.image3.includes("photo-"))
       ? content.bannerImage || content.image3
-      : "/images/leisure/more-than-a-stay.jpg";
+      : "/media/leisure/more-than-a-stay.jpg";
 
   return (
     <section className="relative w-full bg-[#1C1B1A]">

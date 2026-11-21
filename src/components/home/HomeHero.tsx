@@ -16,7 +16,7 @@ type Props = {
   className?: string;
 };
 
-const DEFAULT_HERO_BG = "/images/hero-beach.jpg";
+const DEFAULT_HERO_BG = "/media/hero/hero-beach.jpg";
 
 export default function HomeHero({
   content,

@@ -37,6 +37,8 @@ next-env.d.ts
 /public/uploads/*
 !/public/uploads/.gitkeep
 !/public/uploads/dummy*.svg
+/public/media/**
+!/public/media/.gitkeep
 /property-images/
 
 # Testing & Coverage

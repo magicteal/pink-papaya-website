@@ -40,7 +40,7 @@ export default async function Home() {
     !hero.backgroundUrl.includes("frames-for-your-heart") &&
     !hero.backgroundUrl.includes("8640d142-0953-47f0-848b-a37f413adce1")
       ? hero.backgroundUrl
-      : "/images/hero-beach.jpg";
+      : "/media/hero/hero-beach.jpg";
 
   return (
     <>
