@@ -110,17 +110,17 @@ export const cmsPageConfigs: CmsPageConfig[] = [
             label: "Heading",
             type: "text",
             required: true,
-            defaultValue: "Experience the comfort.",
+            defaultValue: "Curated collections",
           },
           {
             key: "description",
             label: "Description",
             type: "textarea",
-            defaultValue: "",
+            defaultValue: "Thoughtfully chosen stays, for every kind of getaway",
           },
           {
             key: "title1",
-            label: "Title 1 (Luxury Villas)",
+            label: "Title 1 (Luxury Homes)",
             type: "text",
           },
           {
@@ -197,25 +197,27 @@ export const cmsPageConfigs: CmsPageConfig[] = [
             label: "Heading",
             type: "text",
             required: true,
-            defaultValue: "Leisure Highlights",
+            defaultValue: "More than a stay. A whole lot of stories.",
           },
           {
             key: "description",
             label: "Description",
             type: "textarea",
             defaultValue:
-              "Curated experiences designed to slow time. Discover our collection of quiet moments, architectural elegance, and unparalleled serenity.",
+              "Because the best trips are about everything you do in between.",
           },
           {
             key: "title1",
             label: "Title 1",
             type: "text",
-            defaultValue: "Sunsets down, served by the sea",
+            defaultValue: "Go beyond the guidebooks",
           },
           {
             key: "desc1",
             label: "Description 1",
             type: "textarea",
+            defaultValue:
+              "Secret spots, hidden beaches, beautiful tables and local favourites. Discover the Goa you won't find on every itinerary.",
           },
           {
             key: "image1",
@@ -226,12 +228,14 @@ export const cmsPageConfigs: CmsPageConfig[] = [
             key: "title2",
             label: "Title 2",
             type: "text",
-            defaultValue: "A look into every sunset",
+            defaultValue: "A little extra, just for you",
           },
           {
             key: "desc2",
             label: "Description 2",
             type: "textarea",
+            defaultValue:
+              "Private chefs, relaxing massages, intimate celebrations and thoughtful little surprises. Whatever the occasion, we make it special.",
           },
           {
             key: "image2",

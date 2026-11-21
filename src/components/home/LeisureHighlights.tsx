@@ -5,35 +5,50 @@ import Reveal from "@/components/ui/Reveal";
 import { isPreOptimizedMedia } from "@/lib/media-url";
 
 export default function LeisureHighlights({ content }: { content?: any }) {
-  const heading = content?.heading || "Leisure Highlights";
+  const heading =
+    content?.heading && content.heading !== "Leisure Highlights"
+      ? content.heading
+      : "More than a stay. A whole lot of stories.";
   const bannerDescription =
     content?.description &&
     content.description !== "Unwind and relax." &&
     content.description !==
       "Curated experiences designed to slow time. Discover our collection of quiet moments, architectural elegance, and unparalleled serenity." &&
+    content.description !==
+      "Our concierges are local curators, ready to craft bespoke itineraries that bypass the typical tourist trails and immerse you in authentic culture." &&
     content.description !== ""
       ? content.description
-      : "Our concierges are local curators, ready to craft bespoke itineraries that bypass the typical tourist trails and immerse you in authentic culture.";
+      : "Because the best trips are about everything you do in between.";
 
   const title1 =
-    content?.title1 && content.title1 !== "Always there, never in the way"
+    content?.title1 &&
+    content.title1 !== "Always there, never in the way" &&
+    content.title1 !== "Sunsets down, served by the sea"
       ? content.title1
-      : "Sunsets down, served by the sea";
+      : "Go beyond the guidebooks";
 
   const desc1 =
-    content?.desc1 ||
-    "Experience culinary artistry as the sun dips below the horizon. Our curated evening dining brings the finest local ingredients to your table, accompanied by the gentle sound of waves.";
+    content?.desc1 &&
+    content.desc1 !==
+      "Experience culinary artistry as the sun dips below the horizon. Our curated evening dining brings the finest local ingredients to your table, accompanied by the gentle sound of waves."
+      ? content.desc1
+      : "Secret spots, hidden beaches, beautiful tables and local favourites. Discover the Goa you won't find on every itinerary.";
 
   const image1 = content?.image1 || "/images/leisure/sunsets-down.jpg?v=2";
 
   const title2 =
-    content?.title2 && content.title2 !== "Wheels for every mood"
+    content?.title2 &&
+    content.title2 !== "Wheels for every mood" &&
+    content.title2 !== "A look into every sunset"
       ? content.title2
-      : "A look into every sunset";
+      : "A little extra, just for you";
 
   const desc2 =
-    content?.desc2 ||
-    "Each property is architecturally aligned to capture the golden hour. Unwind in spacious, minimalist comfort while nature puts on its daily masterpiece just outside your window.";
+    content?.desc2 &&
+    content.desc2 !==
+      "Each property is architecturally aligned to capture the golden hour. Unwind in spacious, minimalist comfort while nature puts on its daily masterpiece just outside your window."
+      ? content.desc2
+      : "Private chefs, relaxing massages, intimate celebrations and thoughtful little surprises. Whatever the occasion, we make it special.";
 
   const image2 =
     content?.image2 || "/images/leisure/a-look-into-every-sunset.jpg?v=2";

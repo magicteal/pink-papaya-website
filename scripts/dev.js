@@ -2,13 +2,28 @@
 const net = require('net');
 const { spawn } = require('child_process');
 
-function isPortFree(port) {
+function canConnect(port, host = '127.0.0.1') {
+  return new Promise((resolve) => {
+    const s = net.createConnection({ port, host })
+      .once('connect', () => { s.destroy(); resolve(true); })
+      .once('error', () => { s.destroy(); resolve(false); });
+  });
+}
+
+function canListen(port, host) {
   return new Promise((resolve) => {
     const srv = net.createServer()
       .once('error', () => resolve(false))
       .once('listening', () => srv.close(() => resolve(true)));
-    srv.listen(port, '0.0.0.0');
+    srv.listen(host ? { port, host } : { port });
   });
+}
+
+async function isPortFree(port) {
+  if (await canConnect(port, '127.0.0.1') || await canConnect(port, '::1')) return false;
+  if (!(await canListen(port, '0.0.0.0'))) return false;
+  if (!(await canListen(port))) return false;
+  return true;
 }
 
 async function findFreePort(start, maxTries = 100) {
@@ -40,7 +55,7 @@ function parseStartPort(argv) {
   console.log(`Starting Next dev on port ${port} (start ${startPort})`);
 
   const userArgs = process.argv.slice(2);
-  const args = ['next', 'dev', '--turbopack', '--port', String(port)];
+  const args = ['next', 'dev', '--port', String(port)];
   for (let i = 0; i < userArgs.length; i++) {
     if (userArgs[i] === '--port') { i++; continue; }
     args.push(userArgs[i]);

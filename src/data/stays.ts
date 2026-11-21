@@ -27,10 +27,10 @@ export type Stay = {
 };
 
 export const stayCategories = [
-  { id: "luxury-villas", name: "Luxury Villas", description: "Private villas with elevated finishes and personalised service." },
-  { id: "walk-to-beach", name: "Walk to the Beach", description: "Short strolls to sandy shores and sunset views." },
-  { id: "expansive-views", name: "Expansive Views", description: "Rooms and villas with sweeping outlooks and terraces." },
-  { id: "romantic-jacuzzi-escapes", name: "Romantic Jacuzzi Escapes", description: "Cozy suites with private jacuzzis for romantic getaways." },
+  { id: "luxury-villas", name: "Luxury Homes", description: "Spacious, design-led homes made for slow mornings and sunset evenings" },
+  { id: "walk-to-beach", name: "Walk to the Beach", description: "Just a stroll to the sand where comfort meets the ocean air" },
+  { id: "expansive-views", name: "Expansive Views", description: "Wake up to sweeping views and endless horizons" },
+  { id: "romantic-jacuzzi-escapes", name: "Romantic Jacuzzi Escapes", description: "Cozy hideaways with private jacuzzis perfect for two" },
 ];
 
 export const stays: Stay[] = [

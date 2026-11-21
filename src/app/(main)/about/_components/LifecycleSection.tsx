@@ -3,10 +3,34 @@ import Container from "@/components/Container";
 import Reveal from "@/components/ui/Reveal";
 
 const PHASES = [
-  { phase: "PHASE I",   title: "Visit",           body: "Escape for a break and soak up the atmosphere. Enjoy premium amenities and attentive service—so inviting you may prolong your visit.",                                                                                                                        cta: "DISCOVER STAYS",  href: "/stays" },
-  { phase: "PHASE II",  title: "Reside",          body: "Residences that adapt to your pace: from compact city pads to expansive beachfront retreats. Settle in long-term or transition between styles with ease.",                                                                                                    cta: "DISCOVER LIVE",   href: "/stays" },
-  { phase: "PHASE III", title: "Own",             body: "If a location captures your heart, consider ownership. Move in, or generate income by listing it—our team manages every detail.",                                                                                                                              cta: "DISCOVER BELONG", href: "/partner-with-us" },
-  { phase: "PHASE IV",  title: "Belong/\nDesign", body: "We design interiors that fuse regional character with contemporary comfort—curating bespoke furnishings, refined color palettes, and layouts to elevate functionality and aesthetic—and offering styling for guest-ready spaces.",                             cta: "DISCOVER DESIGN", href: "/partner-with-us" },
+  {
+    phase: "PHASE I",
+    title: "Stays",
+    body: "Escape for a break and soak up the atmosphere. Enjoy premium amenities and attentive service, so inviting you may prolong your visit.",
+    cta: "DISCOVER STAYS",
+    href: "/stays",
+  },
+  {
+    phase: "PHASE II",
+    title: "Reside",
+    body: "Residences that adapt to your pace, from compact city pads to expansive beachfront retreats. Settle in long-term or transition between styles with ease.",
+    cta: "DISCOVER RESIDE",
+    href: "/stays",
+  },
+  {
+    phase: "PHASE III",
+    title: "Belong",
+    body: "If a location captures your heart, consider ownership. Move in, or generate income by listing it with us. Our team manages every detail.",
+    cta: "DISCOVER BELONG",
+    href: "/partner-with-us",
+  },
+  {
+    phase: "PHASE IV",
+    title: "Design",
+    body: "We design interiors that fuse regional character with contemporary comfort, curating bespoke furnishings, refined colour palettes, and layouts that elevate both functionality and aesthetics. We also offer styling for guest-ready spaces.",
+    cta: "DISCOVER DESIGN",
+    href: "/interior",
+  },
 ];
 
 export default function LifecycleSection() {

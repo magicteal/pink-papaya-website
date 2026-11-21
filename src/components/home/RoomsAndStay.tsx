@@ -30,22 +30,22 @@ const CATEGORY_META: Record<
 
 // Override category names for the mockup design
 const CATEGORY_DISPLAY_NAMES: Record<string, string> = {
-  "luxury-villas": "Luxury Villas",
-  "walk-to-beach": "Bed & Breakfast",
-  "expansive-views": "Boutique Stays",
-  "romantic-jacuzzi-escapes": "Romantic Secret Escapes",
+  "luxury-villas": "Luxury Homes",
+  "walk-to-beach": "Walk to the Beach",
+  "expansive-views": "Expansive Views",
+  "romantic-jacuzzi-escapes": "Romantic Jacuzzi Escapes",
 };
 
 // Override descriptions for richer copy
 const CATEGORY_DESCRIPTIONS: Record<string, string> = {
   "luxury-villas":
-    "Expansive private sanctuaries featuring dedicated staff, infinity pools, and curated architectural details for the ultimate secluded escape.",
+    "Spacious, design-led homes made for slow mornings and sunset evenings",
   "walk-to-beach":
-    "Wake up to the sound of waves. Our beachfront stays put you steps from the shore with sunrise views and seaside charm.",
+    "Just a stroll to the sand where comfort meets the ocean air",
   "expansive-views":
-    "Thoughtfully designed intimate spaces that blend local character with contemporary comfort for the discerning traveller.",
+    "Wake up to sweeping views and endless horizons",
   "romantic-jacuzzi-escapes":
-    "Hidden havens designed for two — private jacuzzis, candlelit terraces, and an atmosphere made for romance.",
+    "Cozy hideaways with private jacuzzis perfect for two",
 };
 
 export default function RoomsAndStay({ content }: { content?: any }) {
@@ -99,14 +99,19 @@ export default function RoomsAndStay({ content }: { content?: any }) {
       <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[460px] sm:min-h-[520px] lg:min-h-[560px] xl:min-h-[600px]">
         {/* Left Column: Clean White Content */}
         <div className="flex flex-col justify-center px-5 sm:px-10 md:px-14 lg:px-16 xl:px-24 py-8 sm:py-12 lg:py-16 max-w-2xl mx-auto lg:mx-0 w-full">
-          {/* Main Heading: "Rooms & Stay" */}
-          <h2 className="font-playfair italic font-normal text-[#16323C] text-[30px] sm:text-[40px] md:text-[48px] lg:text-[54px] leading-tight tracking-tight mb-6 sm:mb-9">
+          {/* Main Heading: "Curated collections" */}
+          <h2 className="font-playfair italic font-normal text-[#16323C] text-[30px] sm:text-[40px] md:text-[48px] lg:text-[54px] leading-tight tracking-tight mb-2 sm:mb-3">
             {content?.heading &&
             content.heading !== "Experience the comfort." &&
             content.heading !== "Experience the\ncomfort."
               ? content.heading
-              : "Rooms & Stay"}
+              : "Curated collections"}
           </h2>
+          <p className="text-[#16323C]/70 text-[14px] sm:text-[16px] font-bricolage font-normal leading-relaxed mb-6 sm:mb-8 lg:mb-9">
+            {content?.description && content.description.trim() !== ""
+              ? content.description
+              : "Thoughtfully chosen stays, for every kind of getaway"}
+          </p>
 
           {/* Categories Accordion */}
           <div className="space-y-5 sm:space-y-6">

@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import HostTestimonialsCarousel from "@/components/partner/HostTestimonialsCarousel";
 import { motion, AnimatePresence } from "framer-motion";
+import { Star, Home, UserCheck, TrendingUp } from "lucide-react";
 
 export default function BecomeHostPage() {
   const [formData, setFormData] = useState({
@@ -99,14 +100,12 @@ export default function BecomeHostPage() {
           {/* Left: text, vertically centered */}
           <div className="lg:col-span-7 flex flex-col justify-center pb-10 pt-32 lg:pt-20">
             <Reveal>
-              <h1 className="font-playfair italic font-normal text-5xl sm:text-6xl md:text-7xl lg:text-[80px] xl:text-[92px] text-white leading-[1.08] tracking-tight">
-                Partner with
-              </h1>
-              <h1 className="font-playfair italic font-normal text-5xl sm:text-6xl md:text-7xl lg:text-[80px] xl:text-[92px] text-[#C07A5A] leading-[1.08] tracking-tight mt-1">
-                Pink Papaya
+              <h1 className="font-playfair italic font-normal text-4xl sm:text-5xl md:text-6xl lg:text-[68px] xl:text-[76px] text-white leading-[1.12] tracking-tight">
+                Your home deserves good company{" "}
+                <span className="block text-[#C07A5A]">and great returns.</span>
               </h1>
               <p className="mt-6 text-white/90 font-bricolage text-base md:text-lg max-w-lg leading-relaxed">
-                Transform your property into a high-yield sanctuary. We blend data-driven management with the soul of luxury hospitality.
+                Turn your property into a thoughtfully managed, high-performing holiday home.
               </p>
             </Reveal>
           </div>
@@ -247,14 +246,17 @@ export default function BecomeHostPage() {
         <Container>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 md:gap-0 md:divide-x md:divide-neutral-200">
             {[
-              { value: "10k+", label: "HAPPY GUESTS" },
-              { value: "4.8", label: "STAR RATINGS" },
+              { value: "50k+", label: "HAPPY GUESTS" },
+              { value: "4.9", label: "GUEST RATINGS", hasStar: true },
               { value: "1 in 10", label: "HOMES SELECTED" },
-              { value: "24/7", label: "SUPPORT" },
+              { value: "24/7", label: "GUEST SUPPORT" },
             ].map((stat, idx) => (
               <div key={idx} className="flex flex-col items-center justify-center py-2 md:py-4 px-2 sm:px-4 md:px-6 gap-2 text-center">
-                <span className="font-playfair text-3xl sm:text-4xl md:text-5xl text-[#16323C] tracking-tight">
+                <span className="inline-flex items-center justify-center gap-1.5 font-playfair text-3xl sm:text-4xl md:text-5xl text-[#16323C] tracking-tight">
                   {stat.value}
+                  {stat.hasStar && (
+                    <Star className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 fill-[#C07A5A] text-[#C07A5A] -mt-1 sm:-mt-1.5 shrink-0" />
+                  )}
                 </span>
                 <span className="font-bricolage text-[10px] sm:text-[11px] uppercase tracking-[0.16em] text-[#C07A5A] font-semibold">
                   {stat.label}
@@ -273,44 +275,27 @@ export default function BecomeHostPage() {
             <div>
               <Reveal>
                 <h2 className="font-playfair italic font-normal text-4xl md:text-5xl text-[#16323C] mb-4 leading-tight">
-                  Why Host With Us
+                  Why Host With Us?
                 </h2>
-                <p className="text-[#16323C]/75 font-bricolage text-[15px] leading-relaxed mb-8 md:mb-10 max-w-sm">
-                  We don&apos;t just manage properties; we curate experiences that honor the architectural spirit of your home.
+                <p className="text-[#16323C]/75 font-bricolage text-[15px] leading-relaxed mb-8 md:mb-10 max-w-md">
+                  We know your property is more than just an investment. From finding the right guests to taking care of the little details, we manage your home like it&apos;s our own home.
                 </p>
               </Reveal>
 
               <div className="space-y-8">
                 {[
                   {
-                    icon: (
-                      <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                        <line x1="16" y1="2" x2="16" y2="6" />
-                        <line x1="8" y1="2" x2="8" y2="6" />
-                        <line x1="3" y1="10" x2="21" y2="10" />
-                      </svg>
-                    ),
-                    title: "Flexible Hosting",
-                    description: "Host on your terms. We adapt to your personal schedule and property goals.",
+                    icon: <Home className="w-5 h-5 text-white" strokeWidth={1.8} />,
+                    title: "Hands-On Property Care",
+                    description: "Our local team handles housekeeping, maintenance and regular checks to keep your home at its best.",
                   },
                   {
-                    icon: (
-                      <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                        <circle cx="12" cy="12" r="3" />
-                      </svg>
-                    ),
-                    title: "100% Transparency",
-                    description: "Real-time dashboards showing every booking, review, and expense instantly.",
+                    icon: <UserCheck className="w-5 h-5 text-white" strokeWidth={1.8} />,
+                    title: "Trusted Guests",
+                    description: "With clear house rules and thoughtful communication, we ensure your home is treated with care and respect.",
                   },
                   {
-                    icon: (
-                      <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
-                        <polyline points="17 6 23 6 23 12" />
-                      </svg>
-                    ),
+                    icon: <TrendingUp className="w-5 h-5 text-white" strokeWidth={1.8} />,
                     title: "Maximize Earnings",
                     description: "Dynamic pricing algorithms optimized for premium seasonal demand.",
                   },
