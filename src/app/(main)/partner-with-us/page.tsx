@@ -351,7 +351,7 @@ export default function BecomeHostPage() {
                     Trusted Guests
                   </h4>
                   <p className="text-white/75 font-bricolage text-xs leading-relaxed">
-                    Rigorous multi-step vetting ensures your estate is only in the most respectful hands.
+                    A multi-step approach ensures your estate is only in the most respectful hands
                   </p>
                 </div>
               </div>
