@@ -48,14 +48,15 @@ export default function Footer() {
 
             <div className="flex items-center gap-2.5">
               {[
-                { href: "https://instagram.com", Icon: PiInstagramLogo, label: "Instagram" },
-                { href: "https://spotify.com", Icon: PiSpotifyLogo, label: "Spotify" },
-                { href: "https://linktr.ee", Icon: PiLinktreeLogo, label: "Linktree" },
+                { href: "https://instagram.com/pinkpapayastays", Icon: PiInstagramLogo, label: "Instagram" },
+                { href: "https://open.spotify.com/user/31gpo5wly4akyzl22nad4eswknxy?si=tdvrAgcOSaaCw4Z6SEKbSA&utm_source=copy-link", Icon: PiSpotifyLogo, label: "Spotify" },
+                { href: "https://linktr.ee/pinkpapayastays", Icon: PiLinktreeLogo, label: "Linktree" },
               ].map(({ href, Icon, label }) => (
                 <Link
                   key={label}
                   href={href}
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="flex h-9 w-9 items-center justify-center rounded-lg border border-neutral-200 text-neutral-500 transition-all duration-200 hover:border-[#16323C] hover:text-[#16323C] hover:-translate-y-0.5 hover:scale-[1.08] active:scale-[0.95]"
                   aria-label={label}
                 >
