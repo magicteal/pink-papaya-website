@@ -49,12 +49,14 @@ export default function StaysGridWithFilters({ stays, locations, propertyTypes, 
   const selectedBedrooms = parseInt(searchParams.get("bedrooms") || "1", 10);
   const locsParam = searchParams.get("locs") || "";
   const colsParam = searchParams.get("cols") || "";
+  const guestsParam = searchParams.get("guests") || "";
+
   const selectedLocations = useMemo(
-    () => (locsParam ? locsParam.split(",").filter(Boolean) : []),
+    () => (locsParam ? locsParam.split(",").map((s) => s.trim()).filter(Boolean) : []),
     [locsParam]
   );
   const selectedCollections = useMemo(
-    () => (colsParam ? colsParam.split(",").filter(Boolean) : []),
+    () => (colsParam ? colsParam.split(",").map((s) => s.trim()).filter(Boolean) : []),
     [colsParam]
   );
 
@@ -97,23 +99,83 @@ export default function StaysGridWithFilters({ stays, locations, propertyTypes, 
     // detail link or a unique React key, so they must not be rendered.
     let filtered = stays.filter((s) => s.id);
 
-    if (selectedPropertyType && selectedPropertyType !== "all-homes") {
-      filtered = filtered.filter((s) => s.propertyType === selectedPropertyType);
+    // 1. Property Type filter
+    if (
+      selectedPropertyType &&
+      selectedPropertyType !== "all-homes" &&
+      selectedPropertyType.toLowerCase() !== "all homes"
+    ) {
+      const pNorm = selectedPropertyType.toLowerCase().replace(/s$/, "");
+      filtered = filtered.filter((s) => {
+        const sType = (s.propertyType || "").toLowerCase().replace(/s$/, "");
+        const sCat = (s.category || "").toLowerCase();
+        return sType === pNorm || sType.includes(pNorm) || sCat.includes(pNorm);
+      });
     }
 
+    // 2. Number of Bedrooms filter
     if (selectedBedrooms > 1) {
       filtered = filtered.filter((s) => parseBedrooms(s.bed) >= selectedBedrooms);
     }
 
+    // 3. Guests filter
+    if (guestsParam && guestsParam !== "Add guests" && guestsParam !== "all") {
+      let minGuests = 1;
+      if (guestsParam.includes("6+")) minGuests = 6;
+      else if (guestsParam.includes("3-5")) minGuests = 3;
+      else if (guestsParam.includes("1-2")) minGuests = 1;
+      else {
+        const m = guestsParam.match(/\d+/);
+        if (m) minGuests = parseInt(m[0], 10);
+      }
+
+      filtered = filtered.filter((s) => {
+        const parts = (s.guests || "").match(/\d+/g);
+        const stayCapacity = parts ? parts.reduce((sum, n) => sum + parseInt(n, 10), 0) : 1;
+        return stayCapacity >= minGuests;
+      });
+    }
+
+    // 4. Location filter (matches location IDs and location names flexibly)
     if (selectedLocations.length > 0) {
       filtered = filtered.filter((s) => {
-        return selectedLocations.some((locId) => {
-          const loc = locations.find((l) => l.id === locId);
-          return loc?.stayIds.includes(s.id);
+        return selectedLocations.some((locQuery) => {
+          const lq = locQuery.trim().toLowerCase();
+          if (!lq || lq === "all" || lq === "all locations") return true;
+
+          // 4a. Check locations store by id or name
+          const loc = locations.find(
+            (l) => l.id.toLowerCase() === lq || l.name.toLowerCase() === lq
+          );
+          if (loc && loc.stayIds && loc.stayIds.includes(s.id)) return true;
+
+          // 4b. String matching on stay's location/area/description/title
+          const sLoc = (s.location || "").toLowerCase();
+          const cleanQuery = lq.replace(/-/g, " ");
+
+          if (sLoc.includes(lq) || sLoc.includes(cleanQuery)) return true;
+
+          // Regional North Goa / South Goa handling
+          if (
+            cleanQuery.includes("north") &&
+            (sLoc.includes("north") || (!sLoc.includes("south") && !sLoc.includes("delhi")))
+          ) {
+            return true;
+          }
+          if (cleanQuery.includes("south") && sLoc.includes("south")) {
+            return true;
+          }
+
+          const sArea = (s.area || "").toLowerCase();
+          const sTitle = (s.title || "").toLowerCase();
+          if (sArea.includes(cleanQuery) || sTitle.includes(cleanQuery)) return true;
+
+          return false;
         });
       });
     }
 
+    // 5. Collection filter
     if (selectedCollections.length > 0) {
       filtered = filtered.filter((s) => {
         const cats = s.categories?.length ? s.categories : s.category ? [s.category] : [];
@@ -122,12 +184,24 @@ export default function StaysGridWithFilters({ stays, locations, propertyTypes, 
     }
 
     return filtered;
-  }, [stays, selectedPropertyType, selectedBedrooms, selectedLocations, selectedCollections, locations]);
+  }, [
+    stays,
+    selectedPropertyType,
+    selectedBedrooms,
+    guestsParam,
+    selectedLocations,
+    selectedCollections,
+    locations,
+  ]);
 
   const activeFilterCount = [
-    selectedPropertyType && selectedPropertyType !== "all-homes",
+    selectedPropertyType &&
+      selectedPropertyType !== "all-homes" &&
+      selectedPropertyType.toLowerCase() !== "all homes",
     selectedBedrooms > 1,
-    selectedLocations.length > 0,
+    guestsParam && guestsParam !== "Add guests" && guestsParam !== "all",
+    selectedLocations.length > 0 &&
+      !selectedLocations.some((l) => l.toLowerCase() === "all locations"),
     selectedCollections.length > 0,
   ].filter(Boolean).length;
 

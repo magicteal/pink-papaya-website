@@ -1,1 +1,159 @@
-[]
+[
+  {
+    "id": "candolim",
+    "name": "Candolim",
+    "stayIds": [
+      "super-lazy-turtle",
+      "lazy-turtle",
+      "belle-maison",
+      "casa-de-pacato",
+      "laziest-turtle",
+      "casa-sukriti",
+      "casa-remi",
+      "candolim-bliss",
+      "casa-hideaway",
+      "casa-sarena",
+      "olive-nook",
+      "le-bohemian",
+      "the-blue-door",
+      "casa-viva",
+      "bungalow-9",
+      "the-green",
+      "casa-tinu"
+    ]
+  },
+  {
+    "id": "siolim",
+    "name": "Siolim",
+    "stayIds": [
+      "the-green-window",
+      "casa-sol",
+      "siolim-dairies",
+      "la-prana",
+      "case-mare"
+    ]
+  },
+  {
+    "id": "calangute",
+    "name": "Calangute",
+    "stayIds": [
+      "belo-nido-003",
+      "the-sage-door",
+      "vista-verde-002",
+      "casa-siesta"
+    ]
+  },
+  {
+    "id": "reis-magos",
+    "name": "Reis Magos",
+    "stayIds": [
+      "jigsaw",
+      "la-ruhe",
+      "la-mish",
+      "ninho-de-amor",
+      "umile-dimora"
+    ]
+  },
+  {
+    "id": "saipem",
+    "name": "Saipem",
+    "stayIds": [
+      "casa-kai",
+      "la-amore",
+      "the-green",
+      "casa-tinu",
+      "la-solis"
+    ]
+  },
+  {
+    "id": "assagao",
+    "name": "Assagao",
+    "stayIds": [
+      "the-manor",
+      "test-stay"
+    ]
+  },
+  {
+    "id": "baga",
+    "name": "Baga",
+    "stayIds": [
+      "baga-abode"
+    ]
+  },
+  {
+    "id": "marra",
+    "name": "Marra",
+    "stayIds": [
+      "juno",
+      "the-fieldhouse"
+    ]
+  },
+  {
+    "id": "benaulim",
+    "name": "Benaulim (South Goa)",
+    "stayIds": [
+      "villa-r-and-r",
+      "benaulim-bliss"
+    ]
+  },
+  {
+    "id": "north-goa",
+    "name": "North Goa",
+    "stayIds": [
+      "banyan-bliss",
+      "le-bohemian",
+      "the-blue-door",
+      "casa-viva",
+      "bungalow-9",
+      "the-green-window",
+      "casa-sol",
+      "siolim-dairies",
+      "la-prana",
+      "case-mare",
+      "super-lazy-turtle",
+      "lazy-turtle",
+      "belle-maison",
+      "casa-de-pacato",
+      "laziest-turtle",
+      "casa-sukriti",
+      "casa-remi",
+      "candolim-bliss",
+      "casa-hideaway",
+      "casa-sarena",
+      "olive-nook",
+      "belo-nido-003",
+      "the-sage-door",
+      "vista-verde-002",
+      "casa-siesta",
+      "casa-kai",
+      "the-manor",
+      "la-amore",
+      "jigsaw",
+      "la-ruhe",
+      "la-mish",
+      "ninho-de-amor",
+      "the-green",
+      "casa-tinu",
+      "la-solis",
+      "juno",
+      "the-fieldhouse",
+      "umile-dimora",
+      "baga-abode",
+      "sempre",
+      "test-stay",
+      "seafront-villa-vagator",
+      "jungle-pool-villa-morjim",
+      "heritage-courtyard-fontainhas",
+      "cliffside-ocean-suite-arambol",
+      "white-house-studio-anjuna"
+    ]
+  },
+  {
+    "id": "south-goa",
+    "name": "South Goa",
+    "stayIds": [
+      "villa-r-and-r",
+      "benaulim-bliss"
+    ]
+  }
+]

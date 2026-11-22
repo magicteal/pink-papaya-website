@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useRef, useEffect, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Search, ChevronDown, MapPin, Home as HomeIcon, Users } from "lucide-react";
 import { cn } from "@/utils/utils";
 
@@ -10,18 +10,21 @@ const LOCATIONS = [
   "North Goa",
   "South Goa",
   "Candolim",
-  "Anjuna",
-  "Assagao",
+  "Siolim",
   "Calangute",
+  "Reis Magos",
+  "Saipem",
+  "Assagao",
+  "Anjuna",
   "Vagator",
   "Morjim",
+  "Benaulim",
 ];
 
 const PROPERTY_TYPES = [
-  "All Homes",
-  "Villa",
-  "Apartment",
-  "Estate",
+  { label: "All Homes", value: "all-homes" },
+  { label: "Villas", value: "villas" },
+  { label: "Apartments", value: "apartments" },
 ];
 
 const GUEST_OPTIONS = [
@@ -31,16 +34,57 @@ const GUEST_OPTIONS = [
   "6+ Guests",
 ];
 
-export default function HeroSearchBar() {
+function HeroSearchBarContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const [location, setLocation] = useState("All Locations");
-  const [propertyType, setPropertyType] = useState("All Homes");
-  const [guests, setGuests] = useState("Add guests");
+  const queryLoc = searchParams?.get("locs") || "";
+  const queryType = searchParams?.get("type") || "";
+  const queryGuests = searchParams?.get("guests") || "";
+
+  const [location, setLocation] = useState(queryLoc || "All Locations");
+  const [propertyType, setPropertyType] = useState(() => {
+    if (!queryType || queryType === "all-homes") return "All Homes";
+    if (queryType.toLowerCase().startsWith("villa")) return "Villas";
+    if (queryType.toLowerCase().startsWith("apartment")) return "Apartments";
+    return queryType;
+  });
+  const [guests, setGuests] = useState(queryGuests || "Add guests");
 
   const [openDropdown, setOpenDropdown] = useState<"location" | "type" | "guests" | null>(null);
-
+  const [openUpward, setOpenUpward] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Sync state if URL query params change (e.g. user navigated or cleared filters)
+  useEffect(() => {
+    if (queryLoc) setLocation(queryLoc);
+    else setLocation("All Locations");
+
+    if (queryType) {
+      if (queryType.toLowerCase().startsWith("villa")) setPropertyType("Villas");
+      else if (queryType.toLowerCase().startsWith("apartment")) setPropertyType("Apartments");
+      else setPropertyType(queryType);
+    } else {
+      setPropertyType("All Homes");
+    }
+
+    if (queryGuests) setGuests(queryGuests);
+    else setGuests("Add guests");
+  }, [queryLoc, queryType, queryGuests]);
+
+  // Dynamically determine whether dropdown should open upward or downward
+  useEffect(() => {
+    if (openDropdown && containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      const spaceBelow = window.innerHeight - rect.bottom;
+      // If space below is less than 280px and space above is greater, open upward
+      if (spaceBelow < 280 && rect.top > 280) {
+        setOpenUpward(true);
+      } else {
+        setOpenUpward(false);
+      }
+    }
+  }, [openDropdown]);
 
   // Close dropdown on click outside
   useEffect(() => {
@@ -54,29 +98,51 @@ export default function HeroSearchBar() {
   }, []);
 
   const handleSearch = () => {
+    setOpenDropdown(null);
     const params = new URLSearchParams();
-    if (location !== "All Locations") params.set("locs", location);
-    if (propertyType !== "All Homes") params.set("type", propertyType);
-    if (guests !== "Add guests") params.set("guests", guests);
+
+    if (location && location !== "All Locations") {
+      params.set("locs", location);
+    }
+
+    if (propertyType && propertyType !== "All Homes") {
+      const typeSlug = propertyType.toLowerCase().startsWith("villa")
+        ? "villas"
+        : propertyType.toLowerCase().startsWith("apartment")
+        ? "apartments"
+        : propertyType.toLowerCase();
+      params.set("type", typeSlug);
+    }
+
+    if (guests && guests !== "Add guests") {
+      params.set("guests", guests);
+    }
 
     const queryString = params.toString();
     router.push(`/stays${queryString ? `?${queryString}` : ""}`);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   return (
     <div
       ref={containerRef}
+      onKeyDown={handleKeyDown}
       className="relative z-30 -mt-7 sm:-mt-9 md:-mt-10 mb-6 sm:mb-8 md:mb-10 w-[92%] sm:w-[88%] md:w-[78%] lg:w-[68%] max-w-4xl 2xl:max-w-5xl mx-auto"
     >
       {/* Single Horizontal Bar Across ALL Screen Sizes */}
-      <div className="bg-white rounded-full shadow-[0_8px_24px_rgba(0,0,0,0.08)] border border-neutral-200/80 p-1 sm:p-2 md:p-2.5 px-3 sm:px-5 md:px-7 lg:px-8 flex flex-row items-center justify-between gap-1 sm:gap-2 md:gap-3 transition-all duration-300">
+      <div className="bg-white rounded-full shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.12)] border border-neutral-200/80 p-1 sm:p-2 md:p-2.5 px-3 sm:px-5 md:px-7 lg:px-8 flex flex-row items-center justify-between gap-1 sm:gap-2 md:gap-3 transition-all duration-300">
 
         {/* Location Field */}
         <div className="relative flex-1 min-w-0 group">
           <button
             type="button"
             onClick={() => setOpenDropdown(openDropdown === "location" ? null : "location")}
-            className="w-full text-left flex flex-col justify-center py-1 px-1.5 sm:px-2.5 rounded-full hover:bg-neutral-50 transition-colors font-bricolage"
+            className="w-full text-left flex flex-col justify-center py-1 px-1.5 sm:px-2.5 rounded-full hover:bg-neutral-50 transition-colors font-bricolage cursor-pointer focus:outline-none"
           >
             <span className="text-[8.5px] sm:text-[10px] md:text-[11px] font-semibold text-[#C07A5A] uppercase tracking-[0.14em] block truncate">
               Location
@@ -87,26 +153,36 @@ export default function HeroSearchBar() {
             </span>
           </button>
 
-          {/* Dropdown Menu */}
+          {/* Location Dropdown Menu */}
           {openDropdown === "location" && (
-            <div className="absolute top-full left-0 w-48 sm:w-56 mt-2 rounded-2xl bg-white border border-neutral-100 shadow-2xl py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150 font-bricolage">
-              {LOCATIONS.map((loc) => (
-                <button
-                  key={loc}
-                  type="button"
-                  onClick={() => {
-                    setLocation(loc);
-                    setOpenDropdown(null);
-                  }}
-                  className={cn(
-                    "w-full text-left px-3.5 py-2 text-xs sm:text-sm transition-colors flex items-center gap-2",
-                    location === loc ? "bg-[#F7F2EA] text-[#C07A5A] font-semibold" : "text-[#16323C] hover:bg-neutral-50"
-                  )}
-                >
-                  <MapPin className="w-3.5 h-3.5 text-[#C07A5A] shrink-0" />
-                  <span className="truncate">{loc}</span>
-                </button>
-              ))}
+            <div
+              className={cn(
+                "absolute left-0 w-48 sm:w-56 rounded-2xl bg-white border border-neutral-100 shadow-2xl py-2 z-50 animate-in fade-in duration-150 font-bricolage max-h-64 overflow-y-auto",
+                openUpward
+                  ? "bottom-full mb-3 slide-in-from-bottom-2 shadow-[0_-12px_36px_rgba(0,0,0,0.15)]"
+                  : "top-full mt-2 slide-in-from-top-2"
+              )}
+            >
+              {LOCATIONS.map((loc) => {
+                const isSelected = location === loc || (loc === "All Locations" && (!location || location === "All Locations"));
+                return (
+                  <button
+                    key={loc}
+                    type="button"
+                    onClick={() => {
+                      setLocation(loc);
+                      setOpenDropdown(null);
+                    }}
+                    className={cn(
+                      "w-full text-left px-3.5 py-2 text-xs sm:text-sm transition-colors flex items-center gap-2 cursor-pointer",
+                      isSelected ? "bg-[#F7F2EA] text-[#C07A5A] font-semibold" : "text-[#16323C] hover:bg-neutral-50"
+                    )}
+                  >
+                    <MapPin className={cn("w-3.5 h-3.5 shrink-0", isSelected ? "text-[#C07A5A]" : "text-neutral-400")} />
+                    <span className="truncate">{loc}</span>
+                  </button>
+                );
+              })}
             </div>
           )}
         </div>
@@ -119,7 +195,7 @@ export default function HeroSearchBar() {
           <button
             type="button"
             onClick={() => setOpenDropdown(openDropdown === "type" ? null : "type")}
-            className="w-full text-left flex flex-col justify-center py-1 px-1.5 sm:px-2.5 rounded-full hover:bg-neutral-50 transition-colors font-bricolage"
+            className="w-full text-left flex flex-col justify-center py-1 px-1.5 sm:px-2.5 rounded-full hover:bg-neutral-50 transition-colors font-bricolage cursor-pointer focus:outline-none"
           >
             <span className="text-[8.5px] sm:text-[10px] md:text-[11px] font-semibold text-[#C07A5A] uppercase tracking-[0.14em] block truncate">
               Property Type
@@ -130,26 +206,36 @@ export default function HeroSearchBar() {
             </span>
           </button>
 
-          {/* Dropdown Menu */}
+          {/* Property Type Dropdown Menu */}
           {openDropdown === "type" && (
-            <div className="absolute top-full left-0 w-44 sm:w-52 mt-2 rounded-2xl bg-white border border-neutral-100 shadow-2xl py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150 font-bricolage">
-              {PROPERTY_TYPES.map((type) => (
-                <button
-                  key={type}
-                  type="button"
-                  onClick={() => {
-                    setPropertyType(type);
-                    setOpenDropdown(null);
-                  }}
-                  className={cn(
-                    "w-full text-left px-3.5 py-2 text-xs sm:text-sm transition-colors flex items-center gap-2",
-                    propertyType === type ? "bg-[#F7F2EA] text-[#C07A5A] font-semibold" : "text-[#16323C] hover:bg-neutral-50"
-                  )}
-                >
-                  <HomeIcon className="w-3.5 h-3.5 text-[#C07A5A] shrink-0" />
-                  <span className="truncate">{type}</span>
-                </button>
-              ))}
+            <div
+              className={cn(
+                "absolute left-1/2 -translate-x-1/2 sm:translate-x-0 sm:left-0 w-44 sm:w-52 rounded-2xl bg-white border border-neutral-100 shadow-2xl py-2 z-50 animate-in fade-in duration-150 font-bricolage",
+                openUpward
+                  ? "bottom-full mb-3 slide-in-from-bottom-2 shadow-[0_-12px_36px_rgba(0,0,0,0.15)]"
+                  : "top-full mt-2 slide-in-from-top-2"
+              )}
+            >
+              {PROPERTY_TYPES.map((pt) => {
+                const isSelected = propertyType === pt.label || (pt.value === "all-homes" && (!propertyType || propertyType === "All Homes"));
+                return (
+                  <button
+                    key={pt.value}
+                    type="button"
+                    onClick={() => {
+                      setPropertyType(pt.label);
+                      setOpenDropdown(null);
+                    }}
+                    className={cn(
+                      "w-full text-left px-3.5 py-2 text-xs sm:text-sm transition-colors flex items-center gap-2 cursor-pointer",
+                      isSelected ? "bg-[#F7F2EA] text-[#C07A5A] font-semibold" : "text-[#16323C] hover:bg-neutral-50"
+                    )}
+                  >
+                    <HomeIcon className={cn("w-3.5 h-3.5 shrink-0", isSelected ? "text-[#C07A5A]" : "text-neutral-400")} />
+                    <span className="truncate">{pt.label}</span>
+                  </button>
+                );
+              })}
             </div>
           )}
         </div>
@@ -162,7 +248,7 @@ export default function HeroSearchBar() {
           <button
             type="button"
             onClick={() => setOpenDropdown(openDropdown === "guests" ? null : "guests")}
-            className="w-full text-left flex flex-col justify-center py-1 px-1.5 sm:px-2.5 rounded-full hover:bg-neutral-50 transition-colors font-bricolage"
+            className="w-full text-left flex flex-col justify-center py-1 px-1.5 sm:px-2.5 rounded-full hover:bg-neutral-50 transition-colors font-bricolage cursor-pointer focus:outline-none"
           >
             <span className="text-[8.5px] sm:text-[10px] md:text-[11px] font-semibold text-[#C07A5A] uppercase tracking-[0.14em] block truncate">
               Guests
@@ -173,26 +259,36 @@ export default function HeroSearchBar() {
             </span>
           </button>
 
-          {/* Dropdown Menu */}
+          {/* Guests Dropdown Menu */}
           {openDropdown === "guests" && (
-            <div className="absolute top-full right-0 sm:left-0 sm:right-auto w-44 sm:w-52 mt-2 rounded-2xl bg-white border border-neutral-100 shadow-2xl py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150 font-bricolage">
-              {GUEST_OPTIONS.map((opt) => (
-                <button
-                  key={opt}
-                  type="button"
-                  onClick={() => {
-                    setGuests(opt);
-                    setOpenDropdown(null);
-                  }}
-                  className={cn(
-                    "w-full text-left px-3.5 py-2 text-xs sm:text-sm transition-colors flex items-center gap-2",
-                    guests === opt ? "bg-[#F7F2EA] text-[#C07A5A] font-semibold" : "text-[#16323C] hover:bg-neutral-50"
-                  )}
-                >
-                  <Users className="w-3.5 h-3.5 text-[#C07A5A] shrink-0" />
-                  <span className="truncate">{opt}</span>
-                </button>
-              ))}
+            <div
+              className={cn(
+                "absolute right-0 w-44 sm:w-52 rounded-2xl bg-white border border-neutral-100 shadow-2xl py-2 z-50 animate-in fade-in duration-150 font-bricolage",
+                openUpward
+                  ? "bottom-full mb-3 slide-in-from-bottom-2 shadow-[0_-12px_36px_rgba(0,0,0,0.15)]"
+                  : "top-full mt-2 slide-in-from-top-2"
+              )}
+            >
+              {GUEST_OPTIONS.map((opt) => {
+                const isSelected = guests === opt || (opt === "Add guests" && (!guests || guests === "Add guests"));
+                return (
+                  <button
+                    key={opt}
+                    type="button"
+                    onClick={() => {
+                      setGuests(opt);
+                      setOpenDropdown(null);
+                    }}
+                    className={cn(
+                      "w-full text-left px-3.5 py-2 text-xs sm:text-sm transition-colors flex items-center gap-2 cursor-pointer",
+                      isSelected ? "bg-[#F7F2EA] text-[#C07A5A] font-semibold" : "text-[#16323C] hover:bg-neutral-50"
+                    )}
+                  >
+                    <Users className={cn("w-3.5 h-3.5 shrink-0", isSelected ? "text-[#C07A5A]" : "text-neutral-400")} />
+                    <span className="truncate">{opt}</span>
+                  </button>
+                );
+              })}
             </div>
           )}
         </div>
@@ -208,5 +304,15 @@ export default function HeroSearchBar() {
         </button>
       </div>
     </div>
+  );
+}
+
+export default function HeroSearchBar() {
+  return (
+    <Suspense fallback={
+      <div className="relative z-30 -mt-7 sm:-mt-9 md:-mt-10 mb-6 sm:mb-8 md:mb-10 w-[92%] sm:w-[88%] md:w-[78%] lg:w-[68%] max-w-4xl 2xl:max-w-5xl mx-auto h-14 bg-white/80 rounded-full" />
+    }>
+      <HeroSearchBarContent />
+    </Suspense>
   );
 }
