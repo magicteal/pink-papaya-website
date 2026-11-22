@@ -123,6 +123,7 @@ export async function updateCmsSectionContent(input: {
   }
 
   await Page.findByIdAndUpdate(page._id, { updatedAt: new Date() });
+  invalidateCmsPublicCache(input.slug);
 }
 
 export async function updateCmsSeo(input: {
@@ -161,11 +162,29 @@ export async function updateCmsSeo(input: {
   );
 
   await Page.findByIdAndUpdate(page._id, { updatedAt: new Date() });
+  invalidateCmsPublicCache(input.slug);
+}
+
+const cmsPublicCache = new Map<string, { data: CmsPublicPageContent; timestamp: number }>();
+const CMS_CACHE_TTL_MS = 60 * 1000; // 60s cache
+
+export function invalidateCmsPublicCache(slug?: string) {
+  if (slug) {
+    cmsPublicCache.delete(slug);
+  } else {
+    cmsPublicCache.clear();
+  }
 }
 
 export async function getCmsPublicContent(slug: string): Promise<CmsPublicPageContent> {
+  const cached = cmsPublicCache.get(slug);
+  const now = Date.now();
+  if (cached && now - cached.timestamp < CMS_CACHE_TTL_MS) {
+    return cached.data;
+  }
+
   const data = await readCmsPage(slug);
-  return {
+  const result: CmsPublicPageContent = {
     slug,
     sections: data.content.sections,
     seo: {
@@ -175,4 +194,7 @@ export async function getCmsPublicContent(slug: string): Promise<CmsPublicPageCo
       ogImageUrl: data.seo.ogImageUrl,
     },
   };
+
+  cmsPublicCache.set(slug, { data: result, timestamp: now });
+  return result;
 }

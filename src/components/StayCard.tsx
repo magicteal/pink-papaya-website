@@ -98,6 +98,7 @@ export default function StayCard({
                         src={src}
                         alt={title?.trim() || "Pink Papaya Stay"}
                         fill
+                        loading={idx === 0 ? "eager" : "lazy"}
                         unoptimized={isPreOptimizedMedia(src)}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         className="object-cover transition-transform duration-700 scale-[1.01] group-hover:scale-[1.03]"

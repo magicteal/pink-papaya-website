@@ -6,6 +6,14 @@ import mongoose from "mongoose";
 export type Stay = typeof seedStays[number];
 
 let seedPromise: Promise<void> | null = null;
+let cachedStays: Stay[] | null = null;
+let lastCacheTime = 0;
+const CACHE_TTL_MS = 60 * 1000; // 60 seconds
+
+export function invalidateStaysCache() {
+  cachedStays = null;
+  lastCacheTime = 0;
+}
 
 async function ensureSeeded() {
   if (!seedPromise) {
@@ -31,38 +39,48 @@ function toStay(doc: any): Stay {
 export async function readStays(filters?: { category?: string; location?: string; guests?: string }): Promise<Stay[]> {
   await ensureSeeded();
 
-  const query: Record<string, unknown> = {};
-  if (filters?.category) {
-    query.$or = [{ category: filters.category }, { categories: filters.category }];
+  const now = Date.now();
+  let all: Stay[];
+  if (cachedStays && (now - lastCacheTime < CACHE_TTL_MS)) {
+    all = cachedStays;
+  } else {
+    const docs = await StayModel.find({}).lean();
+    all = docs.map(toStay);
+    cachedStays = all;
+    lastCacheTime = now;
   }
 
-  const docs = await StayModel.find(query).lean();
-  let all = docs.map(toStay);
+  let filtered = all;
+  if (filters?.category) {
+    filtered = filtered.filter(
+      (s) => s.category === filters.category || s.categories?.includes(filters.category!)
+    );
+  }
 
   if (filters?.guests) {
     const requestedGuests = parseInt(filters.guests, 10);
-    all = all.filter((stay) => {
+    filtered = filtered.filter((stay) => {
       const stayGuestsMatch = (stay.guests || "").match(/\d+/);
       const stayGuests = stayGuestsMatch ? parseInt(stayGuestsMatch[0], 10) : 0;
       return stayGuests >= requestedGuests;
     });
   }
 
-  // Location is handled by the caller/grid usually because it needs the locations mapping,
-  // but we can support a direct match on the stay.location string if needed.
-  // However, the current UI uses location IDs that map to stayIds.
-  // So we'll skip location filtering here and let the grid handle it or pass stayIds.
-
-  return all;
+  return filtered;
 }
 
 export async function getStayById(id: string): Promise<Stay | undefined> {
-  await ensureSeeded();
-  let doc = await StayModel.findOne({ id }).lean();
-  if (!doc && mongoose.isValidObjectId(id)) {
-    doc = await StayModel.findById(id).lean();
+  const all = await readStays();
+  const found = all.find((s) => s.id === id);
+  if (found) return found;
+
+  // Fallback to direct DB lookup in case ID is a Mongo ObjectId
+  if (mongoose.isValidObjectId(id)) {
+    await ensureSeeded();
+    const doc = await StayModel.findById(id).lean();
+    return doc ? toStay(doc) : undefined;
   }
-  return doc ? toStay(doc) : undefined;
+  return undefined;
 }
 
 export async function addStay(stay: Stay): Promise<Stay> {
@@ -72,6 +90,7 @@ export async function addStay(stay: Stay): Promise<Stay> {
     { $set: stay },
     { upsert: true, new: true }
   ).lean();
+  invalidateStaysCache();
   return toStay(doc!);
 }
 
@@ -88,6 +107,7 @@ export async function updateStay(id: string, patch: Partial<Stay>): Promise<Stay
     { new: true }
   ).lean();
   if (!doc) throw new Error("Not found");
+  invalidateStaysCache();
   return toStay(doc);
 }
 
@@ -99,4 +119,5 @@ export async function deleteStay(id: string): Promise<void> {
     if (!existing) query = { _id: id };
   }
   await StayModel.deleteOne(query);
+  invalidateStaysCache();
 }

@@ -4,7 +4,7 @@ const nextConfig = {
 	poweredByHeader: false,
 	assetPrefix: process.env.NODE_ENV === "production" ? process.env.NEXT_PUBLIC_CDN_BASE_URL : undefined,
 	experimental: {
-		optimizePackageImports: ["lucide-react", "react-icons"],
+		optimizePackageImports: ["lucide-react", "react-icons", "framer-motion", "date-fns"],
 	},
 	images: {
 		// In dev, the optimizer lazily compiles and fetches each source image by
