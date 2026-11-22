@@ -73,6 +73,26 @@ export default function BecomeHostPage() {
           {/* Subtle balanced scrim so the painted archway mural and villa pool stay vibrant and clear */}
           <div className="absolute inset-0 bg-black/35" />
           <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/20 to-transparent" />
+
+          {/* Progressive fog & seamless white blend transition into stats */}
+          <div
+            className="absolute inset-x-0 bottom-0 h-32 sm:h-40 md:h-48 pointer-events-none z-[1]"
+            style={{
+              backdropFilter: "blur(12px)",
+              WebkitBackdropFilter: "blur(12px)",
+              maskImage:
+                "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.2) 35%, rgba(0,0,0,0.7) 70%, black 100%)",
+              WebkitMaskImage:
+                "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.2) 35%, rgba(0,0,0,0.7) 70%, black 100%)",
+            }}
+          />
+          <div
+            className="absolute inset-x-0 bottom-0 h-32 sm:h-40 md:h-48 pointer-events-none z-[2]"
+            style={{
+              background:
+                "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.55) 70%, rgba(255,255,255,0.9) 92%, #FFFFFF 100%)",
+            }}
+          />
         </div>
 
         {/* Content grid */}
